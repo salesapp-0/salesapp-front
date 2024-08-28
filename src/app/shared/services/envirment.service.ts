@@ -1,10 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
 import {ENV_CONFIG, EnvironmentConfig} from "../../core/configs/environment.config";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EnvironmentService {
 
-  constructor(@Inject(ENV_CONFIG) public readonly config: EnvironmentConfig) {}
+  constructor(@Inject(ENV_CONFIG) public readonly config: EnvironmentConfig) {
+    console.log(config)
+  }
 }

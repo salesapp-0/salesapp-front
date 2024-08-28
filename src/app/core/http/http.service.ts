@@ -14,9 +14,7 @@ import {GetCookie} from "../functions/coockie.function";
 import {SessionTokenKey} from "../../shared/constants/odd-session.constant";
 import {AppConfig} from "../configs/app.config";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HttpService {
   private readonly environmentService = inject(EnvironmentService);
   private readonly route = inject(ActivatedRoute);
