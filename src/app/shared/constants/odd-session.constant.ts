@@ -1,1 +1,1 @@
-export const SessionTokenKey = 'X-ODDS-SESSION';
+export const SessionTokenKey = 'jwt';

@@ -3,8 +3,15 @@ export function GetCookie(name: string): string | undefined {
     return undefined;
   }
 
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  const cookies = document.cookie.split(';');
+  console.log('Cookies:', cookies);
+  console.log('All cookies:', document.cookie);
+  for (let cookie of cookies) {
+    cookie = cookie.trim();
+    if (cookie.startsWith(`${name}=`)) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+
   return undefined;
 }

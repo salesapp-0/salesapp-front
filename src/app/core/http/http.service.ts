@@ -98,27 +98,19 @@ export class HttpService {
                                           path,
                                           customBaseUrl,
                                         }: ExecuteParameters<RequestT>): Observable<ResponseT> {
-    const token =
-      GetCookie(SessionTokenKey) ||
-      (!this.environmentService.config.production &&
-        (this.route.snapshot.queryParams['tk'] || AppConfig.session));
-
     let customUrl;
-    let headers;
 
-    if (token) {
-      headers = new HttpHeaders({
-        'X-ODDS-SESSION': token,
+    let headers = new HttpHeaders();
 
-      });
-    }
     if (customBaseUrl) {
       customUrl = customBaseUrl + path;
     }
+
     const requestOptions = {
       headers,
       withCredentials: true,
     };
+
     const url = customUrl || this.environmentService.config.baseUrl + path;
     const request = new HttpRequest<RequestT>(
       method as string,
@@ -126,7 +118,7 @@ export class HttpService {
       body ?? null,
       requestOptions
     );
-
+    console.log(request)
     return this.http.request<ResponseT>(request).pipe(
       filter(({ type }) => type === HttpEventType.Response),
       map((response) => {

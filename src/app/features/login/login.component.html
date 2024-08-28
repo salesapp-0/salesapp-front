@@ -1,1 +1,41 @@
-<p>login works!</p>
+<div class="login">
+  <div class="login__wrapper">
+    <img class="login__wrapper-logo" src="./assets/images/login/site-logo.png" alt="">
+    <div class="login__wrapper__form">
+      <h1>ავტორიზაცია</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="login__wrapper__form-inputs">
+          <p-floatLabel>
+            <input pInputText id="username" formControlName="username" />
+            <label for="username">Username</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-password formControlName="password" [toggleMask]="true" [feedback]="false"/>
+            <label for="password">Password</label>
+          </p-floatLabel>
+          @if(!$isError$()) {
+            <div style="margin-top:10px;display: flex;align-items: center;gap: 5px">
+              <p-checkbox
+                [binary]="true"
+                inputId="binary"
+              />
+              <p>დამახსოვრება</p>
+            </div>
+          } @else {
+            <div style="margin-top:10px;display: flex;align-items: center;gap: 5px">
+              <p style="color:red;">მომხმარებლის მონაცემები არასწორია</p>
+            </div>
+          }
+
+          <div class="login__wrapper__form-inputs-submit">
+            <p-button label="შესვლა" type="submit" [disabled]="loginForm.invalid"/>
+          </div>
+        </div>
+      </form>
+      <h1>John Doe</h1>
+      <h1>securepassword</h1>
+    </div>
+  </div>
+  <img src="./assets/images/login/left-photo.png" alt="">
+</div>
+
