@@ -9,7 +9,7 @@ export class AuthService {
   startUrl = '/auth/user'
   private readonly http = inject(HttpService);
   constructor() {
-    this.isAuthorized$('user').subscribe((res) => {
+    this.isAuthorized$('is-authorized').subscribe((res) => {
       console.log(res,"123")
     })
   }

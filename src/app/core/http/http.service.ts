@@ -130,10 +130,9 @@ export class HttpService {
     return this.http.request<ResponseT>(request).pipe(
       filter(({ type }) => type === HttpEventType.Response),
       map((response) => {
-        const body = (response as HttpResponse<ResponseT>).body as {
+        return (response as HttpResponse<ResponseT>).body as {
           data: unknown;
-        };
-        return body['data'];
+        }
       })
     ) as Observable<ResponseT>;
   }
