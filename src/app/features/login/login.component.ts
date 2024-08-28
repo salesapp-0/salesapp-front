@@ -9,20 +9,21 @@ import {AuthService} from "../../shared/services/auth.service";
 import {catchError, map, of, takeUntil} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {unsub} from "../../shared/classes/unsub.class";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, PasswordModule, FloatLabelModule, InputTextModule, CheckboxModule, ButtonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent extends unsub implements OnInit{
   loginForm!: FormGroup;
   $isError$ = signal(false)
   private fb = inject(FormBuilder)
   private authService = inject(AuthService)
-
+  private router = inject(Router)
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -42,7 +43,13 @@ export class LoginComponent extends unsub implements OnInit{
           return of(null);
         }),
         map((res) => {
-          res ? this.$isError$.set(false) : this.$isError$.set(true)
+          if(res) {
+            this.router.navigate(['/dashboard'])
+            this.$isError$.set(false)
+          } else {
+            this.router.navigate(['/login'])
+            this.$isError$.set(true)
+          }
         }),
         takeUntil(this.unsubscribe$)
       ).subscribe()

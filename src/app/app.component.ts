@@ -7,20 +7,14 @@ import {AuthService} from "./shared/services/auth.service";
 import {EnvironmentService} from "./shared/services/envirment.service";
 import {HttpService} from "./core/http";
 import {HttpClientModule} from "@angular/common/http";
+import {authGuard} from "./shared/guards/auth.guard";
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,ButtonModule,HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers:[
-    EnvironmentService,
-    HttpService,
-    AuthService,
-    { provide: ENV_CONFIG, useValue: environment },
-  ]
 })
 export class AppComponent {
   title = environment.baseUrl;
-  private authService = inject(AuthService)
 }

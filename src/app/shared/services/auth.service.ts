@@ -1,6 +1,6 @@
 import {inject, Inject, Injectable} from '@angular/core';
 import {DefaultResponse, HttpService} from "../../core/http";
-import {Observable} from "rxjs";
+import {delay, Observable, tap} from "rxjs";
 import {ApiService} from "./api-service.service";
 
 @Injectable({
@@ -11,9 +11,12 @@ export class AuthService {
   private readonly http = inject(ApiService);
   constructor() {
   }
-  public isAuthorized$(): Observable<DefaultResponse<any>> {
+  //TODO:COOKIE DOST PASS WHEN REFRESH
+  public isAuthorized$(): Observable<any> {
     const path = `/auth/is-authorized`;
-    return this.http.get(path)
+    return this.http.get(path).pipe(
+      tap(console.log)
+    )
   }
 
   public login$(loginData:any): Observable<DefaultResponse<any>> {

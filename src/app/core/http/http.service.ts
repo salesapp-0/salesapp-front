@@ -17,7 +17,6 @@ import {AppConfig} from "../configs/app.config";
 @Injectable()
 export class HttpService {
   private readonly environmentService = inject(EnvironmentService);
-  private readonly route = inject(ActivatedRoute);
   private readonly http = inject(HttpClient);
 
   public delete$<ResponseT, RequestT>(
@@ -100,15 +99,15 @@ export class HttpService {
                                         }: ExecuteParameters<RequestT>): Observable<ResponseT> {
     let customUrl;
 
-    let headers = new HttpHeaders();
 
     if (customBaseUrl) {
       customUrl = customBaseUrl + path;
     }
 
-    const requestOptions = {
-      headers,
+  const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       withCredentials: true,
+      observe: 'response' as 'response'
     };
 
     const url = customUrl || this.environmentService.config.baseUrl + path;
@@ -116,7 +115,7 @@ export class HttpService {
       method as string,
       url,
       body ?? null,
-      requestOptions
+      httpOptions
     );
     console.log(request)
     return this.http.request<ResponseT>(request).pipe(
