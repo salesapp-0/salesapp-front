@@ -44,7 +44,7 @@ export class LoginComponent extends unsub implements OnInit{
         }),
         map((res) => {
           if(res) {
-            this.router.navigate(['/dashboard'])
+            this.router.navigate(['/main-page'])
             this.$isError$.set(false)
           } else {
             this.router.navigate(['/login'])

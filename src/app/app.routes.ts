@@ -20,7 +20,7 @@ export const routes: Routes = [
     providers:[HttpService,AuthService]
   },
   {
-    path: 'dashboard',
+    path: 'main-page',
     loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard],
     providers:[HttpService,AuthService]

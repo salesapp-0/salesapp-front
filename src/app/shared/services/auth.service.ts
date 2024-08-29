@@ -23,4 +23,8 @@ export class AuthService {
     const path = `/auth/login`;
     return this.http.post(path,loginData)
   }
+  public logout$(): Observable<DefaultResponse<any>> {
+    const path = `/auth/logout`;
+    return this.http.post(path)
+  }
 }

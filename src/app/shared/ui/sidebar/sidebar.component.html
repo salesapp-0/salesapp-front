@@ -1,0 +1,45 @@
+<div class="sidebar">
+<div class="sidebar__tab">
+  <div class="sidebar__tab__route"
+       [class.sidebar__tab__route--active]="$currentRoute$() === '/main-page'"
+  >
+    <img src="./assets/images/side-bar/Union.png" alt="">
+    <p>მთავარი გვერდი</p>
+  </div>
+
+  <div class="sidebar__tab__route">
+    <img src="./assets/images/side-bar/house.png" alt="">
+    <p>ორგანიზაციები</p>
+  </div>
+  <div class="sidebar__tab__route">
+    <img src="./assets/images/side-bar/Vector.png" alt="">
+    <p>ინვოისები</p>
+  </div>
+  <div class="sidebar__tab__route">
+    <img src="./assets/images/side-bar/ic24-settings.png" alt="">
+    <p>პარამეტრები</p>
+  </div>
+</div>
+  <div class="sidebar__bottom">
+    <div class="sidebar__bottom-logout" (click)="logout()">
+      <img src="./assets/images/side-bar/logout.png" alt="*">
+      <p>გასვლა</p>
+    </div>
+  <div class="sidebar__bottom__dark-mode">
+
+      <div
+        [class.sidebar__bottom__dark-mode--selected]="$mode$() === 'light'"
+        (click)="handleSelectMode('light')">
+        <img src="./assets/images/side-bar/Sun.png" alt="*">
+        <p>დღე</p>
+      </div>
+      <div
+        [class.sidebar__bottom__dark-mode--selected]="$mode$() === 'dark'"
+        (click)="handleSelectMode('dark')">
+        <img src="./assets/images/side-bar/Moon.png" alt="*">
+        <p>ღამე</p>
+      </div>
+
+  </div>
+  </div>
+</div>

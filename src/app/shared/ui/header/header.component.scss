@@ -1,0 +1,30 @@
+.header {
+  padding:24px;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  height: 104px;
+  &__user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    &-arrow {
+      position:relative;
+      bottom:10px;
+    }
+    &__info {
+      p {
+        margin:unset;
+      }
+      &-username {
+        font-weight: bold;
+        font-size:18px;
+      }
+      &-position {
+        color:#5B757E;
+      }
+    }
+  }
+}
