@@ -1,4 +1,82 @@
   <app-header></app-header>
   <app-sidebar/>
-
+  <div class="dashboard" *ngIf="statistics$ | async as stats">
+    <div class="dashboard__chart">
+      <div class="dashboard__chart-header">
+      <h3>ორგანიზაციები</h3>
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="options"
+            [(ngModel)]="selectedOption"
+            optionLabel="name"
+            placeholder="Select a City" />
+        </div>
+      </div>
+      <div class="dashboard__chart__numbers">
+        <div id="chart">
+          <apx-chart
+            [series]="chartOptions['series']"
+            [chart]="chartOptions['chart']"
+            [plotOptions]="chartOptions['plotOptions']"
+            [legend]="chartOptions['legend']"
+            [responsive]="chartOptions['responsive']"
+            [colors]="chartOptions['colors']"
+          ></apx-chart>
+        </div>
+        <div>
+<!--          -->
+          <div class="dashboard__chart__info">
+            <div class="dashboard__chart__info-item">
+              <div [style.background-color]="'#8280FF'"></div>
+              <p class="dashboard__chart__info-item-header">რეგისტრირებული</p>
+            </div>
+            <div>
+              <p >{{stats.totalOrganizations}}</p>
+              <img src="./assets/images/dashboard/call_made.png" alt="*">
+            </div>
+          </div>
+<!--          -->
+          <div class="dashboard__chart__info">
+            <div class="dashboard__chart__info-item">
+              <div [style.background-color]="'#00974F'"></div>
+              <p class="dashboard__chart__info-item-header">აქტიური</p>
+            </div>
+            <div>
+              <p>{{stats.activeOrganizations}}</p>
+              <img src="./assets/images/dashboard/call_made.png"alt="">
+            </div>
+          </div>
+<!---->
+          <div class="dashboard__chart__info">
+            <div class="dashboard__chart__info-item">
+              <div [style.background-color]="'#F93C65'"></div>
+              <p class="dashboard__chart__info-item-header">პასიური</p>
+            </div>
+            <div>
+              <p>{{stats.passiveOrganizations}}</p>
+              <img src="./assets/images/dashboard/call_received.png" alt="">
+            </div>
+          </div>
+<!--      -->
+        </div>
+      </div>
+    </div>
+    <div class="dashboard__wrapper">
+<!---->
+      <div>
+        <app-card-progress
+          [title]="'ვადაგადაცილებული ორგანიზაცია'"
+          [percent]="stats.overduePercentage"
+          [amount]="stats.overdueOrganizations"/>
+      </div>
+      <!---->
+      <div style="margin-top:15px;">
+        <app-card-progress
+          [title]="'ვადაგადაცილებული მომხარებლების მოცულობა'"
+          [percent]="stats.overdueServiceCostPercentage"
+          [amount]="stats.overdueServiceCost"/>
+      </div>
+<!---->
+    </div>
+  </div>
 

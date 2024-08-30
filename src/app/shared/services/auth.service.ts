@@ -11,7 +11,6 @@ export class AuthService {
   private readonly http = inject(ApiService);
   constructor() {
   }
-  //TODO:COOKIE DOST PASS WHEN REFRESH
   public isAuthorized$(): Observable<any> {
     const path = `/auth/is-authorized`;
     return this.http.get(path).pipe(
