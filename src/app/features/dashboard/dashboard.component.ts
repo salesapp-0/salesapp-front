@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit{
   statistics$!:Observable<Statistics>
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<any> = {};
-  // colors: ["#8280FF", "#00974F", "#F93C65"],
   private dashboardService = inject(DashboardService)
   constructor() {
 
@@ -64,8 +63,8 @@ export class DashboardComponent implements OnInit{
       map((res) => {
         this.chartOptions['series'] = [
           res.activePercentage,
+          res.activePercentage,
           res.passivePercentage,
-          res.overduePercentage,
         ];
         return res
       })

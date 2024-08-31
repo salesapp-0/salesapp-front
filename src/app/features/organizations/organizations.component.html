@@ -1,0 +1,83 @@
+<app-header></app-header>
+<app-sidebar/>
+<div class="wrapper">
+  <div class="organizations">
+    <div class="organizations__header">
+      <h2>ორგანიზაციების ცხრილი</h2>
+      <button>
+        <img src="./assets/images/organizations/add_circle.png" alt="">
+        <p>დამატება</p>
+      </button>
+    </div>
+
+    <form [formGroup]="myForm" class="organizations-filters">
+      <div class="card flex justify-content-center">
+        <input
+          type="text"
+          pInputText
+          formControlName="search"
+          placeholder="სახელი / საიდენტიფიკაციო კოდი / მობილური ნომერი"
+        />
+      </div>
+
+      <div class="card flex justify-content-center">
+        <p-calendar formControlName="date"
+                    [dateFormat]="'yy-mm-dd'"
+                    placeholder="თარიღი"
+        ></p-calendar>
+      </div>
+
+      <div class="card flex justify-content-center">
+        <p-dropdown
+          [options]="statusOptions"
+        formControlName="status"
+        optionLabel="name"
+        placeholder="სტატუსი"
+        />
+      </div>
+    </form>
+
+    <div class="organizations__table" style="margin-top: 15px">
+      <p-table
+        *ngIf="organizations$ | async as orgData"
+        [value]="orgData.data"
+        [paginator]="false"
+        [rows]="rowsPerPage"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        (onPage)="onPageChange($event)"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      >
+        <ng-template pTemplate="header">
+          <tr style="padding-top: 10px;padding-bottom: 10px">
+            <th style="width:20%;height:30px;font-size: 13px">დასახელება</th>
+            <th style="width:20%;font-size: 13px">შპს</th>
+            <th style="width:20%;font-size: 13px">საიდენტიფიკაციო კოდი</th>
+            <th style="width:20%;font-size: 13px">სტატუსი</th>
+            <th style="width:20%;font-size: 13px">შექმნის თარიღი</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-organization>
+          <tr>
+            <td style="height: 60px;">{{ organization.legalName }}</td>
+            <td style="height: 60px;">{{ organization.tradeName }}</td>
+            <td style="height: 60px;">{{ organization.identificationCode }}</td>
+            <td style="height: 60px;">{{ organization.status }}</td>
+            <td style="height: 60px;">{{ organization.createdAt | date: 'dd/MM/yyyy' }}</td>
+            <td style="height: 60px;">{{ organization.nextContactDate | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <div class="card flex justify-content-center" >
+        <p-paginator
+          (onPageChange)="onPageChange($event)"
+          [first]="first"
+          [rows]="rowsPerPage"
+          [totalRecords]="$totalRecords$()"
+        />
+      </div>
+    </div>
+  </div>
+</div>

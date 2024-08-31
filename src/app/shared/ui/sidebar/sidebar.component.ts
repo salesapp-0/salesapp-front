@@ -6,6 +6,7 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter, map, Observable, takeUntil, tap} from "rxjs";
 import {unsub} from "../../classes/unsub.class";
 import {AuthService} from "../../services/auth.service";
+import {NavigateService} from "../../services/navigate.service";
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -16,6 +17,7 @@ import {AuthService} from "../../services/auth.service";
 export class SidebarComponent extends unsub{
   private router = inject(Router)
   private authService = inject(AuthService)
+  private navigateService = inject(NavigateService)
   $mode$ = signal('light')
   $currentRoute$ = signal('')
   constructor() {
@@ -33,7 +35,9 @@ export class SidebarComponent extends unsub{
   handleSelectMode(mode:string) {
     this.$mode$.set(mode)
   }
-
+  onNavigate(url:string) {
+    this.navigateService.navigateTo(url)
+  }
   logout() {
     this.authService.logout$().pipe(
       map(() => {

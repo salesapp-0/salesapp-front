@@ -1,5 +1,4 @@
 import {inject, Inject, Injectable} from '@angular/core';
-import {DefaultResponse, HttpService} from "../../core/http";
 import {delay, Observable, tap} from "rxjs";
 import {ApiService} from "./api-service.service";
 
@@ -18,11 +17,11 @@ export class AuthService {
     )
   }
 
-  public login$(loginData:any): Observable<DefaultResponse<any>> {
+  public login$(loginData:any): Observable<any> {
     const path = `/auth/login`;
     return this.http.post(path,loginData)
   }
-  public logout$(): Observable<DefaultResponse<any>> {
+  public logout$(): Observable<any> {
     const path = `/auth/logout`;
     return this.http.post(path)
   }

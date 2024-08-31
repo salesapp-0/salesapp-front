@@ -1,13 +1,17 @@
 <div class="sidebar">
 <div class="sidebar__tab">
   <div class="sidebar__tab__route"
+       (click)="onNavigate('/main-page')"
        [class.sidebar__tab__route--active]="$currentRoute$() === '/main-page'"
   >
     <img src="./assets/images/side-bar/Union.png" alt="">
     <p>მთავარი გვერდი</p>
   </div>
 
-  <div class="sidebar__tab__route">
+  <div class="sidebar__tab__route"
+       (click)="onNavigate('/organizations')"
+       [class.sidebar__tab__route--active]="$currentRoute$() === '/organizations'"
+  >
     <img src="./assets/images/side-bar/house.png" alt="">
     <p>ორგანიზაციები</p>
   </div>

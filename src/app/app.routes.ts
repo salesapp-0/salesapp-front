@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import {inject} from "@angular/core";
 import {AuthService} from "./shared/services/auth.service";
-import {HttpService} from "./core/http";
 import {EnvironmentService} from "./shared/services/envirment.service";
 import {authGuard} from "./shared/guards/auth.guard";
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
@@ -17,12 +16,18 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./features/login/login.component').then(m => m.LoginComponent),
     canActivate: [authGuard],
-    providers:[HttpService,AuthService]
+    providers:[AuthService]
   },
   {
     path: 'main-page',
     loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard],
-    providers:[HttpService,AuthService]
+    providers:[AuthService]
+  },
+  {
+    path: 'organizations',
+    loadComponent: () => import('./features/organizations/organizations.component').then(m => m.OrganizationsComponent),
+    canActivate: [authGuard],
+    providers:[AuthService]
   },
 ];
