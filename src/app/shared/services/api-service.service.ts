@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
+import {BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ApiService {
     });
   }
 
-  getOrganizations(page: number = 1, limit: number = 10, filters: any = {}): Observable<any> {
+  getOrganizations(page: number = 1, limit: number = 10, filters: any = {}): Observable<BuyerOrganizations> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
@@ -35,6 +36,6 @@ export class ApiService {
         params = params.set(key, filters[key]);
       }
     }
-    return this.http.get(this.baseUrl+'/buyer-organization/filter', { params });
+    return this.http.get<BuyerOrganizations>(this.baseUrl+'/buyer-organization/filter', { params });
   }
 }

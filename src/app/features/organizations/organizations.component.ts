@@ -22,6 +22,8 @@ import {ApiService} from "../../shared/services/api-service.service";
 import {CommonModule} from "@angular/common";
 import {PaginatorModule} from "primeng/paginator";
 import {unsub} from "../../shared/classes/unsub.class";
+import {LastContactStatus} from "../../core/enums/contact-status.enum";
+import {BuyerOrganization, BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
 
 @Component({
   selector: 'app-organizations',
@@ -46,7 +48,7 @@ export class OrganizationsComponent extends unsub implements OnInit{
   date: Date | undefined;
   statusOptions: any[] = [];
   selectedCity: any;
-  organizations$: Observable<any> | undefined;
+  organizations$!: Observable<BuyerOrganizations>;
   myForm!: FormGroup;
   $page$ = signal(1);
   $limit$ = signal(10);
@@ -90,10 +92,15 @@ export class OrganizationsComponent extends unsub implements OnInit{
     const filters = {
       search: this.myForm.get('search')?.value,
       dateRange: this.myForm.get('date')?.value ? [formatDate, formatDate] : undefined,
-      status: this.myForm.get('status')?.value?.code
+      lastContactStatus: this.myForm.get('status')?.value?.code
     };
-
     this.organizations$ = this.apiService.getOrganizations(this.currentPage, this.rowsPerPage, filters).pipe(
+      map((res:BuyerOrganizations) => {
+        return {
+          data:this.handleChangeData(res.data),
+          total: res.total
+        }
+      }),
       tap(response => {
         this.$totalRecords$.set(response.total);
       })
@@ -114,6 +121,19 @@ export class OrganizationsComponent extends unsub implements OnInit{
   get first(): number {
     return (this.currentPage - 1) * this.rowsPerPage;
   }
-
+  handleChangeData(data:BuyerOrganization[]) {
+    let obj:any = {
+      active: 'აქტიური',
+      passive: 'პასიური',
+      registered: 'დარეგისტრირებული',
+      overdue: 'ვადაგადაცილებული',
+    }
+    return data.map((data:BuyerOrganization) => {
+      return {
+        ...data,
+        status:obj[data.status]
+      }
+    })
+  }
 
 }
