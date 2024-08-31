@@ -2,7 +2,7 @@
 <div class="sidebar__tab">
   <div class="sidebar__tab__route"
        (click)="onNavigate('/main-page')"
-       [class.sidebar__tab__route--active]="$currentRoute$() === '/main-page'"
+       [class.sidebar__tab__route--active]="$currentRoute$() === '/main-page' || $currentRoute$() === '/add-organization'"
   >
     <img src="./assets/images/side-bar/Union.png" alt="">
     <p>მთავარი გვერდი</p>

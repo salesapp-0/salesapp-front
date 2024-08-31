@@ -26,16 +26,5 @@ export class ApiService {
     });
   }
 
-  getOrganizations(page: number = 1, limit: number = 10, filters: any = {}): Observable<BuyerOrganizations> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('limit', limit.toString());
 
-    for (let key in filters) {
-      if (filters[key]) {
-        params = params.set(key, filters[key]);
-      }
-    }
-    return this.http.get<BuyerOrganizations>(this.baseUrl+'/buyer-organization/filter', { params });
-  }
 }

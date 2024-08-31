@@ -1,0 +1,131 @@
+<app-header></app-header>
+<app-sidebar/>
+
+<div class="add-organization">
+  <div class="add-organization__wrapper">
+    <h1> დაამატეთ ორგანიზაცია</h1>
+    <form
+      class="add-organization__wrapper__form"
+      [formGroup]="organizationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div>
+        <div class="add-organization__wrapper__form-item">
+          <label for="legalName">იურიდიული სახელი</label>
+          <input pInputText id="legalName" formControlName="legalName" />
+          <div *ngIf="f['legalName'].touched && f['legalName'].invalid">
+            <small *ngIf="f['legalName'].errors?.['required']">Legal Name is required.</small>
+            <small *ngIf="f['legalName'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="tradeName">სავაჭრო სახელი</label>
+          <input pInputText id="tradeName" formControlName="tradeName" />
+          <div *ngIf="f['tradeName'].touched && f['tradeName'].invalid">
+            <small *ngIf="f['tradeName'].errors?.['required']">Trade Name is required.</small>
+            <small *ngIf="f['tradeName'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="identificationCode">საიდენტიფიკაციო კოდი</label>
+          <input pInputText id="identificationCode" formControlName="identificationCode" />
+          <div *ngIf="f['identificationCode'].touched && f['identificationCode'].invalid">
+            <small *ngIf="f['identificationCode'].errors?.['required']">Identification Code is required.</small>
+            <small *ngIf="f['identificationCode'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="legalAddress">იურიდიული მისამართი</label>
+          <input pInputText id="legalAddress" formControlName="legalAddress" />
+          <div *ngIf="f['legalAddress'].touched && f['legalAddress'].invalid">
+            <small *ngIf="f['legalAddress'].errors?.['required']">Legal Address is required.</small>
+            <small *ngIf="f['legalAddress'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="actualAddress">ფაქტობრივი მისამართი</label>
+          <input pInputText id="actualAddress" formControlName="actualAddress" />
+          <div *ngIf="f['actualAddress'].touched && f['actualAddress'].invalid">
+            <small *ngIf="f['actualAddress'].errors?.['required']">Actual Address is required.</small>
+            <small *ngIf="f['actualAddress'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label >მომსახურების ღირებულება</label>
+          <p-inputNumber inputId="serviceCost" formControlName="serviceCost" />
+          <div *ngIf="f['serviceCost'].touched && f['serviceCost'].invalid">
+            <small *ngIf="f['serviceCost'].errors?.['required']">Service Cost is required.</small>
+            <small *ngIf="f['serviceCost'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="add-organization__wrapper__form-item">
+          <label for="paymentDate">გადახდის თარიღი</label>
+          <input pInputText id="paymentDate" formControlName="paymentDate" />
+          <div *ngIf="f['paymentDate'].touched && f['paymentDate'].invalid">
+            <small *ngIf="f['paymentDate'].errors?.['required']">Payment Date is required.</small>
+            <small *ngIf="f['paymentDate'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="bank">ბანკი</label>
+          <input pInputText id="bank" formControlName="bank" />
+          <div *ngIf="f['bank'].touched && f['bank'].invalid">
+            <small *ngIf="f['bank'].errors?.['required']">Bank is required.</small>
+            <small *ngIf="f['bank'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="bankAccountNumber">საბანკო ანგარიშის ნომერი</label>
+          <input pInputText id="bankAccountNumber" formControlName="bankAccountNumber" />
+          <div *ngIf="f['bankAccountNumber'].touched && f['bankAccountNumber'].invalid">
+            <small *ngIf="f['bankAccountNumber'].errors?.['required']">Bank Account Number is required.</small>
+            <small *ngIf="f['bankAccountNumber'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="contactPerson">საკონტაქტო პირი</label>
+          <input pInputText id="contactPerson" formControlName="contactPerson" />
+          <div *ngIf="f['contactPerson'].touched && f['contactPerson'].invalid">
+            <small *ngIf="f['contactPerson'].errors?.['required']">Contact Person is required.</small>
+            <small *ngIf="f['contactPerson'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="contactPhoneNumber">საკონტაქტო ტელეფონის ნომერი</label>
+          <input pInputText id="contactPhoneNumber" formControlName="contactPhoneNumber" />
+          <div *ngIf="f['contactPhoneNumber'].touched && f['contactPhoneNumber'].invalid">
+            <small *ngIf="f['contactPhoneNumber'].errors?.['required']">Contact Phone Number is required.</small>
+            <small *ngIf="f['contactPhoneNumber'].errors?.['minlength']">Minimum 4 characters required.</small>
+          </div>
+        </div>
+
+        <div class="add-organization__wrapper__form-item">
+          <label for="contactMail">საკონტაქტო ელფოსტა</label>
+          <input pInputText id="contactMail" formControlName="contactMail" />
+          <div *ngIf="f['contactMail'].touched && f['contactMail'].invalid">
+            <small *ngIf="f['contactMail'].errors?.['required']">Contact Email is required.</small>
+            <small *ngIf="f['contactMail'].errors?.['minlength']">Minimum 4 characters required.</small>
+            <small *ngIf="f['contactMail'].errors?.['email']">Invalid email format.</small>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="add-organization__wrapper-buttons">
+      <button type="button" (click)="onNavigate('/organizations')">გაუქმება</button>
+      <button (click)="onSubmit()" type="submit" [disabled]="organizationForm.invalid">დამატება</button>
+    </div>
+  </div>
+</div>

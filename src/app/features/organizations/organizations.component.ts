@@ -24,6 +24,8 @@ import {PaginatorModule} from "primeng/paginator";
 import {unsub} from "../../shared/classes/unsub.class";
 import {LastContactStatus} from "../../core/enums/contact-status.enum";
 import {BuyerOrganization, BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
+import {NavigateService} from "../../shared/services/navigate.service";
+import {OrganizationsService} from "../../shared/services/organizations.service";
 
 @Component({
   selector: 'app-organizations',
@@ -47,14 +49,14 @@ export class OrganizationsComponent extends unsub implements OnInit{
   value: string = '';
   date: Date | undefined;
   statusOptions: any[] = [];
-  selectedCity: any;
   organizations$!: Observable<BuyerOrganizations>;
   myForm!: FormGroup;
   $page$ = signal(1);
   $limit$ = signal(10);
   $totalRecords$ = signal(0);
-  private apiService = inject(ApiService);
+  private organizationService = inject(OrganizationsService);
   private fb = inject(FormBuilder)
+  private navigateService = inject(NavigateService)
   ngOnInit() {
     this.statusOptions = [
       { name: 'აქტიური', code: 'active' },
@@ -92,9 +94,9 @@ export class OrganizationsComponent extends unsub implements OnInit{
     const filters = {
       search: this.myForm.get('search')?.value,
       dateRange: this.myForm.get('date')?.value ? [formatDate, formatDate] : undefined,
-      lastContactStatus: this.myForm.get('status')?.value?.code
+      status: this.myForm.get('status')?.value?.code
     };
-    this.organizations$ = this.apiService.getOrganizations(this.currentPage, this.rowsPerPage, filters).pipe(
+    this.organizations$ = this.organizationService.getOrganizations(this.currentPage, this.rowsPerPage, filters).pipe(
       map((res:BuyerOrganizations) => {
         return {
           data:this.handleChangeData(res.data),
@@ -136,4 +138,7 @@ export class OrganizationsComponent extends unsub implements OnInit{
     })
   }
 
+  handleNavigate(route:string) {
+    this.navigateService.navigateTo(route)
+  }
 }
