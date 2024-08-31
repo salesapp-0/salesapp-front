@@ -32,7 +32,7 @@ export class OrganizationsService {
     legalAddress: string,
     actualAddress: string,
     serviceCost: number,
-    paymentDate: string, // Assuming paymentDate is a string; adjust if needed
+    paymentDate: string,
     bank: string,
     bankAccountNumber: string,
     contactPerson: string,
