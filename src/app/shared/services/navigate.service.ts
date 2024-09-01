@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 export class NavigateService {
   private router = inject(Router)
 
-  navigateTo(route: string): void {
-    this.router.navigate([route]);
+  navigateTo(route: string, query?: { [key: string]: any }): void {
+    this.router.navigate([route], { queryParams: query });
   }
 }

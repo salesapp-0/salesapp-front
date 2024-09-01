@@ -10,7 +10,7 @@ export interface BuyerOrganization {
   identificationCode: string
   legalAddress: string
   actualAddress: string
-  serviceCost: string
+  serviceCost: number
   paymentDate: string
   bank: string
   bankAccountNumber: string
@@ -19,4 +19,7 @@ export interface BuyerOrganization {
   createdAt: string
   updatedAt: string
   status: string
+  contactPerson:string
+  contactPhoneNumber:string
+  contactMail:string
 }

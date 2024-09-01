@@ -68,7 +68,7 @@
       <div>
         <div class="add-organization__wrapper__form-item">
           <label for="paymentDate">გადახდის თარიღი</label>
-          <input pInputText id="paymentDate" formControlName="paymentDate" />
+          <p-calendar id="paymentDate" formControlName="paymentDate" />
           <div *ngIf="f['paymentDate'].touched && f['paymentDate'].invalid">
             <small *ngIf="f['paymentDate'].errors?.['required']">Payment Date is required.</small>
             <small *ngIf="f['paymentDate'].errors?.['minlength']">Minimum 4 characters required.</small>
@@ -95,7 +95,7 @@
 
         <div class="add-organization__wrapper__form-item">
           <label for="contactPerson">საკონტაქტო პირი</label>
-          <input pInputText id="contactPerson" formControlName="contactPerson" />
+          <p-inputNumber id="contactPerson" inputId="contactPerson" formControlName="contactPerson" />
           <div *ngIf="f['contactPerson'].touched && f['contactPerson'].invalid">
             <small *ngIf="f['contactPerson'].errors?.['required']">Contact Person is required.</small>
             <small *ngIf="f['contactPerson'].errors?.['minlength']">Minimum 4 characters required.</small>
@@ -125,7 +125,7 @@
 
     <div class="add-organization__wrapper-buttons">
       <button type="button" (click)="onNavigate('/organizations')">გაუქმება</button>
-      <button (click)="onSubmit()" type="submit" [disabled]="organizationForm.invalid">დამატება</button>
+      <button (click)="onSubmit()" type="submit" [disabled]="organizationForm.invalid">{{$isEditMode$() ? 'რედაქტირება': 'დამატება'}}</button>
     </div>
   </div>
 </div>

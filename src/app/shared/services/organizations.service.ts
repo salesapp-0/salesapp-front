@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
+import {BuyerOrganization, BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 
@@ -23,7 +23,9 @@ export class OrganizationsService {
     }
     return this.http.get<BuyerOrganizations>(this.baseUrl+'/buyer-organization/filter', { params,withCredentials:true });
   }
-
+  getOrganizationById(id: string): Observable<BuyerOrganization> {
+    return this.http.get<BuyerOrganization>(`${this.baseUrl}/buyer-organization/${id}`, { withCredentials: true });
+  }
 
   createBuyerOrganization(
     legalName: string,
@@ -55,5 +57,37 @@ export class OrganizationsService {
     };
 
     return this.http.post<BuyerOrganizations>(`${this.baseUrl}/buyer-organization`, payload, { withCredentials: true });
+  }
+  updateBuyerOrganization(
+    legalName: string,
+    tradeName: string,
+    identificationCode: string,
+    legalAddress: string,
+    actualAddress: string,
+    serviceCost: number,
+    paymentDate: string,
+    bank: string,
+    bankAccountNumber: string,
+    contactPerson: string,
+    contactPhoneNumber: string,
+    contactMail: string,
+    id: string
+  ): Observable<BuyerOrganizations> {
+    const payload = {
+      legalName,
+      tradeName,
+      identificationCode,
+      legalAddress,
+      actualAddress,
+      serviceCost,
+      paymentDate,
+      bank,
+      bankAccountNumber,
+      contactPerson,
+      contactPhoneNumber,
+      contactMail
+    };
+
+    return this.http.put<BuyerOrganizations>(`${this.baseUrl}/buyer-organization/${id}`, payload, { withCredentials: true });
   }
 }
