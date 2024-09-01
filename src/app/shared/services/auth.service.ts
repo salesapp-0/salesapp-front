@@ -25,4 +25,8 @@ export class AuthService {
     const path = `/auth/logout`;
     return this.http.post(path)
   }
+  public getUser$(): Observable<any> {
+    const path = `/auth/user`;
+    return this.http.get(path)
+  }
 }

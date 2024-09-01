@@ -3,7 +3,7 @@
 
 <div class="add-organization">
   <div class="add-organization__wrapper">
-    <h1> დაამატეთ ორგანიზაცია</h1>
+    <h1>{{$isEditMode$() ? 'დაარედაქტირეთ ორგანიზაცია': 'დაამატეთ ორგანიზაცია'}}</h1>
     <form
       class="add-organization__wrapper__form"
       [formGroup]="organizationForm"
