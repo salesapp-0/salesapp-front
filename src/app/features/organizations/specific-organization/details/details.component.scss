@@ -1,0 +1,49 @@
+.details {
+  margin-top:56px;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-activation {
+      display: flex;
+      justify-content: center;
+      gap:2px;
+    }
+    &-upload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      img {
+        width: 84px;
+      }
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:8px;
+        p {
+          color:#02B7FA;
+        }
+      }
+    }
+  }
+  &__info {
+    margin-top:56px;
+      &__texts {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 82px;
+          margin-top:56px;
+          p {
+            color: #5B757E;
+          }
+        }
+      }
+  }
+}

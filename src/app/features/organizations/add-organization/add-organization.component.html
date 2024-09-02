@@ -95,7 +95,7 @@
 
         <div class="add-organization__wrapper__form-item">
           <label for="contactPerson">საკონტაქტო პირი</label>
-          <p-inputNumber id="contactPerson" inputId="contactPerson" formControlName="contactPerson" />
+          <input pInputText id="contactPerson" formControlName="contactPhoneNumber" />
           <div *ngIf="f['contactPerson'].touched && f['contactPerson'].invalid">
             <small *ngIf="f['contactPerson'].errors?.['required']">Contact Person is required.</small>
             <small *ngIf="f['contactPerson'].errors?.['minlength']">Minimum 4 characters required.</small>
@@ -104,7 +104,7 @@
 
         <div class="add-organization__wrapper__form-item">
           <label for="contactPhoneNumber">საკონტაქტო ტელეფონის ნომერი</label>
-          <input pInputText id="contactPhoneNumber" formControlName="contactPhoneNumber" />
+          <p-inputNumber id="contactPhoneNumber" inputId="contactPerson" formControlName="contactPerson" />
           <div *ngIf="f['contactPhoneNumber'].touched && f['contactPhoneNumber'].invalid">
             <small *ngIf="f['contactPhoneNumber'].errors?.['required']">Contact Phone Number is required.</small>
             <small *ngIf="f['contactPhoneNumber'].errors?.['minlength']">Minimum 4 characters required.</small>

@@ -4,7 +4,10 @@
     <img class="header__user-avatar" src="./assets/images/dashboard/avatar.png" alt="*">
     <div class="header__user__info">
       <p class="header__user__info-username">{{uData.username}}</p>
-      <p class="header__user__info-position">position</p>
+
+      <p class="header__user__info-position"
+        *ngFor="let role of uData.roles"
+      >{{role.role.name}}</p>
     </div>
     <img class="header__user-arrow" src="./assets/images/dashboard/arrow.png" alt="">
   </div>

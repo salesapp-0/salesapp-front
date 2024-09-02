@@ -1,0 +1,37 @@
+<div class="details" *ngIf="organization$ | async as orgData">
+    <div class="details__header">
+      <div class="details__header-upload">
+        <img src="./assets/images/dashboard/avatar.png">
+        <div>
+          <p>ატვირთე ფოტო</p>
+          <i class="pi pi-upload" style="color: #02B7FA"></i>
+        </div>
+      </div>
+      <div class="details__header-activation">
+        <p-inputSwitch [(ngModel)]="checked" />
+        <p>აქტივაცია</p>
+      </div>
+    </div>
+    <div class="details__info">
+      <div class="details__info__texts">
+        <div class="details__info__texts-wrapper">
+          <p>ორგ.სახელი</p>
+          <h3>{{orgData.legalName}}</h3>
+        </div>
+        <div class="details__info__texts-wrapper">
+          <p>სახელი და გვარი</p>
+          <h3>{{orgData.contactPerson}} </h3>
+        </div>
+      </div>
+      <div class="details__info__texts">
+        <div class="details__info__texts-wrapper">
+          <p>იუზერი</p>
+          <h3>user</h3>
+        </div>
+        <div class="details__info__texts-wrapper">
+          <p>საკ. ნომერი</p>
+          <h3>{{orgData.contactPhoneNumber}} </h3>
+        </div>
+      </div>
+    </div>
+</div>

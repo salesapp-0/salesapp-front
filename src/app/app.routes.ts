@@ -41,4 +41,9 @@ export const routes: Routes = [
     canActivate: [authGuard],
     providers:[AuthService]
   },
+  { path: 'specific-organization/:id',
+    loadComponent: () => import('./features/organizations/specific-organization/specific-organization.component').then(m => m.SpecificOrganizationComponent),
+    canActivate: [authGuard],
+    providers:[AuthService]
+  }
 ];

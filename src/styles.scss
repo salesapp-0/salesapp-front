@@ -13,3 +13,11 @@
 body {
   background-color: #F7F7F7;
 }
+
+@layer reset, primeng;
+
+@layer reset {
+  button,
+  input {
+  }
+}

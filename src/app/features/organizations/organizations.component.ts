@@ -142,7 +142,10 @@ export class OrganizationsComponent extends unsub implements OnInit{
     this.navigateService.navigateTo(route)
   }
   handleEditClick(route:string,organizationId:string) {
-    console.log(organizationId,"123")
     this.navigateService.navigateTo(`${route}/edit`,{id:organizationId})
+  }
+
+  handleSpecificOrganizationClick(route:string,organizationId:string) {
+    this.navigateService.navigateTo(`${route}/see`,{id:organizationId})
   }
 }
