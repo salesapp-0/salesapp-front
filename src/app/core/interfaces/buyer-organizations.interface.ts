@@ -22,4 +22,5 @@ export interface BuyerOrganization {
   contactPerson:string
   contactPhoneNumber:string
   contactMail:string
+  userId:string
 }

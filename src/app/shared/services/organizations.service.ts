@@ -27,6 +27,13 @@ export class OrganizationsService {
     return this.http.get<BuyerOrganization>(`${this.baseUrl}/buyer-organization/${id}`, { withCredentials: true });
   }
 
+  getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/auth/user/${id}`, { withCredentials: true });
+  }
+  deactivateOrganization(id: string,isActive:boolean): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/buyer-organization/deactivate/${id}`, { isActive,withCredentials: true });
+  }
+
   createBuyerOrganization(
     legalName: string,
     tradeName: string,
@@ -58,6 +65,7 @@ export class OrganizationsService {
 
     return this.http.post<BuyerOrganizations>(`${this.baseUrl}/buyer-organization`, payload, { withCredentials: true });
   }
+
   updateBuyerOrganization(
     legalName: string,
     tradeName: string,
@@ -90,4 +98,6 @@ export class OrganizationsService {
 
     return this.http.put<BuyerOrganizations>(`${this.baseUrl}/buyer-organization/${id}`, payload, { withCredentials: true });
   }
+
+
 }
