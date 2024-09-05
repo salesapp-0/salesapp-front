@@ -1,12 +1,14 @@
-import {inject, Inject, Injectable} from '@angular/core';
+import {inject, Inject, Injectable, signal} from '@angular/core';
 import {delay, Observable, tap} from "rxjs";
 import {ApiService} from "./api-service.service";
+import {User} from "../../core/interfaces/user.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   startUrl = '/auth/user'
+  $roleUser$ = signal('Admin')
   private readonly http = inject(ApiService);
   constructor() {
   }
@@ -25,8 +27,12 @@ export class AuthService {
     const path = `/auth/logout`;
     return this.http.post(path)
   }
-  public getUser$(): Observable<any> {
+  public getUser$(): Observable<User> {
     const path = `/auth/user`;
-    return this.http.get(path)
+    return this.http.get(path).pipe(
+      tap((res) => {
+        this.$roleUser$.set(res.roles[0].role.name)
+      })
+    )
   }
 }

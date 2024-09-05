@@ -24,7 +24,8 @@ export const authGuard: CanActivateFn = (route, state) => {
   return authService.isAuthorized$().pipe(
     map((auth) => {
       if (auth?.isAuthorized) {
-        return true;
+        const allowedRoles = route.data['roles'] as string[];
+        return allowedRoles.indexOf(authService.$roleUser$()) !== -1;
       } else {
         router.navigate(['/login']);
         return false;
