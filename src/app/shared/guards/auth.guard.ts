@@ -1,7 +1,7 @@
 import {CanActivateFn, Router} from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { catchError, map, of } from 'rxjs';
+import {catchError, map, of, switchMap} from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -22,14 +22,18 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
   return authService.isAuthorized$().pipe(
-    map((auth) => {
-      if (auth?.isAuthorized) {
-        const allowedRoles = route.data['roles'] as string[];
-        return allowedRoles.indexOf(authService.$roleUser$()) !== -1;
-      } else {
-        router.navigate(['/login']);
-        return false;
-      }
+    switchMap((auth) => {
+      return authService.getUser$().pipe(
+        map((res ) => {
+          if (auth?.isAuthorized) {
+            const allowedRoles = route.data['roles'] as string[];
+            return allowedRoles.indexOf(res.roles[0].role.name) !== -1;
+          } else {
+            router.navigate(['/login']);
+            return false;
+          }
+        })
+      )
     }),
     catchError(() => {
       router.navigate(['/login']);
