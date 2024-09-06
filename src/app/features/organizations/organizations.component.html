@@ -1,5 +1,6 @@
 <app-header></app-header>
-<app-sidebar/>
+<div class="flex">
+  <app-sidebar/>
 <div class="wrapper">
   <div class="organizations">
     <div class="organizations__header">
@@ -11,23 +12,26 @@
     </div>
 
     <form [formGroup]="myForm" class="organizations-filters">
-      <div class="card flex justify-content-center">
+      <div class="w-[100%] max-w-[390px] relative">
         <input
           type="text"
           pInputText
           formControlName="search"
           placeholder="სახელი / საიდენტიფიკაციო კოდი / მობილური ნომერი"
+          class="text-left pl-10 "
         />
+        
+  <i class="pi pi-search absolute left-3 top-4" style="font-size: 1rem"></i>
       </div>
 
-      <div class="card flex justify-content-center">
+      <div class="w-[100%] max-w-[365px]">
         <p-calendar formControlName="date"
                     [dateFormat]="'yy-mm-dd'"
                     placeholder="თარიღი"
         ></p-calendar>
       </div>
 
-      <div class="card flex justify-content-center">
+      <div class="w-[100%] max-w-[365px]">
         <p-dropdown
           [options]="statusOptions"
         formControlName="status"
@@ -37,7 +41,7 @@
       </div>
     </form>
 
-    <div class="organizations__table" style="margin-top: 15px">
+    <div class="organizations__table" style="margin-top: 15px; overflow-x: auto;">
       <p-table
         *ngIf="organizations$ | async as orgData"
         [value]="orgData.data"
@@ -59,7 +63,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-organization>
-          <tr>
+          <tr class="overflow-x-auto">
             <td style="height: 60px;">{{ organization.legalName }}</td>
             <td style="height: 60px;">{{ organization.tradeName }}</td>
             <td style="height: 60px;">{{ organization.identificationCode }}</td>
@@ -74,7 +78,7 @@
         </ng-template>
       </p-table>
 
-      <div class="card flex justify-content-center" >
+      <div class="flex justify-center" >
         <p-paginator
           (onPageChange)="onPageChange($event)"
           [first]="first"
@@ -84,4 +88,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

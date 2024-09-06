@@ -2,17 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  @media screen and (min-width: 1600px) {
-    justify-content: center;
-  }
+  width: 100%;
   .organizations {
     padding:16px;
-    max-width: 1104px;
     width: 100%;
-    height: 872px;
+    height: 100%;
     background-color: white;
-    margin-right:30px;
+    margin-right:16px;
     margin-top: 24px;
+    margin-left: 16px;
     border-radius: 10px;
     &__header {
       display: flex;
@@ -36,13 +34,17 @@
     }
     &-filters {
       display: flex;
-      align-items: center;
       gap:10px;
       margin-top: 24px;
       div:first-child {
         input {
-          width: 390px;
+          width: 100%;
           height: 48px;
+        }
+        input::placeholder {
+          font-size: 12px;
+          padding-left: 0px;
+          color: #A4B4BB;
         }
       }
 
@@ -53,13 +55,18 @@
 
 ::ng-deep {
   .p-dropdown{
-    width: 300px;
+    max-width: 365px;
+    width: 100%;
     height: 46px;
     padding: 10px;
   }
   p-calendar {
+    span {
+      width: 100%;
+    }
     .p-inputtext {
-      width: 300px;
+      max-width: 365px;
+      width: 100%;
       height: 46px;
       padding: 10px;
     }

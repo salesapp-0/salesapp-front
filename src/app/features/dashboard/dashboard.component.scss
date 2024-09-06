@@ -1,20 +1,16 @@
 .dashboard {
   display: flex;
-  align-items: center;
   justify-content: flex-end;
   padding-top: 16px;
-  padding-right: 30px;
-  gap:24px;
-  @media screen and (min-width: 1600px) {
-    justify-content: center;
-  }
+  padding-left: 30px;
+  gap: 24px;
   &__chart {
     max-width: 634px;
     width: 100%;
     padding: 24px;
     background-color: white;
     border-radius: 10px;
-
+    height: 350px;
     &-header {
       display: flex;
       align-items: center;

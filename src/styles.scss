@@ -2,7 +2,8 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100..900&display=swap');
-
+@tailwind components;
+@tailwind utilities;
 * {
   font-family: "Noto Sans Georgian", sans-serif;
   padding:0;
