@@ -26,8 +26,16 @@ export class LoginComponent extends unsub implements OnInit{
   private router = inject(Router)
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      username: [
+        '', 
+        [
+          Validators.required, 
+          Validators.minLength(5),
+          Validators.maxLength(30),
+          Validators.pattern('^[^\s]+(\s+[^\s]+)*$') 
+        ]
+      ],
+      password: ['', [Validators.required,Validators.minLength(6)]],
     });
   }
 
