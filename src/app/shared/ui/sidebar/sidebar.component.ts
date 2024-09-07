@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, NO_ERRORS_SCHEMA, OnInit, signal} from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
@@ -7,12 +7,14 @@ import {filter, map, Observable, takeUntil, tap} from "rxjs";
 import {unsub} from "../../classes/unsub.class";
 import {AuthService} from "../../services/auth.service";
 import {NavigateService} from "../../services/navigate.service";
+import { SvgIconComponent } from "../svg-icon/svg-icon.component";
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [SidebarModule,FormsModule,CommonModule],
+  imports: [SidebarModule, FormsModule, CommonModule, SvgIconComponent],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class SidebarComponent extends unsub{
   private router = inject(Router)

@@ -4,13 +4,14 @@
   padding-top: 16px;
   padding-left: 30px;
   gap: 24px;
+  max-height: 491px;
+  height: 100%;
   &__chart {
     max-width: 634px;
     width: 100%;
     padding: 24px;
     background-color: white;
     border-radius: 10px;
-    height: 350px;
     &-header {
       display: flex;
       align-items: center;
@@ -53,7 +54,13 @@
       }
     }
   }
-
+  @media screen and (max-width: 990px) {
+    &__chart {
+      &__numbers {
+      flex-direction: column;
+      }
+    }
+  }
 }
 ::ng-deep {
   .p-dropdown {

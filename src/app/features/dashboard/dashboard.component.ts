@@ -53,11 +53,15 @@ export class DashboardComponent implements OnInit {
   constructor() {}
   ngOnInit() {
     this.initConfig();
-
-    this.statistics$ = this.dashboardService.getStatistics$().pipe(
+    this.getStatistics(this.selectedOption)
+  }
+  getStatistics(selectedOption:{ name: string } ) {
+    console.log(selectedOption);
+    this.statistics$ = this.dashboardService.getStatistics$(selectedOption).pipe(
       map((res) => {
+        console.log('Statistics Response:', res);
         this.chartOptions['series'] = [
-          res.activePercentage,
+          100,
           res.activePercentage,
           res.passivePercentage,
         ];
@@ -65,7 +69,6 @@ export class DashboardComponent implements OnInit {
       })
     );
   }
-
   initConfig() {
     this.chartOptions = {
       series: [76, 67, 61],

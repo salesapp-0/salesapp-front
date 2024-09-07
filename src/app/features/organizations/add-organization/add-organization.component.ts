@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output, signal, WritableSignal} from '@angular/core';
 import {HeaderComponent} from "../../../shared/ui/header/header.component";
 import {SidebarComponent} from "../../../shared/ui/sidebar/sidebar.component";
 import {InputTextModule} from "primeng/inputtext";
@@ -35,6 +35,17 @@ export class AddOrganizationComponent extends unsub implements OnInit{
   organizationForm!: FormGroup;
   $isEditMode$ = signal(false);
   $organizationId$ = signal('')
+  @Output() close = new EventEmitter();
+  @Input({alias:'organizationId'}) set _(id:string | null) {
+      if (id) {
+        this.$isEditMode$.set(true)
+        this.$organizationId$.set(id)
+        this.getOrganizationById(id);
+      } else {
+        this.$isEditMode$.set(false)
+        this.$organizationId$.set('')
+      }
+  }
   private fb = inject(FormBuilder)
   private organizationService = inject(OrganizationsService)
   private navigateService = inject(NavigateService)
@@ -55,36 +66,21 @@ export class AddOrganizationComponent extends unsub implements OnInit{
       contactPhoneNumber: ['', [Validators.required, Validators.minLength(4)]],
       contactMail: ['', [Validators.required, Validators.minLength(4), Validators.email]],
     });
-
-    this.activatedRoute.queryParams.pipe(
-      map((params) => {
-          const id = params['id'];
-          if (id) {
-            this.$isEditMode$.set(true)
-            this.$organizationId$.set(id)
-            this.getOrganizationById(id);
-          } else {
-            this.$isEditMode$.set(false)
-          }
-        }),takeUntil(this.unsubscribe$)
-    ).subscribe()
   }
 
   onSubmit(): void {
     if (this.organizationForm.valid) {
       const organizationData = this.organizationHelperService.getOrganizationFormData(this.organizationForm);
       if (!this.$isEditMode$()) {
-        this.organizationHelperService.createOrganization(organizationData, this.unsubscribe$, this.onNavigate.bind(this));
+        this.organizationHelperService.createOrganization(organizationData, this.unsubscribe$,this.close.emit());
       } else {
-        this.organizationHelperService.updateOrganization(organizationData, this.$organizationId$(), this.unsubscribe$, this.onNavigate.bind(this));
+        this.organizationHelperService.updateOrganization(organizationData, this.$organizationId$(), this.unsubscribe$,this.close.emit());
       }
     } else {
       this.organizationForm.markAllAsTouched();
     }
   }
-  onNavigate(route:string) {
-    this.navigateService.navigateTo(route)
-  }
+
   get f() {
     return this.organizationForm.controls;
   }

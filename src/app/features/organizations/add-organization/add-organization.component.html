@@ -1,6 +1,4 @@
-<app-header></app-header>
-<app-sidebar/>
-
+<div class="overlay" (click)="close.emit()"></div>
 <div class="add-organization">
   <div class="add-organization__wrapper">
     <h1>{{$isEditMode$() ? 'დაარედაქტირეთ ორგანიზაცია': 'დაამატეთ ორგანიზაცია'}}</h1>
@@ -124,7 +122,7 @@
     </form>
 
     <div class="add-organization__wrapper-buttons">
-      <button type="button" (click)="onNavigate('/organizations')">გაუქმება</button>
+      <button type="button" (click)="close.emit()">გაუქმება</button>
       <button (click)="onSubmit()" type="submit" [disabled]="organizationForm.invalid">{{$isEditMode$() ? 'რედაქტირება': 'დამატება'}}</button>
     </div>
   </div>

@@ -10,8 +10,15 @@ export class DashboardService {
   private readonly http = inject(ApiService);
 
 
-  public getStatistics$(): Observable<Statistics> {
-    const path = `/dashboard/statistics`;
+  public getStatistics$(filterByDay:{ name: string }): Observable<Statistics> {
+    let filterByDays = false;
+    let filterByYear = false;
+    if(filterByDay.name === 'დღე'){
+      filterByDays = true;
+    }else if(filterByDay.name === 'წელი'){
+      filterByYear = true;
+    }
+    const path = `/dashboard/statistics?filterByDay=${filterByDays}&filterByYear=${filterByYear}`;
     return this.http.get(path)
   }
 }

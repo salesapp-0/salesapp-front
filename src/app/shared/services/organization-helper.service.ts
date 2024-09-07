@@ -3,6 +3,7 @@ import {map, takeUntil} from "rxjs";
 import {OrganizationsService} from "./organizations.service";
 import {FormGroup} from "@angular/forms";
 import {BuyerOrganization} from "../../core/interfaces/buyer-organizations.interface";
+import { EventEmitter } from 'stream';
 
 @Injectable()
 export class OrganizationHelperService {
@@ -26,7 +27,7 @@ export class OrganizationHelperService {
     };
   }
 
-  createOrganization(organizationData: BuyerOrganization, unsubscribe$: any, navigate: Function): void {
+  createOrganization(organizationData: BuyerOrganization, unsubscribe$: any,close:any): void {
     this.organizationService.createBuyerOrganization(
       organizationData.legalName,
       organizationData.tradeName,
@@ -41,12 +42,12 @@ export class OrganizationHelperService {
       organizationData.contactPhoneNumber,
       organizationData.contactMail
     ).pipe(
-      map(() => navigate('/organizations')),
+      map((res) => close),
       takeUntil(unsubscribe$)
     ).subscribe();
   }
 
-  updateOrganization(organizationData: BuyerOrganization, organizationId: string, unsubscribe$: any, navigate: Function): void {
+  updateOrganization(organizationData: BuyerOrganization, organizationId: string, unsubscribe$: any,close:any): void {
     this.organizationService.updateBuyerOrganization(
       organizationData.legalName,
       organizationData.tradeName,
@@ -62,7 +63,7 @@ export class OrganizationHelperService {
       organizationData.contactMail,
       organizationId
     ).pipe(
-      map(() => navigate('/organizations')),
+      map((res) =>close),
       takeUntil(unsubscribe$)
     ).subscribe();
   }

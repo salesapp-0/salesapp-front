@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {HeaderComponent} from "../../shared/ui/header/header.component";
 import {SidebarComponent} from "../../shared/ui/sidebar/sidebar.component";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -26,6 +26,7 @@ import {LastContactStatus} from "../../core/enums/contact-status.enum";
 import {BuyerOrganization, BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
 import {NavigateService} from "../../shared/services/navigate.service";
 import {OrganizationsService} from "../../shared/services/organizations.service";
+import { AddOrganizationComponent } from "./add-organization/add-organization.component";
 
 @Component({
   selector: 'app-organizations',
@@ -40,8 +41,9 @@ import {OrganizationsService} from "../../shared/services/organizations.service"
     TableModule,
     CommonModule,
     PaginatorModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    AddOrganizationComponent
+],
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.scss'
 })
@@ -54,6 +56,8 @@ export class OrganizationsComponent extends unsub implements OnInit{
   $page$ = signal(1);
   $limit$ = signal(10);
   $totalRecords$ = signal(0);
+  $isModalOpen$ = signal(false);
+  $organizationId$:WritableSignal<string | null> = signal(null)
   private organizationService = inject(OrganizationsService);
   private fb = inject(FormBuilder)
   private navigateService = inject(NavigateService)
@@ -141,8 +145,9 @@ export class OrganizationsComponent extends unsub implements OnInit{
   handleNavigate(route:string) {
     this.navigateService.navigateTo(route)
   }
-  handleEditClick(route:string,organizationId:string) {
-    this.navigateService.navigateTo(`${route}/edit`,{id:organizationId})
+  handleEditClick(organizationId:string) {
+    this.$isModalOpen$.set(true)
+    this.$organizationId$.set(organizationId) 
   }
 
   handleSpecificOrganizationClick(route:string,organizationId:string) {

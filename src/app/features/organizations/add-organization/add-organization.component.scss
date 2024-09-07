@@ -1,10 +1,12 @@
 .add-organization {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  @media screen and (min-width: 1600px) {
-    justify-content: center;
-  }
+  z-index: 23;
     &__wrapper {
       padding:24px 44px;
       max-width: 1104px;
@@ -23,8 +25,9 @@
           margin-top: 40px;
 
           input {
-            width:446px;
+            max-width: 446px;
             height: 46px;
+            width: 100%;
           }
         }
       }
@@ -68,8 +71,9 @@
 
   p-calendar {
     input {
-      width:446px;
+      max-width: 446px;
       height: 46px;
+      width: 100%;
     }
   }
 }

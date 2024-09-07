@@ -9,6 +9,7 @@
             <p-dropdown
               [options]="options"
               [(ngModel)]="selectedOption"
+              (ngModelChange)="getStatistics(selectedOption)"
               optionLabel="name"
               placeholder="Select a City" />
           </div>

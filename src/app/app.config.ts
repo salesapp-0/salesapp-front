@@ -19,5 +19,6 @@ export const appConfig: ApplicationConfig = {
     ),
     AuthService,EnvironmentService,
     { provide: ENV_CONFIG, useValue: environment },
+  
   ]
 };

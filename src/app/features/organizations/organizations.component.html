@@ -5,7 +5,7 @@
   <div class="organizations">
     <div class="organizations__header">
       <h2>ორგანიზაციების ცხრილი</h2>
-      <button (click)="handleNavigate('/add-organization')">
+      <button (click)="$isModalOpen$.set(true);this.$organizationId$.set(null)">
         <img src="./assets/images/organizations/add_circle.png" alt="">
         <p>დამატება</p>
       </button>
@@ -41,7 +41,7 @@
       </div>
     </form>
 
-    <div class="organizations__table" style="margin-top: 15px; overflow-x: auto;">
+    <div class="organizations__table" style="margin-top: 15px; ">
       <p-table
         *ngIf="organizations$ | async as orgData"
         [value]="orgData.data"
@@ -51,14 +51,16 @@
         (onPage)="onPageChange($event)"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [tableStyle]="{ 'min-width': '20rem' }"
       >
         <ng-template pTemplate="header">
-          <tr style="padding-top: 10px;padding-bottom: 10px">
-            <th style="width:16.6%;height:30px;font-size: 13px">დასახელება</th>
+          <tr style="padding-top: 10px;padding-bottom: 10px;height: 56px;">
+            <th style="width:16.6%;font-size: 13px;padding: 19.5px 24px;">დასახელება</th>
             <th style="width:16.6%;font-size: 13px">შპს</th>
             <th style="width:16.6%;font-size: 13px">საიდენტიფიკაციო კოდი</th>
             <th style="width:16.6%;font-size: 13px">სტატუსი</th>
             <th style="width:16.6%;font-size: 13px">შექმნის თარიღი</th>
+            <th style="width:16.6%;font-size: 13px"></th>
           </tr>
         </ng-template>
 
@@ -68,12 +70,11 @@
             <td style="height: 60px;">{{ organization.tradeName }}</td>
             <td style="height: 60px;">{{ organization.identificationCode }}</td>
             <td style="height: 60px;">{{ organization.status }}</td>
-            <td style="height: 60px;display: flex;align-items: center;justify-content: space-evenly">{{ organization.createdAt | date: 'dd/MM/yyyy' }}
-
-              <i class="pi pi-eye" (click)="handleSpecificOrganizationClick('/specific-organization',organization.id)" style="color: #02B7FA;cursor: pointer"></i>
-              <i (click)="handleEditClick('/edit-organizations',organization.id)" class="pi pi-pencil" style="color: #02B7FA;cursor: pointer"></i>
-              <i class="pi pi-download" style="color: #02B7FA;cursor: pointer"></i>
+            <td style="height: 60px;">{{ organization.createdAt | date: 'dd/MM/yyyy' }}
             </td>
+            <td style="height: 60px; display: flex;align-items: center;justify-content: center;gap: 29.5px;">  <i class="pi pi-eye" (click)="handleSpecificOrganizationClick('/specific-organization',organization.id)" style="color: #02B7FA;cursor: pointer"></i>
+              <i  class="pi pi-pencil" (click)="handleEditClick(organization.id)" style="color: #02B7FA;cursor: pointer"></i>
+              <i class="pi pi-download" style="color: #02B7FA;cursor: pointer"></i></td>
           </tr>
         </ng-template>
       </p-table>
@@ -84,9 +85,13 @@
           [first]="first"
           [rows]="rowsPerPage"
           [totalRecords]="$totalRecords$()"
+          [showCurrentPageReport]="true"
         />
       </div>
     </div>
   </div>
 </div>
+@if ($isModalOpen$()) { 
+  <app-add-organization [organizationId]="$organizationId$()" (close)="$isModalOpen$.set(false)" />
+}
 </div>

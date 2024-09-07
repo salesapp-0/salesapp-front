@@ -9,4 +9,5 @@ export interface Statistics {
   passivePercentage: number
   overduePercentage: number
   overdueServiceCostPercentage: number
+  totalOrganizationsPercentage:number
 }
