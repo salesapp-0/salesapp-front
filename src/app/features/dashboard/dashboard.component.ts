@@ -44,8 +44,8 @@ export type ChartOptions = {
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-  options: { name: string }[] = [{ name: 'დღე' }, { name: 'წელი' }];
-  selectedOption: { name: string } = { name: 'დღე' };
+  options: { name: string,key:string }[] = [{ name: 'დღე',key:'day' },{ name: 'თვე',key:'month' },{ name: 'წელი',key:'year' }];
+  selectedOption: { name: string,key:string } = { name: 'დღე',key:'day' };
   statistics$!: Observable<Statistics>;
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<any> = {};
@@ -55,11 +55,9 @@ export class DashboardComponent implements OnInit {
     this.initConfig();
     this.getStatistics(this.selectedOption)
   }
-  getStatistics(selectedOption:{ name: string } ) {
-    console.log(selectedOption);
+  getStatistics(selectedOption:{ name: string,key:string } ) {
     this.statistics$ = this.dashboardService.getStatistics$(selectedOption).pipe(
       map((res) => {
-        console.log('Statistics Response:', res);
         this.chartOptions['series'] = [
           100,
           res.activePercentage,
