@@ -1,11 +1,23 @@
-import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
-import {HeaderComponent} from "../../shared/ui/header/header.component";
-import {SidebarComponent} from "../../shared/ui/sidebar/sidebar.component";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {InputTextModule} from "primeng/inputtext";
-import {DropdownModule} from "primeng/dropdown";
-import {CalendarModule} from "primeng/calendar";
-import {TableModule} from "primeng/table";
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
+import { HeaderComponent } from '../../shared/ui/header/header.component';
+import { SidebarComponent } from '../../shared/ui/sidebar/sidebar.component';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
 import {
   BehaviorSubject,
   debounceTime,
@@ -16,17 +28,20 @@ import {
   Subject,
   switchMap,
   takeUntil,
-  tap
-} from "rxjs";
-import {ApiService} from "../../shared/services/api-service.service";
-import {CommonModule} from "@angular/common";
-import {PaginatorModule} from "primeng/paginator";
-import {unsub} from "../../shared/classes/unsub.class";
-import {LastContactStatus} from "../../core/enums/contact-status.enum";
-import {BuyerOrganization, BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
-import {NavigateService} from "../../shared/services/navigate.service";
-import {OrganizationsService} from "../../shared/services/organizations.service";
-import { AddOrganizationComponent } from "./add-organization/add-organization.component";
+  tap,
+} from 'rxjs';
+import { ApiService } from '../../shared/services/api-service.service';
+import { CommonModule } from '@angular/common';
+import { PaginatorModule } from 'primeng/paginator';
+import { unsub } from '../../shared/classes/unsub.class';
+import { LastContactStatus } from '../../core/enums/contact-status.enum';
+import {
+  BuyerOrganization,
+  BuyerOrganizations,
+} from '../../core/interfaces/buyer-organizations.interface';
+import { NavigateService } from '../../shared/services/navigate.service';
+import { OrganizationsService } from '../../shared/services/organizations.service';
+import { AddOrganizationComponent } from './add-organization/add-organization.component';
 
 @Component({
   selector: 'app-organizations',
@@ -42,12 +57,12 @@ import { AddOrganizationComponent } from "./add-organization/add-organization.co
     CommonModule,
     PaginatorModule,
     ReactiveFormsModule,
-    AddOrganizationComponent
-],
+    AddOrganizationComponent,
+  ],
   templateUrl: './organizations.component.html',
-  styleUrl: './organizations.component.scss'
+  styleUrl: './organizations.component.scss',
 })
-export class OrganizationsComponent extends unsub implements OnInit{
+export class OrganizationsComponent extends unsub implements OnInit {
   value: string = '';
   date: Date | undefined;
   statusOptions: any[] = [];
@@ -57,10 +72,10 @@ export class OrganizationsComponent extends unsub implements OnInit{
   $limit$ = signal(10);
   $totalRecords$ = signal(0);
   $isModalOpen$ = signal(false);
-  $organizationId$:WritableSignal<string | null> = signal(null)
+  $organizationId$: WritableSignal<string | null> = signal(null);
   private organizationService = inject(OrganizationsService);
-  private fb = inject(FormBuilder)
-  private navigateService = inject(NavigateService)
+  private fb = inject(FormBuilder);
+  private navigateService = inject(NavigateService);
   ngOnInit() {
     this.statusOptions = [
       { name: 'აქტიური', code: 'active' },
@@ -71,46 +86,51 @@ export class OrganizationsComponent extends unsub implements OnInit{
     this.myForm = this.fb.group({
       search: [''],
       status: [''],
-      date: ['']
+      date: [''],
     });
-    this.myForm.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      map((res) => {
-        this.loadOrganizations()
-      }),
-      takeUntil(this.unsubscribe$)
-    ).subscribe()
+    this.myForm.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        map((res) => {
+          this.loadOrganizations();
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
     this.loadOrganizations();
   }
 
-
   loadOrganizations(): void {
     const dateValue = this.myForm.get('date')?.value;
-    let formatDate
-    if(dateValue) {
+    let formatDate;
+    if (dateValue) {
       let date = new Date(dateValue);
       if (isNaN(date.getTime())) {
         throw new Error('Invalid date value');
       }
-     formatDate = date.toISOString();
+      formatDate = date.toISOString();
     }
     const filters = {
       search: this.myForm.get('search')?.value,
-      dateRange: this.myForm.get('date')?.value ? [formatDate, formatDate] : undefined,
-      status: this.myForm.get('status')?.value?.code
+      dateRange: this.myForm.get('date')?.value
+        ? [formatDate, formatDate]
+        : undefined,
+      status: this.myForm.get('status')?.value?.code,
     };
-    this.organizations$ = this.organizationService.getOrganizations(this.currentPage, this.rowsPerPage, filters).pipe(
-      map((res:BuyerOrganizations) => {
-        return {
-          data:this.handleChangeData(res.data),
-          total: res.total
-        }
-      }),
-      tap(response => {
-        this.$totalRecords$.set(response.total);
-      })
-    );
+    this.organizations$ = this.organizationService
+      .getOrganizations(this.currentPage, this.rowsPerPage, filters)
+      .pipe(
+        map((res: BuyerOrganizations) => {
+          return {
+            data: this.handleChangeData(res.data),
+            total: res.total,
+          };
+        }),
+        tap((response) => {
+          this.$totalRecords$.set(response.total);
+        })
+      );
   }
   onPageChange(event: any): void {
     this.$page$.set(event.page + 1);
@@ -127,47 +147,46 @@ export class OrganizationsComponent extends unsub implements OnInit{
   get first(): number {
     return (this.currentPage - 1) * this.rowsPerPage;
   }
-  handleChangeData(data:BuyerOrganization[]) {
+  handleChangeData(data: BuyerOrganization[]) {
     let statusColors: any = {
       active: {
         name: 'აქტიური',
         textColor: 'text-success',
-        bgColor: 'bg-backgroundDark'
+        bgColor: 'bg-backgroundDark',
       },
       passive: {
         name: 'პასიური',
         textColor: 'text-alert',
-        bgColor: 'bg-textMedium'
+        bgColor: 'bg-textMedium',
       },
       registered: {
         name: 'დარეგისტრირებული',
         textColor: 'text-white',
-        bgColor: 'bg-yellow-500'
+        bgColor: 'bg-yellow-500',
       },
       overdue: {
         name: 'ვადაგადაცილებული',
-         textColor: 'text-error',
-        bgColor: 'bg-textLight'
+        textColor: 'text-error',
+        bgColor: 'bg-textLight',
       },
     };
-    return data.map((data:BuyerOrganization) => {
+    return data.map((data: BuyerOrganization) => {
       return {
         ...data,
-        status:statusColors[data.status]
-      }
-    })
+        status: statusColors[data.status],
+      };
+    });
   }
 
-  handleNavigate(route:string) {
-    this.navigateService.navigateTo(route)
+  handleNavigate(route: string) {
+    this.navigateService.navigateTo(route);
   }
-  handleEditClick(organizationId:string) {
-    this.$isModalOpen$.set(true)
-    this.$organizationId$.set(organizationId) 
-  }
-
-  handleSpecificOrganizationClick(route:string,organizationId:string) {
-    this.navigateService.navigateTo(`${route}/see`,{id:organizationId})
+  handleEditClick(organizationId: string) {
+    this.$isModalOpen$.set(true);
+    this.$organizationId$.set(organizationId);
   }
 
+  handleSpecificOrganizationClick(route: string, organizationId: string) {
+    this.navigateService.navigateTo(`${route}/see`, { id: organizationId });
+  }
 }
