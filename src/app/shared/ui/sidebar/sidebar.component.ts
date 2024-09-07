@@ -39,11 +39,11 @@ export class SidebarComponent extends unsub{
     this.navigateService.navigateTo(url)
   }
   logout() {
-    this.authService.logout$().pipe(
-      map(() => {
-        this.router.navigate(['/login'])
-      }),
-      takeUntil(this.unsubscribe$)
-    ).subscribe()
+    this.authService.logout$()
+      .pipe(
+        tap(() => this.router.navigate(['/login'])),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
   }
 }
