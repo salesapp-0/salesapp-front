@@ -103,19 +103,25 @@ export class OrganizationsComponent extends unsub implements OnInit {
 
   loadOrganizations(): void {
     const dateValue = this.myForm.get('date')?.value;
-    let formatDate;
-    if (dateValue) {
-      let date = new Date(dateValue);
-      if (isNaN(date.getTime())) {
-        throw new Error('Invalid date value');
+    let formattedStartDate: string | undefined;
+    let formattedEndDate: string | undefined;
+
+    if (dateValue && dateValue.length === 2) {
+      const startDate = new Date(dateValue[0]);
+      const endDate = new Date(dateValue[1]);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        throw new Error('Invalid date range values');
       }
-      formatDate = date.toISOString();
+      formattedStartDate = startDate.toISOString();
+      formattedEndDate = endDate.toISOString();
     }
     const filters = {
       search: this.myForm.get('search')?.value,
-      dateRange: this.myForm.get('date')?.value
-        ? [formatDate, formatDate]
-        : undefined,
+      dateRange:
+        formattedStartDate && formattedEndDate
+          ? [formattedStartDate, formattedEndDate]
+          : undefined,
       status: this.myForm.get('status')?.value?.code,
     };
     this.organizations$ = this.organizationService
