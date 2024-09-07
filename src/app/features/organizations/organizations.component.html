@@ -56,30 +56,30 @@
       >
         <ng-template pTemplate="header">
           <tr style="padding-top: 10px;padding-bottom: 10px;height: 56px;">
-            <th style="width:16.6%;font-size: 13px">დასახელება</th>
-            <th style="width:16.6%;font-size: 13px">შპს</th>
-            <th style="width:16.6%;font-size: 13px">საიდენტიფიკაციო კოდი</th>
-            <th style="width:16.6%;font-size: 13px">სტატუსი</th>
-            <th style="width:16.6%;font-size: 13px">შექმნის თარიღი</th>
-            <th style="width:16.6%;font-size: 13px"></th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">დასახელება</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">შპს</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">საიდენტიფიკაციო კოდი</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">სტატუსი</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">შექმნის თარიღი</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;"></th>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-organization>
           <tr class="overflow-x-auto">
-            <td style="height: 72px;">{{ organization.legalName }}</td>
-            <td style="height: 72px;">{{ organization.tradeName }}</td>
-            <td style="height: 72px;">{{ organization.identificationCode }}</td>
-            <td style="height: 72px;"><span
+            <td style="height: 72px;padding: 16px 24px;">{{ organization.legalName }}</td>
+            <td style="height: 72px;padding: 16px 24px;">{{ organization.tradeName }}</td>
+            <td style="height: 72px;padding: 16px 24px;">{{ organization.identificationCode }}</td>
+            <td style="height: 72px;padding: 16px 24px;"><span
               [ngClass]="[
               organization.status.bgColor,
               organization.status.textColor,
               'rounded-lg h-[22px] p-[3px] text-[12px]'
             ]"
               >{{organization.status.name}}</span></td>
-            <td style="height: 72px;">{{ organization.createdAt | date: 'dd/MM/yyyy' }}
+            <td style="height: 72px;padding: 16px 24px;">{{ organization.createdAt | date: 'dd/MM/yyyy' }}
             </td>
-            <td style="height: 72px; display: flex;align-items: center;justify-content: center;gap: 29.5px;">  <i class="pi pi-eye" (click)="handleSpecificOrganizationClick('/specific-organization',organization.id)" style="color: #02B7FA;cursor: pointer"></i>
+            <td style="height: 72px;padding: 16px 24px; display: flex;align-items: center;justify-content: center;gap: 29.5px;">  <i class="pi pi-eye" (click)="handleSpecificOrganizationClick('/specific-organization',organization.id)" style="color: #02B7FA;cursor: pointer"></i>
               <i  class="pi pi-pencil text-accent" (click)="handleEditClick(organization.id)" style="cursor: pointer"></i>
               <i class="pi pi-download text-accent" style="cursor: pointer"></i></td>
           </tr>

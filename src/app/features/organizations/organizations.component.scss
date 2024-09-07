@@ -73,6 +73,9 @@
 .organizations__table {
   margin-top: 15px;
   overflow-x: auto; 
+  @media (max-width: 900px) {
+    max-width: 375px;
+  }
 }
 
 .p-table {
