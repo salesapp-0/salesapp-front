@@ -70,3 +70,16 @@
     }
   }
 }
+.organizations__table {
+  margin-top: 15px;
+  overflow-x: auto; 
+}
+
+.p-table {
+  min-width: 100%; 
+  width: 100%; 
+}
+
+.p-table th, .p-table td {
+  white-space: nowrap; 
+}

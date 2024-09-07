@@ -128,16 +128,32 @@ export class OrganizationsComponent extends unsub implements OnInit{
     return (this.currentPage - 1) * this.rowsPerPage;
   }
   handleChangeData(data:BuyerOrganization[]) {
-    let obj:any = {
-      active: 'აქტიური',
-      passive: 'პასიური',
-      registered: 'დარეგისტრირებული',
-      overdue: 'ვადაგადაცილებული',
-    }
+    let statusColors: any = {
+      active: {
+        name: 'აქტიური',
+        textColor: 'text-success',
+        bgColor: 'bg-backgroundDark'
+      },
+      passive: {
+        name: 'პასიური',
+        textColor: 'text-alert',
+        bgColor: 'bg-textMedium'
+      },
+      registered: {
+        name: 'დარეგისტრირებული',
+        textColor: 'text-white',
+        bgColor: 'bg-yellow-500'
+      },
+      overdue: {
+        name: 'ვადაგადაცილებული',
+         textColor: 'text-error',
+        bgColor: 'bg-textLight'
+      },
+    };
     return data.map((data:BuyerOrganization) => {
       return {
         ...data,
-        status:obj[data.status]
+        status:statusColors[data.status]
       }
     })
   }
@@ -153,4 +169,5 @@ export class OrganizationsComponent extends unsub implements OnInit{
   handleSpecificOrganizationClick(route:string,organizationId:string) {
     this.navigateService.navigateTo(`${route}/see`,{id:organizationId})
   }
+
 }

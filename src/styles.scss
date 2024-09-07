@@ -4,6 +4,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100..900&display=swap');
 @tailwind components;
 @tailwind utilities;
+:root {
+  --primary: #8280FF;
+  --secondary: #FEC53D;
+  --success: #00974F;
+  --error: #FF9871;
+  --alert: #F93C65;
+  --background-light: #E4E4FF;
+  --background-medium: #FEF2D6;
+  --background-dark: #D2FDE6;
+  --text-light: #FFDED2;
+  --text-medium: #FFC9D7;
+  --accent: #02B7FA;
+  --accent-light: #E0F3FA;
+  --dark: #03161D;
+  --muted: #5B757E;
+  --border: #78939E;
+  --card: #A4B4BB;
+  --overlay: #C8CFCE;
+  --gray-light: #F7F7F7;
+  --gray-medium: #FBFBFB;
+  --white: #FFFFFF;
+}
+// bg-overdue color --text-light text --error
+
 * {
   font-family: "Noto Sans Georgian", sans-serif;
   padding:0;
