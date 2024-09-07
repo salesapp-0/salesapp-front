@@ -4,7 +4,10 @@
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  height: 80px;
+  height: 72px;
+  &-logo {
+    cursor: pointer;
+  }
   &__user {
     display: flex;
     align-items: center;
@@ -20,10 +23,11 @@
       }
       &-username {
         font-weight: bold;
-        font-size:18px;
+        font-size:14px;
       }
       &-position {
         color:#5B757E;
+        font-size:14px;
       }
     }
   }

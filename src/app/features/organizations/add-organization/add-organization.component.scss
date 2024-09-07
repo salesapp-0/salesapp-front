@@ -22,12 +22,14 @@
         &-item {
           display: flex;
           flex-direction: column;
-          margin-top: 40px;
+          gap: 8px;
+          margin-top: 32px;
 
           input {
             max-width: 446px;
             height: 46px;
             width: 100%;
+            padding: 4px;
           }
         }
       }
@@ -66,6 +68,10 @@
     span {
       width:446px;
       height: 46px;
+   
+      input {
+        padding: 4px;
+      }
     }
   }
 
@@ -74,6 +80,9 @@
       max-width: 446px;
       height: 46px;
       width: 100%;
+      input {
+        padding: 4px;
+      }
     }
   }
 }

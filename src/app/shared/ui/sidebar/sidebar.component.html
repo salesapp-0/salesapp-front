@@ -1,6 +1,4 @@
 <div class="sidebar">
-
-
 <div class="sidebar__tab">
   <div class="sidebar__tab__route"
        (click)="onNavigate('/main-page')"
@@ -20,7 +18,8 @@
        (click)="onNavigate('/organizations')"
        [class.sidebar__tab__route--active]="$currentRoute$() === '/organizations'"
   >
-    <img src="./assets/images/side-bar/house.png" alt="">
+  <!-- ./assets/images/side-bar/house.png -->
+    <img [src]="$currentRoute$() === '/organizations' ? './assets/images/side-bar/house-white.png' : './assets/images/side-bar/house.png'" alt="">
     <p>ორგანიზაციები</p>
     
   </div>

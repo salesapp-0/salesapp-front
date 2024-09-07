@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-end;
   padding-top: 16px;
-  padding-left: 30px;
+  padding-left: 16px;
   gap: 24px;
   max-height: 491px;
   height: 100%;
@@ -54,7 +54,7 @@
       }
     }
   }
-  @media screen and (max-width: 990px) {
+  @media screen and (max-width: 1450px) {
     &__chart {
       &__numbers {
       flex-direction: column;

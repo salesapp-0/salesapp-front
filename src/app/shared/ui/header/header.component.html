@@ -1,5 +1,5 @@
 <div class="header">
-  <img src="./assets/images/login/site-logo.png" alt="*">
+  <img (click)="onNavigate('/main-page')" class="header-logo" src="./assets/images/login/site-logo.png" alt="*">
   <div class="header__user" *ngIf="user$ | async as uData">
     <img class="header__user-avatar" src="./assets/images/dashboard/avatar.png" alt="*">
     <div class="header__user__info">

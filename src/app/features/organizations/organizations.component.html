@@ -4,7 +4,7 @@
 <div class="wrapper">
   <div class="organizations">
     <div class="organizations__header">
-      <h2>ორგანიზაციების ცხრილი</h2>
+      <h2 class="text-[16px]">ორგანიზაციების ცხრილი</h2>
       <button (click)="$isModalOpen$.set(true);this.$organizationId$.set(null)">
         <img src="./assets/images/organizations/add_circle.png" alt="">
         <p>დამატება</p>
@@ -24,7 +24,7 @@
   <i class="pi pi-search absolute left-3 top-4" style="font-size: 1rem"></i>
       </div>
 
-      <div class="w-[100%] max-w-[365px]">
+      <div class="w-[100%] max-w-[386px]">
         <p-calendar formControlName="date"
                     [dateFormat]="'yy-mm-dd'"
                     selectionMode="range" 
@@ -32,7 +32,7 @@
         ></p-calendar>
       </div>
 
-      <div class="w-[100%] max-w-[365px]">
+      <div class="w-[100%] max-w-[386px]">
         <p-dropdown
           [options]="statusOptions"
         formControlName="status"
