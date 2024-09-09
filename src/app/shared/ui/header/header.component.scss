@@ -5,6 +5,8 @@
   justify-content: space-between;
   background-color: white;
   height: 72px;
+  width: 100%;
+  position: fixed;
   &-logo {
     cursor: pointer;
   }
@@ -12,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 6px;
     &-arrow {
       position:relative;
       bottom:10px;

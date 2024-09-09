@@ -1,14 +1,13 @@
 <div class="header">
-  <img (click)="onNavigate('/main-page')" class="header-logo" src="./assets/images/login/site-logo.png" alt="*">
+  <div></div>
   <div class="header__user" *ngIf="user$ | async as uData">
-    <img class="header__user-avatar" src="./assets/images/dashboard/avatar.png" alt="*">
+    <img class="w-[40px]" src="./assets/images/dashboard/avatar.png" alt="*">
     <div class="header__user__info">
       <p class="header__user__info-username">{{uData.username}}</p>
-
       <p class="header__user__info-position"
         *ngFor="let role of uData.roles"
       >{{role.role.name}}</p>
     </div>
-    <img class="header__user-arrow" src="./assets/images/dashboard/arrow.png" alt="">
+    <img class="header__user-arrow w-[11px]" src="./assets/images/dashboard/arrow.png" alt="">
   </div>
 </div>

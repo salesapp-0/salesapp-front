@@ -1,9 +1,9 @@
 .wrapper {
+  width: 100%;
   &__overdue{
     background-color: white;
     padding: 24px;
     border-radius: 10px;
-    max-width: 465px;
   }
   &__overdue-value {
     margin-top: 11px;

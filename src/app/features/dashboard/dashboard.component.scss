@@ -1,13 +1,15 @@
 .dashboard {
   display: flex;
   justify-content: flex-end;
-  padding-top: 16px;
-  padding-left: 16px;
+  padding: 88px 16px 16px;
   gap: 24px;
-  max-height: 491px;
+  max-height: 580px;
   height: 100%;
+  width: 100%;
+  &__wrapper {
+    width: 100%;
+  }
   &__chart {
-    max-width: 634px;
     width: 100%;
     padding: 24px;
     background-color: white;
@@ -68,7 +70,7 @@
     padding: 5px !important;
   }
   apx-chart {
-    width: 291px;
+    width: 340px;
     height: 266px;
     display:block;
   }

@@ -44,8 +44,12 @@ export type ChartOptions = {
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-  options: { name: string,key:string }[] = [{ name: 'დღე',key:'day' },{ name: 'თვე',key:'month' },{ name: 'წელი',key:'year' }];
-  selectedOption: { name: string,key:string } = { name: 'დღე',key:'day' };
+  options: { name: string; key: string }[] = [
+    { name: 'დღე', key: 'day' },
+    { name: 'თვე', key: 'month' },
+    { name: 'წელი', key: 'year' },
+  ];
+  selectedOption: { name: string; key: string } = { name: 'დღე', key: 'day' };
   statistics$!: Observable<Statistics>;
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<any> = {};
@@ -53,19 +57,21 @@ export class DashboardComponent implements OnInit {
   constructor() {}
   ngOnInit() {
     this.initConfig();
-    this.getStatistics(this.selectedOption)
+    this.getStatistics(this.selectedOption);
   }
-  getStatistics(selectedOption:{ name: string,key:string } ) {
-    this.statistics$ = this.dashboardService.getStatistics$(selectedOption).pipe(
-      map((res) => {
-        this.chartOptions['series'] = [
-          100,
-          res.activePercentage,
-          res.passivePercentage,
-        ];
-        return res;
-      })
-    );
+  getStatistics(selectedOption: { name: string; key: string }) {
+    this.statistics$ = this.dashboardService
+      .getStatistics$(selectedOption)
+      .pipe(
+        map((res) => {
+          this.chartOptions['series'] = [
+            100,
+            res.activePercentage,
+            res.passivePercentage,
+          ];
+          return res;
+        })
+      );
   }
   initConfig() {
     this.chartOptions = {
