@@ -29,10 +29,15 @@
                     [dateFormat]="'yy-mm-dd'"
                     selectionMode="range" 
                     placeholder="თარიღი"
+                    [showIcon]="true" 
+                    [icon]="'pi pi-angle-down'"
+                    [iconDisplay]="'button'" 
+                    inputId="icondisplay"
         ></p-calendar>
       </div>
 
-      <div class="w-[100%] max-w-[386px]">
+      <div class="w-[100%] max-w-[386px]">                    
+
         <p-dropdown
           [options]="statusOptions"
         formControlName="status"
