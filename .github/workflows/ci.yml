@@ -1,0 +1,34 @@
+name: Deploy Sales App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: SSH into server and run the commands
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 206.81.30.112
+          username: root
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            # Load NVM (Node Version Manager) environment
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+            # Pull changes, build frontend and backend, and start the backend
+            cd /var/www/salesapp-front
+            git pull
+            npm install
+            npm run build:staging
