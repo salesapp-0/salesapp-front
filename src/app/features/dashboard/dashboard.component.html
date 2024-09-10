@@ -2,24 +2,30 @@
   <div class="flex">
       <app-sidebar/>
     <div class="dashboard" *ngIf="statistics$ | async as stats">
-      <!--header-->
-      <div class="flex items-center justify-between w-full bg-white py-[24px] px-[16px] rounded-[6px]">
-        <h3>ორგანიზაციები</h3>
-        <div>
-          <p-dropdown
-            [options]="options"
-            [(ngModel)]="selectedOption"
-            (ngModelChange)="getStatistics(selectedOption)"
-            optionLabel="name"
-            placeholder="Select a City" />
-        </div>
-      </div>
-      <!--  -->
+      <div class="flex items-center flex-col w-full bg-white py-[24px] px-[16px] rounded-[6px]">
+ <!--header-->
+ <div class="flex items-center justify-between w-full">
+  <h3>ორგანიზაციები</h3>
+  <div>
+    <p-dropdown
+      [options]="options"
+      [(ngModel)]="selectedOption"
+      (ngModelChange)="getStatistics(selectedOption)"
+      optionLabel="name"
+      placeholder="Select a City" />
+  </div>
+</div>
+<!--  -->
 
-      <!-- cards container -->
-       <div class="flex items-center justify-center flex-wrap pt-[24px]">
-          
-       </div>
+<!-- cards container -->
+ <div class="flex items-center justify-evenly flex-wrap pt-[24px] gap-[15px] w-full flex-1">
+    <app-card-info colorType="primary" [value]="stats.totalOrganizations" title="რეგისტრირებული"/>
+    <app-card-info colorType="success" [value]="stats.activeOrganizations" title="აქტიური"/>
+    <app-card-info colorType="alert" [value]="stats.passiveOrganizations" title="პასიური"/>
+    <app-card-info colorType="secondary" [value]="stats.overdueOrganizations" title="ვადაგადაცილებული ორგანიზაცია"/>
+    <app-card-info colorType="error" [value]="stats.totalServiceCost" title="ვადაგადაცილებული  მოცულობა"/>
+ </div>
+      </div>
     </div>
   </div>
 
