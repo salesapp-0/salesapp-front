@@ -17,7 +17,6 @@ import { DashboardService } from '../../shared/services/dashboard.service';
 import { map, Observable } from 'rxjs';
 import { CommonModule, NgIf } from '@angular/common';
 import { Statistics } from '../../core/interfaces/statistics.interface';
-import { CardProgressComponent } from './card-progress/card-progress.component';
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
@@ -38,7 +37,6 @@ export type ChartOptions = {
     DropdownModule,
     NgApexchartsModule,
     CommonModule,
-    CardProgressComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

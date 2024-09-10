@@ -3,68 +3,10 @@
   justify-content: flex-end;
   padding: 88px 16px 16px;
   gap: 24px;
-  max-height: 580px;
   height: 100%;
   width: 100%;
-  &__wrapper {
-    width: 100%;
-  }
-  &__chart {
-    width: 100%;
-    padding: 24px;
-    background-color: white;
-    border-radius: 10px;
-    &-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__numbers {
-      display: flex;
-      align-items: center;
-    }
-
-    &__info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      margin-top: 20px;
-      div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-      }
-      div:nth-child(2) {
-        p {
-          font-size: 18px;
-          font-weight: 900;
-        }
-      }
-      &-item {
-        div {
-          border-radius: 50%;
-          width: 16px;
-          height: 16px;
-        }
-        &-header {
-          color:#5B757E;
-          font-size: 17px;
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 1450px) {
-    &__chart {
-      &__numbers {
-      flex-direction: column;
-      }
-    }
-  }
 }
-::ng-deep {
+::ng-deep {ა
   .p-dropdown {
     width: 117px;
     padding: 5px !important;
