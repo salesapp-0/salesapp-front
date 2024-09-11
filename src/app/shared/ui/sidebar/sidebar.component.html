@@ -1,7 +1,9 @@
 <div class="sidebar relative">
   <img (click)="toggleSidebar()" 
-  [ngStyle]="{'right': '-36px !important'}"
-  class="w-[18px] absolute right-[9px] cursor-pointer z-10" src="./assets/images/side-bar/close-icon.svg" alt="">
+  [ngClass]="{'right-[-36px]': !this.$isSIdeBarOpen$(),
+        'right-[9px]':this.$isSIdeBarOpen$()
+  }"
+  class="w-[18px] absolute  cursor-pointer z-10" src="./assets/images/side-bar/close-icon.svg" alt="">
   <div class="relative top-[1px] flex flex-col justify-between">
     <div class="flex items-center align-middle gap-[10px]">
       <img class=" cursor-pointer" (click)="onNavigate('/main-page')"  src="./assets/images/side-bar/inactive-logo.svg" alt="*">
