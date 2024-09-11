@@ -1,6 +1,6 @@
 <div class="sidebar relative">
   <img (click)="toggleSidebar()" 
-  [ngClass]="{'right-[-36px]': !this.$isSIdeBarOpen$()}"
+  [ngStyle]="{'right': '-36px !important'}"
   class="w-[18px] absolute right-[9px] cursor-pointer z-10" src="./assets/images/side-bar/close-icon.svg" alt="">
   <div class="relative top-[1px] flex flex-col justify-between">
     <div class="flex items-center align-middle gap-[10px]">
