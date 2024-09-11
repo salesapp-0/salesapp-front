@@ -63,6 +63,11 @@
     height: 46px;
     padding: 10px;
   }
+  .p-icon-wrapper {
+    position: absolute;
+    top: 32%;
+    transform: translateY(-2%);
+  }
   p-calendar {
     span {
       width: 100%;

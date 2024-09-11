@@ -9,7 +9,7 @@
 >
 <!-- [ngClass]="{'max-w-[224px]': true}" -->
    <div class="bg-white rounded-[16px] py-[18px] px-[20px]">
-    <img src="./assets/images/dashboard/people-fill.svg" alt="*">
+    <img [src]="'./assets/images/dashboard/' + icon+ '.svg'" alt="*">
    </div>
     <h3>{{colorType=== 'error' ? value + '₾' : value}}</h3>
     <p class="text-muted text-[12px] text-nowrap">{{title}}</p>

@@ -19,11 +19,11 @@
 
 <!-- cards container -->
  <div class="flex items-center justify-evenly flex-wrap pt-[24px] gap-[15px] w-full flex-1">
-    <app-card-info colorType="primary" [value]="stats.totalOrganizations" title="რეგისტრირებული"/>
-    <app-card-info colorType="success" [value]="stats.activeOrganizations" title="აქტიური"/>
-    <app-card-info colorType="alert" [value]="stats.passiveOrganizations" title="პასიური"/>
-    <app-card-info colorType="secondary" [value]="stats.overdueOrganizations" title="ვადაგადაცილებული ორგანიზაცია"/>
-    <app-card-info colorType="error" [value]="stats.totalServiceCost" title="ვადაგადაცილებული  მოცულობა"/>
+    <app-card-info colorType="primary" [value]="stats.totalOrganizations" title="რეგისტრირებული" icon="people-fill"/>
+    <app-card-info colorType="success" [value]="stats.activeOrganizations" title="აქტიური" icon="plus-circle-fill"/>
+    <app-card-info colorType="alert" [value]="stats.passiveOrganizations" title="პასიური" icon="dash-circle-fill"/>
+    <app-card-info colorType="secondary" [value]="stats.overdueOrganizations" title="ვადაგადაცილებული ორგანიზაცია" icon="exclamation-circle-fill"/>
+    <app-card-info colorType="error" [value]="stats.totalServiceCost" title="ვადაგადაცილებული  მოცულობა" icon="currency-dollar"/>
  </div>
       </div>
     </div>

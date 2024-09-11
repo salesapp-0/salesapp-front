@@ -79,7 +79,7 @@ export class OrganizationsComponent extends unsub implements OnInit {
   ngOnInit() {
     this.statusOptions = [
       { name: 'აქტიური', code: 'active' },
-      { name: 'არაქტიური', code: 'passive' },
+      { name: 'პასიური', code: 'passive' },
       { name: 'დარეგისტრირებული', code: 'registered' },
       { name: 'ვადაგადაცილებული', code: 'overdue' },
     ];
@@ -113,6 +113,9 @@ export class OrganizationsComponent extends unsub implements OnInit {
       if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
         throw new Error('Invalid date range values');
       }
+      startDate.setDate(startDate.getDate() + 1);
+      endDate.setDate(endDate.getDate() + 1);
+
       formattedStartDate = startDate.toISOString();
       formattedEndDate = endDate.toISOString();
     }
