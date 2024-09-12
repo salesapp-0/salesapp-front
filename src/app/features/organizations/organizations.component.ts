@@ -26,6 +26,7 @@ import {
   Observable,
   of,
   Subject,
+  Subscription,
   switchMap,
   takeUntil,
   tap,
@@ -42,6 +43,8 @@ import {
 import { NavigateService } from '../../shared/services/navigate.service';
 import { OrganizationsService } from '../../shared/services/organizations.service';
 import { AddOrganizationComponent } from './add-organization/add-organization.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguegeServices } from '../../shared/services/translate.service';
 
 @Component({
   selector: 'app-organizations',
@@ -58,6 +61,7 @@ import { AddOrganizationComponent } from './add-organization/add-organization.co
     PaginatorModule,
     ReactiveFormsModule,
     AddOrganizationComponent,
+    TranslateModule,
   ],
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.scss',
@@ -72,17 +76,21 @@ export class OrganizationsComponent extends unsub implements OnInit {
   $limit$ = signal(10);
   $totalRecords$ = signal(0);
   $isModalOpen$ = signal(false);
+  public translationSubscription$!: Observable<any>;
   $organizationId$: WritableSignal<string | null> = signal(null);
   private organizationService = inject(OrganizationsService);
   private fb = inject(FormBuilder);
   private navigateService = inject(NavigateService);
+  private translate = inject(TranslateService);
+  private langService = inject(LanguegeServices);
   ngOnInit() {
     this.statusOptions = [
-      { name: 'აქტიური', code: 'active' },
-      { name: 'პასიური', code: 'passive' },
-      { name: 'დარეგისტრირებული', code: 'registered' },
-      { name: 'ვადაგადაცილებული', code: 'overdue' },
+      { name: 'drop-down-status.1', code: 'active' },
+      { name: 'drop-down-status.2', code: 'passive' },
+      { name: 'drop-down-status.3', code: 'registered' },
+      { name: 'drop-down-status.4', code: 'overdue' },
     ];
+
     this.myForm = this.fb.group({
       search: [''],
       status: [''],
@@ -99,13 +107,13 @@ export class OrganizationsComponent extends unsub implements OnInit {
       )
       .subscribe();
     this.loadOrganizations();
+    this.onLangChangeStatus();
   }
 
   loadOrganizations(): void {
     const dateValue = this.myForm.get('date')?.value;
     let formattedStartDate: string | undefined;
     let formattedEndDate: string | undefined;
-
     if (dateValue && dateValue.length === 2) {
       const startDate = new Date(dateValue[0]);
       const endDate = new Date(dateValue[1]);
@@ -159,22 +167,22 @@ export class OrganizationsComponent extends unsub implements OnInit {
   handleChangeData(data: BuyerOrganization[]) {
     let statusColors: any = {
       active: {
-        name: 'აქტიური',
+        name: 'drop-down-status.1',
         textColor: 'text-success',
         bgColor: 'bg-backgroundDark',
       },
       passive: {
-        name: 'პასიური',
+        name: 'drop-down-status.2',
         textColor: 'text-alert',
         bgColor: 'bg-textMedium',
       },
       registered: {
-        name: 'დარეგისტრირებული',
+        name: 'drop-down-status.3',
         textColor: 'text-white',
         bgColor: 'bg-yellow-500',
       },
       overdue: {
-        name: 'ვადაგადაცილებული',
+        name: 'drop-down-status.4',
         textColor: 'text-error',
         bgColor: 'bg-textLight',
       },
@@ -197,5 +205,15 @@ export class OrganizationsComponent extends unsub implements OnInit {
 
   handleSpecificOrganizationClick(route: string, organizationId: string) {
     this.navigateService.navigateTo(`${route}/see`, { id: organizationId });
+  }
+  onLangChangeStatus() {
+    this.translationSubscription$ = this.langService
+      .translateOptions(this.statusOptions, [
+        'drop-down-status.1',
+        'drop-down-status.2',
+        'drop-down-status.3',
+        'drop-down-status.4',
+      ])
+      .pipe(map((res) => res));
   }
 }

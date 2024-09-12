@@ -4,10 +4,10 @@
 <div class="wrapper">
   <div class="organizations">
     <div class="organizations__header">
-      <h2 class="text-[16px]">ორგანიზაციების ცხრილი</h2>
+      <h2 class="text-[16px]">{{'organization.1' | translate}}</h2>
       <button (click)="$isModalOpen$.set(true);this.$organizationId$.set(null)">
         <img src="./assets/images/organizations/add_circle.png" alt="">
-        <p>დამატება</p>
+        <p>{{'organization.2' | translate}}</p>
       </button>
     </div>
 
@@ -17,7 +17,7 @@
           type="text"
           pInputText
           formControlName="search"
-          placeholder="სახელი / საიდენტიფიკაციო კოდი / მობილური ნომერი"
+          placeholder="{{'organizaiton-filter.1' | translate}}"
           class="text-left pl-10 "
         />
         
@@ -28,7 +28,7 @@
         <p-calendar formControlName="date"
                     [dateFormat]="'yy-mm-dd'"
                     selectionMode="range" 
-                    placeholder="თარიღი"
+                    placeholder="{{'organizaiton-filter.3' | translate}}"
                     [iconDisplay]="'input'" 
                     [showIcon]="true" 
                     inputId="icondisplay"
@@ -38,10 +38,10 @@
       <div class="w-[100%] max-w-[386px]">                    
 
         <p-dropdown
-          [options]="statusOptions"
+          [options]="translationSubscription$ | async"
         formControlName="status"
         optionLabel="name"
-        placeholder="სტატუსი"
+        placeholder="{{'organizaiton-filter.2' | translate}}"
         />
       </div>
     </form>
@@ -60,11 +60,11 @@
       >
         <ng-template pTemplate="header">
           <tr style="padding-top: 10px;padding-bottom: 10px;height: 56px;">
-            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">დასახელება</th>
-            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">შპს</th>
-            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">საიდენტიფიკაციო კოდი</th>
-            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">სტატუსი</th>
-            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">შექმნის თარიღი</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">{{'organization.3' | translate}}</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">{{'organization.4' | translate}}</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">{{'organization.5' | translate}}</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">{{'organization.6' | translate}}</th>
+            <th style="width:16.6%;font-size: 13px;padding: 16px 24px;">{{'organization.7' | translate}}</th>
             <th style="width:16.6%;font-size: 13px;padding: 16px 24px;"></th>
           </tr>
         </ng-template>
@@ -80,7 +80,7 @@
               organization.status.textColor,
               'rounded-lg h-[22px] px-[12px] py-[4px] text-[12px]'
             ]"
-              >{{organization.status.name}}</span></td>
+              >{{organization.status.name | translate}}</span></td>
             <td style="height: 72px;padding: 16px 24px;">{{ organization.createdAt | date: 'dd/MM/yyyy' }}
             </td>
             <td style="height: 72px;padding: 16px 24px; display: flex;align-items: center;justify-content: center;gap: 29.5px;">  <i class="pi pi-eye" (click)="handleSpecificOrganizationClick('/specific-organization',organization.id)" style="color: #02B7FA;cursor: pointer"></i>

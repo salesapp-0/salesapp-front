@@ -18,6 +18,8 @@ import { map, Observable } from 'rxjs';
 import { CommonModule, NgIf } from '@angular/common';
 import { Statistics } from '../../core/interfaces/statistics.interface';
 import { CardInfoComponent } from './card-info/card-info.component';
+import { LanguegeServices } from '../../shared/services/translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
@@ -39,24 +41,26 @@ export type ChartOptions = {
     NgApexchartsModule,
     CommonModule,
     CardInfoComponent,
+    TranslateModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   options: { name: string; key: string }[] = [
-    { name: 'დღე', key: 'day' },
-    { name: 'თვე', key: 'month' },
-    { name: 'წელი', key: 'year' },
+    { name: 'filter-cvartal.1', key: 'day' },
+    { name: 'filter-cvartal.2', key: 'month' },
+    { name: 'filter-cvartal.3', key: 'year' },
   ];
   selectedOption: { name: string; key: string } = { name: 'დღე', key: 'day' };
   statistics$!: Observable<Statistics>;
-  @ViewChild('chart') chart!: ChartComponent;
-  public chartOptions: Partial<any> = {};
+  dateOptions$!: Observable<any>;
   private dashboardService = inject(DashboardService);
+  private langService = inject(LanguegeServices);
   constructor() {}
   ngOnInit() {
     this.getStatistics(this.selectedOption);
+    this.onLangChangeStatus();
   }
   getStatistics(selectedOption: { name: string; key: string }) {
     this.statistics$ = this.dashboardService
@@ -66,5 +70,14 @@ export class DashboardComponent implements OnInit {
           return res;
         })
       );
+  }
+  onLangChangeStatus() {
+    this.dateOptions$ = this.langService
+      .translateOptions(this.options, [
+        'filter-cvartal.1',
+        'filter-cvartal.2',
+        'filter-cvartal.3',
+      ])
+      .pipe(map((res) => res));
   }
 }

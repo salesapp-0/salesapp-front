@@ -14,10 +14,17 @@ import { unsub } from '../../classes/unsub.class';
 import { AuthService } from '../../services/auth.service';
 import { NavigateService } from '../../services/navigate.service';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [SidebarModule, FormsModule, CommonModule, SvgIconComponent],
+  imports: [
+    SidebarModule,
+    FormsModule,
+    CommonModule,
+    SvgIconComponent,
+    TranslateModule,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   schemas: [NO_ERRORS_SCHEMA],
@@ -36,6 +43,7 @@ export class SidebarComponent extends unsub implements OnInit {
         map((event) => {
           if (event.constructor.name === 'NavigationEnd') {
             this.$currentRoute$.set(this.router.url);
+            console.log(this.router.url);
           }
         }),
         takeUntil(this.unsubscribe$)

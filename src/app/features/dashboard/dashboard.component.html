@@ -5,25 +5,27 @@
       <div class="flex items-center flex-col w-full bg-white py-[24px] px-[16px] rounded-[6px]">
  <!--header-->
  <div class="flex items-center justify-between w-full">
-  <h3>ორგანიზაციები</h3>
+  <h3>{{"organziaitons" | translate}}</h3>
   <div>
     <p-dropdown
-      [options]="options"
+      [options]="dateOptions$ | async"
       [(ngModel)]="selectedOption"
       (ngModelChange)="getStatistics(selectedOption)"
       optionLabel="name"
-      placeholder="Select a City" />
+      placeholder="Select a City"
+
+      />
   </div>
 </div>
 <!--  -->
 
 <!-- cards container -->
  <div class="flex items-center justify-evenly flex-wrap pt-[24px] gap-[15px] w-full flex-1">
-    <app-card-info colorType="primary" [value]="stats.totalOrganizations" title="რეგისტრირებული" icon="people-fill"/>
-    <app-card-info colorType="success" [value]="stats.activeOrganizations" title="აქტიური" icon="plus-circle-fill"/>
-    <app-card-info colorType="alert" [value]="stats.passiveOrganizations" title="პასიური" icon="dash-circle-fill"/>
-    <app-card-info colorType="secondary" [value]="stats.overdueOrganizations" title="ვადაგადაცილებული ორგანიზაცია" icon="exclamation-circle-fill"/>
-    <app-card-info colorType="error" [value]="stats.totalServiceCost" title="ვადაგადაცილებული  მოცულობა" icon="currency-dollar"/>
+    <app-card-info colorType="primary" [value]="stats.totalOrganizations" title="drop-down-status.1" icon="people-fill"/>
+    <app-card-info colorType="success" [value]="stats.activeOrganizations" title="drop-down-status.2" icon="plus-circle-fill"/>
+    <app-card-info colorType="alert" [value]="stats.passiveOrganizations" title="drop-down-status.3" icon="dash-circle-fill"/>
+    <app-card-info colorType="secondary" [value]="stats.overdueOrganizations" title="drop-down-status.4" icon="exclamation-circle-fill"/>
+    <app-card-info colorType="error" [value]="stats.totalServiceCost" title="drop-down-status.5" icon="currency-dollar"/>
  </div>
       </div>
     </div>

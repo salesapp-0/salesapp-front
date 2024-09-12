@@ -4,11 +4,11 @@ import { map, Observable } from 'rxjs';
 import { User } from '../../../core/interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { NavigateService } from '../../services/navigate.service';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
