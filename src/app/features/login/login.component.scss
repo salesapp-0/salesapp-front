@@ -62,23 +62,10 @@
           width: 100%;
           height: 70px;
           border-radius: 4px;
-          padding-left: 16px;
-        }
-        label {
-          transform: translateY(-50%);
-          left: 16px;
-        }
-        &::ng-deep {
-          eyeicon,.p-input-icon-right > .p-icon-wrapper {
-            transform: translateY(-50%);
-          }
         }
         p-password {
        
           &::ng-deep {
-            .p-password-input {
-              padding-left: 16px;
-            }
             .p-inputtext,.p-password {
               width: 100%;
               height: 70px;
