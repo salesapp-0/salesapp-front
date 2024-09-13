@@ -1,6 +1,4 @@
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100..900&display=swap');
 @tailwind components;
 @tailwind utilities;
@@ -30,8 +28,6 @@
 
 * {
   font-family: "Noto Sans Georgian", sans-serif;
-  padding:0;
-  margin:0;
 
 }
 
@@ -42,9 +38,10 @@ body {
 @layer reset, primeng;
 
 @layer reset {
-  button,
-  input {
-  }
+body {
+  padding: 0;
+  margin: 0;
+}
 }
 .overlay {
   position: fixed;
