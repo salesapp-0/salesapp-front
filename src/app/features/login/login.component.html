@@ -1,11 +1,13 @@
 <div class="login">
+  <img
+  class="login-logo"
+  src="./assets/images/login/site-logo.png"
+  alt=""
+/>
   <div class="login__wrapper">
-    <img
-      class="login__wrapper-logo"
-      src="./assets/images/login/site-logo.png"
-      alt=""
-    />
+
     <div class="login__wrapper__form">
+      <p class="text-[18px] font-bold whitespace-nowrap relative bottom-[70px]">წარმატებულ სამუშაო დღეს გისურვებთ!</p>
       <h1>ავტორიზაცია</h1>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="login__wrapper__form-inputs">
@@ -24,7 +26,7 @@
           @if(!$isError$()) {
           <div
             style="
-              margin-top: 24px;
+              margin-top: 16px;
               display: flex;
               align-items: center;
               gap: 5px;
@@ -36,7 +38,7 @@
           } @else {
           <div
             style="
-            margin-top: 24px;
+              margin-top: 16px;
               display: flex;
               align-items: center;
               gap: 5px;
@@ -57,7 +59,9 @@
       </form>
       <h1>John Doe</h1>
       <h1>securepassword</h1>
+      <p class="absolute bottom-0 font-medium">ნებისმიერი კითხვის ან/და პრობლემის შემთხვევაში, დაუკავშირდით ჩვენს მომხმარებელთა ზრუნვის დეპარტამენტს: 45252352</p>
     </div>
+    
   </div>
   <img class="login-left" src="./assets/images/login/login-left.png" alt="" />
 </div>

@@ -33,8 +33,9 @@
     }
     &-filters {
       display: flex;
-      gap:68px;
+      gap: 35px;
       margin-top: 24px;
+      flex-wrap: wrap;
       div:first-child {
         input {
           width: 100%;
