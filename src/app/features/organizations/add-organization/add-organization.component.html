@@ -46,7 +46,15 @@
             <small *ngIf="f['legalAddress'].errors?.['minlength']">Minimum 4 characters required.</small>
           </div>
         </div>
-
+        <div class="add-organization__wrapper__form-item">
+          <label for="contactPhoneNumber" class="text-muted">ინვოისინგის მეილი</label>
+          <p-multiSelect 
+    [options]="cities" 
+    optionLabel="name" 
+    placeholder="Select Cities" 
+    formControlName="contactMails"
+    />
+        </div>
         <div class="add-organization__wrapper__form-item">
           <label for="actualAddress" class="text-muted">ფაქტობრივი მისამართი</label>
           <input pInputText id="actualAddress" formControlName="actualAddress" />
@@ -96,7 +104,7 @@
 
         <div class="add-organization__wrapper__form-item">
           <label for="contactPerson" class="text-muted">საკონტაქტო პირი</label>
-          <input pInputText id="contactPerson" formControlName="contactPhoneNumber" />
+          <input pInputText id="contactPerson" formControlName="contactPerson" />
           <div *ngIf="f['contactPerson'].touched && f['contactPerson'].invalid">
             <small *ngIf="f['contactPerson'].errors?.['required']">Contact Person is required.</small>
             <small *ngIf="f['contactPerson'].errors?.['minlength']">Minimum 4 characters required.</small>
@@ -105,12 +113,15 @@
 
         <div class="add-organization__wrapper__form-item">
           <label for="contactPhoneNumber" class="text-muted">საკონტაქტო ტელეფონის ნომერი</label>
-          <p-inputNumber id="contactPhoneNumber" inputId="contactPerson" formControlName="contactPerson" [useGrouping]="false" />
+          <p-inputNumber id="contactPhoneNumber" inputId="contactPhoneNumber" formControlName="contactPhoneNumber" [useGrouping]="false" />
           <div *ngIf="f['contactPhoneNumber'].touched && f['contactPhoneNumber'].invalid">
             <small *ngIf="f['contactPhoneNumber'].errors?.['required']">Contact Phone Number is required.</small>
             <small *ngIf="f['contactPhoneNumber'].errors?.['minlength']">Minimum 4 characters required.</small>
           </div>
         </div>
+
+  
+        
 
         <div class="add-organization__wrapper__form-item">
           <label for="contactMail" class="text-muted">საკონტაქტო ელფოსტა</label>
@@ -121,10 +132,27 @@
             <small *ngIf="f['contactMail'].errors?.['email']">Invalid email format.</small>
           </div>
         </div>
+        <div class="mt-[60px]">
+          <p-toast />
+          <p-fileUpload 
+              mode="basic" 
+              chooseLabel="აირჩიე დოკუმენტი" 
+              chooseIcon="pi pi-upload"
+              name="file"
+              url="http://localhost:3000/files/upload" 
+              accept=".pdf, .xls, .xlsx,.docx" 
+              maxFileSize="1000000" 
+              (onUpload)="onUpload($event)"
+              (onError)="onError($event)" 
+              auto="true"
+              />
       </div>
+      </div>
+  
     </form>
 
     <div class="add-organization__wrapper-buttons">
+      {{organizationForm.invalid}}
       <button (click)="onSubmit()" type="submit" [disabled]="organizationForm.invalid">{{$isEditMode$() ? 'რედაქტირება': 'დამატება'}}</button>
     </div>
   </div>

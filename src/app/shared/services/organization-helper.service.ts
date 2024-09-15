@@ -7,8 +7,6 @@ import { EventEmitter } from 'stream';
 
 @Injectable()
 export class OrganizationHelperService {
-  constructor(private organizationService: OrganizationsService) {}
-
   getOrganizationFormData(organizationForm: FormGroup): any {
     return {
       legalName: organizationForm.get('legalName')?.value,
@@ -23,62 +21,7 @@ export class OrganizationHelperService {
       contactPerson: organizationForm.get('contactPerson')?.value,
       contactPhoneNumber: organizationForm.get('contactPhoneNumber')?.value,
       contactMail: organizationForm.get('contactMail')?.value,
+      contactMails: organizationForm.get('contactMails')?.value,
     };
-  }
-
-  createOrganization(
-    organizationData: BuyerOrganization,
-    unsubscribe$: any,
-    close: any
-  ): void {
-    this.organizationService
-      .createBuyerOrganization(
-        organizationData.legalName,
-        organizationData.tradeName,
-        organizationData.identificationCode,
-        organizationData.legalAddress,
-        organizationData.actualAddress,
-        organizationData.serviceCost,
-        organizationData.paymentDate,
-        organizationData.bank,
-        organizationData.bankAccountNumber,
-        organizationData.contactPerson,
-        organizationData.contactPhoneNumber,
-        organizationData.contactMail
-      )
-      .pipe(
-        map((res) => close),
-        takeUntil(unsubscribe$)
-      )
-      .subscribe();
-  }
-
-  updateOrganization(
-    organizationData: BuyerOrganization,
-    organizationId: string,
-    unsubscribe$: any,
-    close: any
-  ): void {
-    this.organizationService
-      .updateBuyerOrganization(
-        organizationData.legalName,
-        organizationData.tradeName,
-        organizationData.identificationCode,
-        organizationData.legalAddress,
-        organizationData.actualAddress,
-        organizationData.serviceCost,
-        organizationData.paymentDate,
-        organizationData.bank,
-        organizationData.bankAccountNumber,
-        organizationData.contactPerson,
-        organizationData.contactPhoneNumber,
-        organizationData.contactMail,
-        organizationId
-      )
-      .pipe(
-        map((res) => close),
-        takeUntil(unsubscribe$)
-      )
-      .subscribe();
   }
 }
