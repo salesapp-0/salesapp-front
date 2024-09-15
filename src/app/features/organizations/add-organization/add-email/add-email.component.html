@@ -1,1 +1,14 @@
-<p>add-email works!</p>
+<div class="overlay z-50"></div>
+<div class="p-[24px] bg-white rounded-[6px]  absolute top-1/2 left-[40%] transform -translate-x-1/2 -translate-y-1/2 max-w-[409px] w-full h-[256px] z-[51]">
+    <div class="flex items-center justify-between">
+        <p class="font-bold">მეილის დამატება</p>
+        <img (click)="close.emit()" class="cursor-pointer" src="./assets/images/organizations/close.png" alt="*">
+    </div>
+    <form action="" [formGroup]="emailForm" class="flex flex-col">
+        <input formControlName="email"   class="mt-9 px-2.5 py-1.5 max-w-[446px] h-[46px] rounded-md w-full"  type="text" placeholder="@gmail.com">
+        <button [disabled]="emailForm.invalid"
+        [style.opacity]="emailForm.invalid ? '0.6' : '1'"
+        (click)="onSubmit()"
+        type="submit" class="w-[140px] m-auto mt-[40px] py-[10px] px-[42px]  bg-accent rounded-[8px] border-none text-white">შენახვა</button>
+    </form>
+</div>

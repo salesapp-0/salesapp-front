@@ -20,7 +20,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { OrganizationsService } from '../../../shared/services/organizations.service';
-import { filter, map, of, switchMap, takeUntil } from 'rxjs';
+import { catchError, map, of, switchMap, takeUntil } from 'rxjs';
 import { unsub } from '../../../shared/classes/unsub.class';
 import { CalendarModule } from 'primeng/calendar';
 import { BuyerOrganization } from '../../../core/interfaces/buyer-organizations.interface';
@@ -30,10 +30,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { log } from 'console';
-interface City {
-  name: string;
-  code: string;
-}
+import { AddEmailComponent } from './add-email/add-email.component';
 
 @Component({
   selector: 'app-add-organization',
@@ -50,6 +47,7 @@ interface City {
     FileUploadModule,
     ToastModule,
     MultiSelectModule,
+    AddEmailComponent,
   ],
   templateUrl: './add-organization.component.html',
   styleUrl: './add-organization.component.scss',
@@ -59,9 +57,10 @@ export class AddOrganizationComponent extends unsub implements OnInit {
   organizationForm!: FormGroup;
   $isEditMode$ = signal(false);
   $organizationId$ = signal('');
+  $addEmailsPopup$ = signal(false);
   $fileId$ = signal('');
-  cities!: City[];
-  selectedCities!: City[];
+  contactMails: { name: string }[] = [];
+  selectedContactMails: { name: string }[] = [];
   @Output() close = new EventEmitter();
   @Input({ alias: 'organizationId' }) set _(id: string | null) {
     if (id) {
@@ -78,7 +77,6 @@ export class AddOrganizationComponent extends unsub implements OnInit {
   private organizationHelperService = inject(OrganizationHelperService);
   private messageService = inject(MessageService);
   ngOnInit(): void {
-    this.cities = [];
     this.organizationForm = this.fb.group({
       legalName: ['', [Validators.required, Validators.minLength(4)]],
       tradeName: ['', [Validators.required, Validators.minLength(4)]],
@@ -92,11 +90,14 @@ export class AddOrganizationComponent extends unsub implements OnInit {
       contactPerson: ['', [Validators.required, Validators.minLength(4)]],
       contactPhoneNumber: ['', [Validators.required, Validators.minLength(4)]],
       contactMail: [
-        [],
+        '',
         [Validators.required, Validators.minLength(4), Validators.email],
       ],
-      contactMails: ['', [Validators.maxLength(3)]],
+      contactMails: [[], [Validators.maxLength(3)]],
       file: [null],
+    });
+    this.organizationForm?.valueChanges.subscribe((value) => {
+      // console.log(value.contactMails.map((obj: { name: string }) => obj.name));
     });
   }
 
@@ -109,7 +110,9 @@ export class AddOrganizationComponent extends unsub implements OnInit {
       const formattedServiceCost = parseFloat(
         organizationData.serviceCost
       ).toFixed(2);
-
+      const formatedCOntactMails = organizationData.contactMails.map(
+        (obj: { name: string }) => obj.name
+      );
       if (!this.$isEditMode$()) {
         this.organizationService
           .createBuyerOrganization(
@@ -125,7 +128,7 @@ export class AddOrganizationComponent extends unsub implements OnInit {
             organizationData.contactPerson,
             String(organizationData.contactPhoneNumber),
             organizationData.contactMail,
-            organizationData.contactMails
+            formatedCOntactMails
           )
           .pipe(
             switchMap((res) => {
@@ -136,6 +139,13 @@ export class AddOrganizationComponent extends unsub implements OnInit {
               }
               this.close.emit();
               return of(res);
+            }),
+            catchError((err) => {
+              this.messageService.add({
+                severity: 'error',
+                detail: err,
+              });
+              return err;
             }),
             takeUntil(this.unsubscribe$)
           )
@@ -156,7 +166,7 @@ export class AddOrganizationComponent extends unsub implements OnInit {
             String(organizationData.contactPhoneNumber),
             organizationData.contactMail,
             this.$organizationId$(),
-            organizationData.contactMails
+            formatedCOntactMails
           )
           .pipe(
             switchMap((res) => {
@@ -167,6 +177,13 @@ export class AddOrganizationComponent extends unsub implements OnInit {
               }
               this.close.emit();
               return of(res);
+            }),
+            catchError((err) => {
+              this.messageService.add({
+                severity: 'error',
+                detail: err,
+              });
+              return err;
             }),
             takeUntil(this.unsubscribe$)
           )
@@ -203,6 +220,13 @@ export class AddOrganizationComponent extends unsub implements OnInit {
             contactMails: data.contactMails,
           });
         }),
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            detail: err,
+          });
+          return err;
+        }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
@@ -220,6 +244,14 @@ export class AddOrganizationComponent extends unsub implements OnInit {
       severity: 'error',
       summary: 'Error',
       detail: 'File upload failed!',
+    });
+  }
+  onSetEmail(event: string) {
+    this.selectedContactMails.push({
+      name: event,
+    });
+    this.contactMails.push({
+      name: event,
     });
   }
 }

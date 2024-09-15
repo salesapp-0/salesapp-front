@@ -46,14 +46,18 @@
             <small *ngIf="f['legalAddress'].errors?.['minlength']">Minimum 4 characters required.</small>
           </div>
         </div>
-        <div class="add-organization__wrapper__form-item">
-          <label for="contactPhoneNumber" class="text-muted">ინვოისინგის მეილი</label>
-          <p-multiSelect 
-    [options]="cities" 
-    optionLabel="name" 
-    placeholder="Select Cities" 
-    formControlName="contactMails"
-    />
+        <div class="add-organization__wrapper__form-item flex">
+          <label for="contactMails" class="text-muted">ინვოისინგის მეილი</label>
+          <div class="flex items-center w-full gap-[10px]">
+            <p-multiSelect 
+            [options]="contactMails" 
+            optionLabel="name" 
+            placeholder="Select Cities" 
+            formControlName="contactMails"
+            />  
+                  <img class="w-[16px] cursor-pointer" (click)="$addEmailsPopup$.set(true)" src="./assets/images/organizations/add_circle.svg" alt="">
+          </div>
+       
         </div>
         <div class="add-organization__wrapper__form-item">
           <label for="actualAddress" class="text-muted">ფაქტობრივი მისამართი</label>
@@ -152,10 +156,12 @@
     </form>
 
     <div class="add-organization__wrapper-buttons">
-      {{organizationForm.invalid}}
       <button (click)="onSubmit()" type="submit" [disabled]="organizationForm.invalid">{{$isEditMode$() ? 'რედაქტირება': 'დამატება'}}</button>
     </div>
   </div>
-</div>
 
+</div>
+@if($addEmailsPopup$()) {
+  <app-add-email (thowEmails)="onSetEmail($event)" (close)="$addEmailsPopup$.set(false)"/>
+}
 

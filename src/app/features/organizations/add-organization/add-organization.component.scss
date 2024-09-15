@@ -63,6 +63,9 @@
     }
 }
 ::ng-deep {
+  p-multiselect {
+    width: 100%;
+  }
   .p-button {
     background-color:var(--accent);
     border:1px solid var(--accent);
