@@ -25,7 +25,7 @@ import { unsub } from '../../../shared/classes/unsub.class';
 import { CalendarModule } from 'primeng/calendar';
 import { BuyerOrganization } from '../../../core/interfaces/buyer-organizations.interface';
 import { OrganizationHelperService } from '../../../shared/services/organization-helper.service';
-import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -34,6 +34,7 @@ interface City {
   name: string;
   code: string;
 }
+
 @Component({
   selector: 'app-add-organization',
   standalone: true,
@@ -77,13 +78,7 @@ export class AddOrganizationComponent extends unsub implements OnInit {
   private organizationHelperService = inject(OrganizationHelperService);
   private messageService = inject(MessageService);
   ngOnInit(): void {
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-    ];
+    this.cities = [];
     this.organizationForm = this.fb.group({
       legalName: ['', [Validators.required, Validators.minLength(4)]],
       tradeName: ['', [Validators.required, Validators.minLength(4)]],
@@ -102,9 +97,6 @@ export class AddOrganizationComponent extends unsub implements OnInit {
       ],
       contactMails: ['', [Validators.maxLength(3)]],
       file: [null],
-    });
-    this.organizationForm.valueChanges.subscribe((res) => {
-      console.log(res, '123');
     });
   }
 
@@ -208,6 +200,7 @@ export class AddOrganizationComponent extends unsub implements OnInit {
             contactPerson: data.contactPerson,
             contactPhoneNumber: data.contactPhoneNumber,
             contactMail: data.contactMail,
+            contactMails: data.contactMails,
           });
         }),
         takeUntil(this.unsubscribe$)
