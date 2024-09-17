@@ -12,9 +12,7 @@ import { HeaderComponent } from '../../../shared/ui/header/header.component';
 import { SidebarComponent } from '../../../shared/ui/sidebar/sidebar.component';
 import { InputTextModule } from 'primeng/inputtext';
 import {
-  FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -32,7 +30,6 @@ import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { log } from 'console';
 import { AddEmailComponent } from './add-email/add-email.component';
 
 @Component({
@@ -107,6 +104,7 @@ export class AddOrganizationComponent extends unsub implements OnInit {
 
   onSubmit(): void {
     if (this.organizationForm.valid) {
+      this.triggerUpload();
       const organizationData =
         this.organizationHelperService.getOrganizationFormData(
           this.organizationForm
@@ -142,7 +140,6 @@ export class AddOrganizationComponent extends unsub implements OnInit {
                   .createBuyerOrganziationCotract(res.id, this.$fileId$())
                   .pipe(
                     map(() => {
-                      this.triggerUpload();
                       return res;
                     })
                   );
@@ -185,7 +182,6 @@ export class AddOrganizationComponent extends unsub implements OnInit {
                   .createBuyerOrganziationCotract(res.id, this.$fileId$())
                   .pipe(
                     map(() => {
-                      this.triggerUpload();
                       return res;
                     })
                   );
@@ -284,9 +280,5 @@ export class AddOrganizationComponent extends unsub implements OnInit {
     for (let email of data.contactMails) {
       this.contactMails.push({ name: email });
     }
-  }
-
-  onContactMailChange(e: any) {
-    console.log(e);
   }
 }

@@ -39,6 +39,7 @@ import { LastContactStatus } from '../../core/enums/contact-status.enum';
 import {
   BuyerOrganization,
   BuyerOrganizations,
+  Status,
 } from '../../core/interfaces/buyer-organizations.interface';
 import { NavigateService } from '../../shared/services/navigate.service';
 import { OrganizationsService } from '../../shared/services/organizations.service';
@@ -76,12 +77,12 @@ export class OrganizationsComponent extends unsub implements OnInit {
   $limit$ = signal(10);
   $totalRecords$ = signal(0);
   $isModalOpen$ = signal(false);
-  public translationSubscription$!: Observable<any>;
+  isItemSelected = false;
   $organizationId$: WritableSignal<string | null> = signal(null);
+  public translationSubscription$!: Observable<any>;
   private organizationService = inject(OrganizationsService);
   private fb = inject(FormBuilder);
   private navigateService = inject(NavigateService);
-  private translate = inject(TranslateService);
   private langService = inject(LanguegeServices);
   ngOnInit() {
     this.statusOptions = [
@@ -108,6 +109,15 @@ export class OrganizationsComponent extends unsub implements OnInit {
       .subscribe();
     this.loadOrganizations();
     this.onLangChangeStatus();
+    this.myForm
+      .get('status')
+      ?.valueChanges.pipe(
+        map((value) => {
+          this.isItemSelected = value != null;
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
   }
 
   loadOrganizations(): void {
@@ -165,7 +175,9 @@ export class OrganizationsComponent extends unsub implements OnInit {
     return (this.currentPage - 1) * this.rowsPerPage;
   }
   handleChangeData(data: BuyerOrganization[]) {
-    let statusColors: any = {
+    let statusColors: {
+      [key: string]: Status;
+    } = {
       active: {
         name: 'drop-down-status.1',
         textColor: 'text-success',
@@ -190,7 +202,7 @@ export class OrganizationsComponent extends unsub implements OnInit {
     return data.map((data: BuyerOrganization) => {
       return {
         ...data,
-        status: statusColors[data.status],
+        statusColor: statusColors[data.status],
       };
     });
   }

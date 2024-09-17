@@ -24,4 +24,11 @@ export interface BuyerOrganization {
   contactMail: string;
   userId: string;
   contactMails: string[];
+  statusColor: Status;
+}
+
+export interface Status {
+  name: string;
+  textColor: string;
+  bgColor: string;
 }

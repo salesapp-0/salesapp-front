@@ -42,7 +42,7 @@
         formControlName="status"
         optionLabel="name"
         placeholder="{{'organizaiton-filter.2' | translate}}"
-        [showClear]="true"
+        [showClear]="isItemSelected ? true : false"
         />
       </div>
     </form>
@@ -77,11 +77,11 @@
             <td style="height: 72px;padding: 16px 24px;">{{ organization.identificationCode }}</td>
             <td style="height: 72px;padding: 16px 24px;"><span
               [ngClass]="[
-              organization.status.bgColor,
-              organization.status.textColor,
+              organization.statusColor.bgColor,
+              organization.statusColor.textColor,
               'rounded-lg h-[22px] px-[12px] py-[4px] text-[12px]'
             ]"
-              >{{organization.status.name | translate}}</span></td>
+              >{{organization.statusColor.name | translate}}</span></td>
             <td style="height: 72px;padding: 16px 24px;">{{ organization.createdAt | date: 'dd/MM/yyyy' }}
             </td>
             <td style="height: 72px;padding: 16px 24px; display: flex;align-items: center;justify-content: center;gap: 29.5px;">  <i class="pi pi-eye" (click)="handleSpecificOrganizationClick('/specific-organization',organization.id)" style="color: #02B7FA;cursor: pointer"></i>
