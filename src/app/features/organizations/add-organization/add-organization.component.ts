@@ -6,12 +6,15 @@ import {
   OnInit,
   Output,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { HeaderComponent } from '../../../shared/ui/header/header.component';
 import { SidebarComponent } from '../../../shared/ui/sidebar/sidebar.component';
 import { InputTextModule } from 'primeng/inputtext';
 import {
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -25,7 +28,7 @@ import { unsub } from '../../../shared/classes/unsub.class';
 import { CalendarModule } from 'primeng/calendar';
 import { BuyerOrganization } from '../../../core/interfaces/buyer-organizations.interface';
 import { OrganizationHelperService } from '../../../shared/services/organization-helper.service';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -54,6 +57,7 @@ import { AddEmailComponent } from './add-email/add-email.component';
   providers: [OrganizationHelperService, MessageService],
 })
 export class AddOrganizationComponent extends unsub implements OnInit {
+  @ViewChild('fileInput') fileInput!: FileUpload;
   organizationForm!: FormGroup;
   $isEditMode$ = signal(false);
   $organizationId$ = signal('');
@@ -93,11 +97,11 @@ export class AddOrganizationComponent extends unsub implements OnInit {
         '',
         [Validators.required, Validators.minLength(4), Validators.email],
       ],
-      contactMails: [[], [Validators.maxLength(3)]],
+      contactMails: [''],
       file: [null],
     });
     this.organizationForm?.valueChanges.subscribe((value) => {
-      // console.log(value.contactMails.map((obj: { name: string }) => obj.name));
+      console.log(value);
     });
   }
 
@@ -107,6 +111,7 @@ export class AddOrganizationComponent extends unsub implements OnInit {
         this.organizationHelperService.getOrganizationFormData(
           this.organizationForm
         );
+
       const formattedServiceCost = parseFloat(
         organizationData.serviceCost
       ).toFixed(2);
@@ -135,7 +140,12 @@ export class AddOrganizationComponent extends unsub implements OnInit {
               if (this.$fileId$()) {
                 return this.organizationService
                   .createBuyerOrganziationCotract(res.id, this.$fileId$())
-                  .pipe(map(() => res));
+                  .pipe(
+                    map(() => {
+                      this.triggerUpload();
+                      return res;
+                    })
+                  );
               }
               this.close.emit();
               return of(res);
@@ -173,7 +183,12 @@ export class AddOrganizationComponent extends unsub implements OnInit {
               if (this.$fileId$()) {
                 return this.organizationService
                   .createBuyerOrganziationCotract(res.id, this.$fileId$())
-                  .pipe(map(() => res));
+                  .pipe(
+                    map(() => {
+                      this.triggerUpload();
+                      return res;
+                    })
+                  );
               }
               this.close.emit();
               return of(res);
@@ -217,8 +232,11 @@ export class AddOrganizationComponent extends unsub implements OnInit {
             contactPerson: data.contactPerson,
             contactPhoneNumber: data.contactPhoneNumber,
             contactMail: data.contactMail,
-            contactMails: data.contactMails,
+            contactMails: data.contactMails.map((email) => ({ name: email })),
           });
+          if (data.contactMail) {
+            this.setContactMails(data);
+          }
         }),
         catchError((err) => {
           this.messageService.add({
@@ -253,5 +271,22 @@ export class AddOrganizationComponent extends unsub implements OnInit {
     this.contactMails.push({
       name: event,
     });
+  }
+
+  triggerUpload() {
+    if (this.fileInput) {
+      this.fileInput.upload();
+    }
+  }
+  setContactMails(data: { contactMails: string[] }) {
+    this.selectedContactMails = [];
+    this.contactMails = [];
+    for (let email of data.contactMails) {
+      this.contactMails.push({ name: email });
+    }
+  }
+
+  onContactMailChange(e: any) {
+    console.log(e);
   }
 }

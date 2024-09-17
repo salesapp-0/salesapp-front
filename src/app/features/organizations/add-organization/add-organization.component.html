@@ -54,8 +54,9 @@
             optionLabel="name" 
             placeholder="Select Cities" 
             formControlName="contactMails"
+            (onChange)="onContactMailChange($event)"
             />  
-                  <img class="w-[16px] cursor-pointer" (click)="$addEmailsPopup$.set(true)" src="./assets/images/organizations/add_circle.svg" alt="">
+                  <img class="w-[24px] cursor-pointer" (click)="$addEmailsPopup$.set(true)" src="./assets/images/organizations/add_circle.svg" alt="">
           </div>
        
         </div>
@@ -139,6 +140,7 @@
         <div class="mt-[60px]">
           <p-toast />
           <p-fileUpload 
+              #fileInput
               mode="basic" 
               chooseLabel="აირჩიე დოკუმენტი" 
               chooseIcon="pi pi-upload"
@@ -148,7 +150,7 @@
               maxFileSize="1000000" 
               (onUpload)="onUpload($event)"
               (onError)="onError($event)" 
-              auto="true"
+              auto="false"
               />
       </div>
       </div>
