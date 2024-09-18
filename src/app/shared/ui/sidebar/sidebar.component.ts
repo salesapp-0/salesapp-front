@@ -8,13 +8,14 @@ import {
 import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map, Observable, takeUntil, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { map, takeUntil, tap } from 'rxjs';
 import { unsub } from '../../classes/unsub.class';
 import { AuthService } from '../../services/auth.service';
 import { NavigateService } from '../../services/navigate.service';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { PermissionsEnum } from '../../../core/enums/premissions.enum';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -36,6 +37,7 @@ export class SidebarComponent extends unsub implements OnInit {
   $mode$ = signal('light');
   $currentRoute$ = signal('');
   $isSIdeBarOpen$ = signal(true);
+  permissionsEnum = PermissionsEnum;
   constructor() {
     super();
     this.router.events
@@ -82,5 +84,8 @@ export class SidebarComponent extends unsub implements OnInit {
       'isSidebarOpen',
       JSON.stringify(this.$isSIdeBarOpen$())
     );
+  }
+  hasPermissionUser(premission: string) {
+    return this.authService.hasPermission(premission);
   }
 }
