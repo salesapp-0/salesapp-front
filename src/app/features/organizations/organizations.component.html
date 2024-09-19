@@ -5,10 +5,7 @@
   <div class="organizations">
     <div class="organizations__header">
       <h2 class="text-[16px]">{{'organization.1' | translate}}</h2>
-      <button (click)="$isModalOpen$.set(true);this.$organizationId$.set(null)">
-        <img src="./assets/images/organizations/add_circle.png" alt="">
-        <p>{{'organization.2' | translate}}</p>
-      </button>
+      <app-add-button (click)="$isModalOpen$.set(true);this.$organizationId$.set(null)"/>
     </div>
 
     <form [formGroup]="myForm" class="organizations-filters">

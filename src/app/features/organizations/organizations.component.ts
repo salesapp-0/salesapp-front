@@ -46,6 +46,7 @@ import { OrganizationsService } from '../../shared/services/organizations.servic
 import { AddOrganizationComponent } from './add-organization/add-organization.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguegeServices } from '../../shared/services/translate.service';
+import { AddButtonComponent } from '../../shared/ui/add-button/add-button.component';
 
 @Component({
   selector: 'app-organizations',
@@ -63,6 +64,7 @@ import { LanguegeServices } from '../../shared/services/translate.service';
     ReactiveFormsModule,
     AddOrganizationComponent,
     TranslateModule,
+    AddButtonComponent,
   ],
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.scss',

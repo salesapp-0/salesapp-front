@@ -1,4 +1,17 @@
 <app-header></app-header>
 <div class="flex">
     <app-sidebar/>
+        <div class="w-full m-[16px] mt-[88px] bg-white p-[16px] rounded-[6px]">
+            <div class="flex justify-between items-center">
+                <h3>პარამეტრები</h3>
+                <app-add-button/>
+            </div>
+            <div class="card">
+                <p-tabMenu [model]="items" [(activeItem)]="activeItem" />
+            </div>
+            <div class="mt-[36px]">
+                <app-universal-table [header]="tableHeaderTexts"/>
+            </div>
+         
+        </div>
 </div>
