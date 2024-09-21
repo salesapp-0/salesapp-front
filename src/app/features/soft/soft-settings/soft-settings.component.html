@@ -4,13 +4,18 @@
         <div class="w-full m-[16px] mt-[88px] bg-white p-[16px] rounded-[6px]">
             <div class="flex justify-between items-center">
                 <h3>პარამეტრები</h3>
-                <app-add-button/>
+                <app-add-button (click)="handleEmitType({type:crudEnum.ADD,actionId:$buyerOrganziaitonId$()})"/>
             </div>
             <div class="card">
                 <p-tabMenu [model]="items" [(activeItem)]="activeItem" />
             </div>
-            <div class="mt-[36px]">
-                <app-universal-table [header]="tableHeaderTexts"/>
+            <div class="mt-[36px] relative">
+                @if(activeItem.label === 'ქმედებები') {
+                    <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumns" [data]="(actions$ | async)"/>
+                    @if($openActioPopup$()) {
+                        <app-action-modal [requestType]="$actionType$()" (close)="$openActioPopup$.set(false)" [buyerOrgId]="$buyerOrganziaitonId$()" />
+                    }
+                }
             </div>
          
         </div>

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
-import {BuyerOrganizations} from "../../core/interfaces/buyer-organizations.interface";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { BuyerOrganizations } from '../../core/interfaces/buyer-organizations.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-  baseUrl = environment.baseUrl
-  constructor(private http:HttpClient) { }
+  baseUrl = environment.baseUrl;
+  constructor(private http: HttpClient) {}
 
   post(url?: string, body?: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       withCredentials: true,
-      observe: 'response' as 'response'
+      observe: 'response' as 'response',
     };
     return this.http.post(`${this.baseUrl}${url}`, body, httpOptions);
   }
@@ -25,6 +25,21 @@ export class ApiService {
       withCredentials: true,
     });
   }
+  put(url?: string, body?: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      withCredentials: true,
+      observe: 'response' as 'response',
+    };
+    return this.http.put(`${this.baseUrl}${url}`, body, httpOptions);
+  }
 
-
+  patch(url?: string, body?: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      withCredentials: true,
+      observe: 'response' as 'response',
+    };
+    return this.http.patch(`${this.baseUrl}${url}`, body, httpOptions);
+  }
 }

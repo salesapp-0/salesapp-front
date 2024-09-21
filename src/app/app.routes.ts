@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { authGuard } from './shared/guards/auth.guard';
 import { permissionsGuard } from './shared/guards/permissions.guard';
+import { PermissionsEnum } from './core/enums/premissions.enum';
 
 export const routes: Routes = [
   {
@@ -70,6 +71,6 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard, permissionsGuard],
     providers: [AuthService],
-    data: { permissions: ['READ_SOFT_SETTINGS'] },
+    data: { permissions: [PermissionsEnum.READ_SOFT_SETTINGS] },
   },
 ];

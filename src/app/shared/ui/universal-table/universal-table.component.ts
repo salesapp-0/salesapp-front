@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
+import { CrudEnum } from '../../../core/enums/crud.enum';
 
 @Component({
   selector: 'app-universal-table',
@@ -11,21 +12,20 @@ import { TableModule } from 'primeng/table';
   styleUrl: './universal-table.component.scss',
 })
 export class UniversalTableComponent {
-  @Input() header!: { title: string; hasIcon: boolean }[];
-  @Input() hasIcon!: boolean;
+  @Input() columns!: {
+    field: string;
+    title: string;
+    width?: string;
+    icons?: { edit: boolean; delete: boolean };
+  }[];
 
-  customers = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      phone: '123-456-7890',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      phone: '123-456-7890',
-    },
-  ];
+  @Input() data!: any;
+
+  @Input() rows: number = 10;
+  @Input() totalRecords: number = 0;
+  @Input() rowsPerPageOptions: number[] = [5, 10, 20];
+
+  @Input() hasIcon: boolean = false;
+  @Output() actionType = new EventEmitter();
+  crudEnum = CrudEnum;
 }
