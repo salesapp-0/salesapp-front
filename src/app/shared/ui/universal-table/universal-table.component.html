@@ -1,5 +1,5 @@
 <p-table
-  [value]="data.data"
+  [value]="data?.data"
   [rows]="rows"
   [tableStyle]="{ 'min-width': '50rem' }"
   [paginator]="false"
@@ -43,9 +43,9 @@
 <div class="flex justify-center">
   <p-paginator
     [rows]="rows"
-    [totalRecords]="data.total"
+    [totalRecords]="data?.total"
     [rowsPerPageOptions]="rowsPerPageOptions"
     [showCurrentPageReport]="true"
-    []
+    
   ></p-paginator>
 </div>

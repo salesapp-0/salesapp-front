@@ -67,10 +67,6 @@ export class ActionModalComponent extends unsub {
 
   onSubmit() {
     if (this.actionForm.valid) {
-      console.log(this.actionForm.value);
-
-      console.log(this.actionForm.get('action')?.value);
-
       if (this.$requestType$().type === CrudEnum.ADD) {
         const actionOption = {
           name: this.actionForm.get('action')?.value,
@@ -92,7 +88,6 @@ export class ActionModalComponent extends unsub {
           buyerOrganization: { id: this.buyerOrgId },
           name: this.actionForm.get('action')?.value,
         };
-        console.log(this.$requestType$());
 
         this.softParameterService
           .updateActionOption$(actionOption, this.$requestType$().actionId)
