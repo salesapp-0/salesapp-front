@@ -46,6 +46,6 @@
     [totalRecords]="data?.total"
     [rowsPerPageOptions]="rowsPerPageOptions"
     [showCurrentPageReport]="true"
-    
+    (onPageChange)="onPageChange($event)"
   ></p-paginator>
 </div>

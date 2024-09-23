@@ -10,13 +10,15 @@ export class LanguegeServices {
 
   translateOptions(
     options: any[],
-    translationKeys: string[]
+    translationKeys: string[],
+    key = 'name'
   ): Observable<any[]> {
     return this.translate.stream(translationKeys).pipe(
       map((res: any) => {
         return options.map((option) => ({
           ...option,
-          name: res[option.name],
+          [key]: res[option.name || option.label],
+          defName: option.name || option.label,
         }));
       })
     );

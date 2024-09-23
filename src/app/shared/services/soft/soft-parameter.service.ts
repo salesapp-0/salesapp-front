@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from '../api-service.service';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { Action, IActions } from '../../../core/interfaces/actions.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 export class SoftParameterService {
   private readonly http = inject(ApiService);
   private refetchAction$ = new BehaviorSubject(true);
+
   public getActions$(organizationId: string, page: number) {
     const path = `/action-options?organizationId=${organizationId}&page=${page}&limit=10`;
     return this.refetchAction$.pipe(
@@ -23,7 +25,7 @@ export class SoftParameterService {
     name: string;
     description?: string;
     buyerOrganization: { id: string };
-  }): Observable<any> {
+  }): Observable<IActions<Action>> {
     const path = `/action-options`;
     return this.http.post(path, actionOption);
   }
@@ -34,13 +36,23 @@ export class SoftParameterService {
       buyerOrganization: { id: string };
     },
     id: string
-  ): Observable<any> {
+  ): Observable<IActions<Action>> {
     const path = `/action-options/${id}`;
     return this.http.put(path, actionOption);
   }
 
-  public getSpecificActionOption$(id: string): Observable<any> {
+  public getSpecificActionOption$(id: string): Observable<Action> {
     const path = `/action-options/${id}`;
     return this.http.get(path);
+  }
+  //
+
+  public getPositions$(organizationId: string, page: number) {
+    const path = `/positions/filter??organizationId=${organizationId}&page=${page}&limit=10`;
+    return this.refetchAction$.pipe(
+      switchMap((res) => {
+        return this.http.get(path);
+      })
+    );
   }
 }

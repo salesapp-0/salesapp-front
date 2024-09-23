@@ -33,5 +33,10 @@
         "2":"თვე",
         "3":"წელი"
     },
-    "organziaitons":"ორგანიზაციები"
+    "organziaitons":"ორგანიზაციები",
+    "actions":"ქმედებები",
+    "positions":"პოზიციები",
+    "products":"პროდუქტები",
+    "roles-premisions":"როლები და წვდომები",
+    "settings":"პარამეტრები"
 }

@@ -3,18 +3,20 @@
     <app-sidebar/>
         <div class="w-full m-[16px] mt-[88px] bg-white p-[16px] rounded-[6px]">
             <div class="flex justify-between items-center">
-                <h3>პარამეტრები</h3>
+                <h3>{{'settings' | translate}}</h3>
                 <app-add-button (click)="handleEmitType({type:crudEnum.ADD,actionId:$buyerOrganziaitonId$()})"/>
             </div>
             <div class="card">
-                <p-tabMenu [model]="items" [(activeItem)]="activeItem" />
+                <p-tabMenu [model]="tabOptions$ | async" [(activeItem)]="activeItem" />
             </div>
             <div class="mt-[36px] relative">
-                @if(activeItem.label === 'ქმედებები') {
-                    <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumns" [data]="(actions$ | async)"/>
+                @if(activeItem.defName === tabType.ACTIONS) {
+                    <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumns" [data]="(actions$ | async)" (page)="listenPageChange($event)"/>
                     @if($openActioPopup$()) {
                         <app-action-modal [requestType]="$actionType$()" (close)="$openActioPopup$.set(false)" [buyerOrgId]="$buyerOrganziaitonId$()" />
                     }
+                } @else if (activeItem.defName === tabType.POSITIONS) {
+                    <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumnsPosition" [data]="(positions$ | async)" (page)="listenPageChange($event)"/>    
                 }
             </div>
          
