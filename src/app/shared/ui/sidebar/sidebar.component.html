@@ -4,7 +4,7 @@
         'right-[9px]':this.$isSIdeBarOpen$()}"
   class="w-[18px] absolute  cursor-pointer z-10" src="./assets/images/side-bar/close-icon.svg" alt="">
 
-  <div class="relative top-[1px] flex flex-col justify-between">
+  <div class="relative top-[1px]">
     <div class="flex items-center align-middle gap-[10px]">
       <img class="cursor-pointer" (click)="onNavigate('/main-page')" src="./assets/images/side-bar/inactive-logo.svg" alt="*">
       @if ($isSIdeBarOpen$()) {
@@ -12,69 +12,18 @@
       }
     </div>
 
-    <div class="sidebar__tab">
-      <!-- Main Page -->
-      @if(hasPermissionUser(permissionsEnum.READ_MAIN_PAGE)) {
-        <div class="sidebar__tab__route"
-          (click)="onNavigate('/main-page')"
-          [class.sidebar__tab__route--active]="$currentRoute$() === '/main-page' || $currentRoute$() === '/add-organization'">
-          <app-svg-icon
-            [width]="'16'"
-            [height]="'16'"
-            [color]="$currentRoute$() === '/main-page' || $currentRoute$() === '/add-organization' ? 'white' : 'black'"
-            [viewBox]="'0 0 16 16'"
-            [path]="'M8.70711 1.50005C8.31658 1.10952 7.68342 1.10952 7.29289 1.50005L0.646447 8.14649C0.451184 8.34176 0.451184 8.65834 0.646447 8.8536C0.841709 9.04886 1.15829 9.04886 1.35355 8.8536L2 8.20715V13.5C2 14.3285 2.67157 15 3.5 15H12.5C13.3284 15 14 14.3285 14 13.5V8.20715L14.6464 8.8536C14.8417 9.04886 15.1583 9.04886 15.3536 8.8536C15.5488 8.65834 15.5488 8.34176 15.3536 8.14649L13 5.79294V2.50005C13 2.2239 12.7761 2.00005 12.5 2.00005H11.5C11.2239 2.00005 11 2.2239 11 2.50005V3.79294L8.70711 1.50005ZM13 7.20715V13.5C13 13.7762 12.7761 14 12.5 14H3.5C3.22386 14 3 13.7762 3 13.5V7.20715L8 2.20715L13 7.20715Z'">
-          </app-svg-icon>
-          @if ($isSIdeBarOpen$()) {
-            <p>{{'side-bar.1' | translate}}</p>
-          }
-        </div>
-      }
-
-      <!-- Organization -->
-      @if(hasPermissionUser(permissionsEnum.READ_ORGANIZATION)) {
-        <div class="sidebar__tab__route"
-          (click)="onNavigate('/organizations')"
-          [class.sidebar__tab__route--active]="$currentRoute$() === '/organizations' || $currentRoute$().includes('/specific-organization')">
-          <img [src]="$currentRoute$() === '/organizations' || $currentRoute$().includes('/specific-organization') ? './assets/images/side-bar/house-white.png' : './assets/images/side-bar/house.png'" alt="">
-          @if ($isSIdeBarOpen$()) {
-            <p>{{'side-bar.2' | translate}}</p>
-          }
-        </div>
-      }
-
-      <!-- Invoice -->
-      @if(hasPermissionUser(permissionsEnum.READ_INVOICE)) {
-        <div class="sidebar__tab__route">
-          <img src="./assets/images/side-bar/Vector.png" alt="">
-          @if ($isSIdeBarOpen$()) {
-            <p>{{'side-bar.3' | translate}}</p>
-          }
-        </div>
-      }
-
-      <!-- Admin Settings -->
-      @if(hasPermissionUser(permissionsEnum.READ_ADMIN_SETTINGS)) {
-        <div class="sidebar__tab__route">
-          <img src="./assets/images/side-bar/ic24-settings.png" alt="">
-          @if ($isSIdeBarOpen$()) {
-            <p>{{'side-bar.4' | translate}}</p>
-          }
-        </div>
-      }
-      <!-- SOFT settings -->
-      @if(hasPermissionUser(permissionsEnum.READ_SOFT_SETTINGS)) {
-        <div class="sidebar__tab__route" 
-        [class.sidebar__tab__route--active]="$currentRoute$() === '/soft-settings'"
-        >
-          <img [src]="$currentRoute$() === '/soft-settings' ? './assets/images/side-bar/setting-icon.png' : './assets/images/side-bar/ic24-settings.png'" alt="">
-          @if ($isSIdeBarOpen$()) {
-            <p>{{'side-bar.4' | translate}}</p>
-          }
-        </div>
-      }
-    </div>
-
+        <div class="flex flex-col justify-between h-[91%] mt-[40px]">
+          <ng-container *ngFor="let route of routes">
+            <ng-container *ngIf="hasPermissionUser(route.permission)">
+              <div class="sidebar__tab__route"
+                   (click)="onNavigate(route.path)"
+                   [class.sidebar__tab__route--active]="$currentRoute$() === route.path">
+                <img [src]="$currentRoute$() === route.path ? route.activeIcon : route.icon" alt="">
+                <p *ngIf="$isSIdeBarOpen$()">{{ route.label | translate }}</p>
+              </div>
+            </ng-container>
+          </ng-container>
+      
     <!-- Logout -->
     <div class="sidebar__bottom">
       <div class="sidebar__bottom-logout" (click)="logout()">

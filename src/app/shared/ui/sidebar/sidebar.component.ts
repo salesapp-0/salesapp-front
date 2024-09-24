@@ -8,8 +8,8 @@ import {
 import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { map, takeUntil, tap } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, map, takeUntil, tap } from 'rxjs';
 import { unsub } from '../../classes/unsub.class';
 import { AuthService } from '../../services/auth.service';
 import { NavigateService } from '../../services/navigate.service';
@@ -38,23 +38,55 @@ export class SidebarComponent extends unsub implements OnInit {
   $currentRoute$ = signal('');
   $isSIdeBarOpen$ = signal(true);
   permissionsEnum = PermissionsEnum;
+  routes = [
+    {
+      path: '/main-page',
+      permission: this.permissionsEnum.READ_MAIN_PAGE,
+      icon: './assets/images/side-bar/house-inactive.png',
+      activeIcon: './assets/images/side-bar/home-active.png',
+      label: 'side-bar.1',
+    },
+    {
+      path: '/organizations',
+      permission: this.permissionsEnum.READ_ORGANIZATION,
+      icon: './assets/images/side-bar/house.png',
+      activeIcon: './assets/images/side-bar/house-white.png',
+      label: 'side-bar.2',
+    },
+    {
+      path: '/invoices',
+      permission: this.permissionsEnum.READ_INVOICE,
+      icon: './assets/images/side-bar/Vector.png',
+      label: 'side-bar.3',
+    },
+    {
+      path: '/admin-settings',
+      permission: this.permissionsEnum.READ_ADMIN_SETTINGS,
+      icon: './assets/images/side-bar/ic24-settings.png',
+      activeIcon: './assets/images/side-bar/setting-icon.png',
+      label: 'side-bar.4',
+    },
+    {
+      path: '/soft-settings',
+      permission: this.permissionsEnum.READ_SOFT_SETTINGS,
+      icon: './assets/images/side-bar/ic24-settings.png',
+      activeIcon: './assets/images/side-bar/setting-icon.png',
+      label: 'side-bar.4',
+    },
+  ];
   constructor() {
     super();
     this.router.events
       .pipe(
-        map((event) => {
-          if (event.constructor.name === 'NavigationEnd') {
-            this.$currentRoute$.set(this.router.url);
-            console.log(this.router.url);
-          }
-        }),
+        filter((event) => event instanceof NavigationEnd),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe();
+      .subscribe((event: any) => {
+        this.$currentRoute$.set(event.url);
+      });
   }
   ngOnInit(): void {
     const savedState = localStorage.getItem('isSidebarOpen');
-    console.log(savedState);
 
     if (savedState !== null) {
       this.$isSIdeBarOpen$.set(JSON.parse(savedState));

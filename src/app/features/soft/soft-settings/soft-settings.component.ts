@@ -113,9 +113,12 @@ export class SoftSettingsComponent {
     this.activeItem = this.items[0];
   }
 
-  handleEmitType(type: { type: string; actionId: string }) {
-    this.$actionType$.set(type);
-    if (type.type !== this.crudEnum.DELETE) this.$openActioPopup$.set(true);
+  handleEmitType(type: { type: string; actionId: string; tabType: string }) {
+    if (type.tabType === this.tabType.ACTIONS) {
+      if (type.type !== this.crudEnum.DELETE) this.$openActioPopup$.set(true);
+      this.$actionType$.set(type);
+    } else if (type.actionId === this.tabType.POSITIONS) {
+    }
   }
   listenPageChange(page: { page: number; limit: number }) {
     this.page$.next(page.page);

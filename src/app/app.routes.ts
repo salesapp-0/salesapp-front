@@ -25,7 +25,7 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard, permissionsGuard],
     providers: [AuthService],
-    data: { permissions: ['UPDATE_ARTICLES'] },
+    data: { permissions: [PermissionsEnum.READ_MAIN_PAGE] },
   },
   {
     path: 'organizations',
@@ -35,6 +35,7 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
     providers: [AuthService],
+    data: { permissions: [PermissionsEnum.READ_ORGANIZATION] },
   },
   {
     path: 'add-organization',
@@ -60,8 +61,9 @@ export const routes: Routes = [
       import(
         './features/organizations/specific-organization/specific-organization.component'
       ).then((m) => m.SpecificOrganizationComponent),
-    canActivate: [authGuard],
+    canActivate: [authGuard, permissionsGuard],
     providers: [AuthService],
+    data: { permissions: [PermissionsEnum.READ_SPECIFIC_ORGANIZATION] },
   },
   {
     path: 'soft-settings',

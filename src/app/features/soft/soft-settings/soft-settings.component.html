@@ -4,7 +4,7 @@
         <div class="w-full m-[16px] mt-[88px] bg-white p-[16px] rounded-[6px]">
             <div class="flex justify-between items-center">
                 <h3>{{'settings' | translate}}</h3>
-                <app-add-button (click)="handleEmitType({type:crudEnum.ADD,actionId:$buyerOrganziaitonId$()})"/>
+                <app-add-button (click)="handleEmitType({type:crudEnum.ADD,actionId:$buyerOrganziaitonId$(),tabType:activeItem.defName})"/>
             </div>
             <div class="card">
                 <p-tabMenu [model]="tabOptions$ | async" [(activeItem)]="activeItem" />
