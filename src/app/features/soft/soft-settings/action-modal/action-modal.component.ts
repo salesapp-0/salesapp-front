@@ -60,9 +60,6 @@ export class ActionModalComponent extends unsub {
     this.actionForm = this.fb.group({
       action: ['', [Validators.required, Validators.maxLength(15)]],
     });
-    this.actionForm.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
   }
 
   onSubmit() {

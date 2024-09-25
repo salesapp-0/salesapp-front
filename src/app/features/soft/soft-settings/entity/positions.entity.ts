@@ -6,7 +6,7 @@ export const tableColumnsPosition = [
   },
   {
     field: 'description',
-    title: 'დასახელება',
+    title: 'გაყიდვების ჯგუფი',
     width: '20%',
   },
   {

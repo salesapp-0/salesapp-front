@@ -17,8 +17,8 @@
                     }
                 } @else if (activeItem.defName === tabType.POSITIONS) {
                     <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumnsPosition" [data]="(positions$ | async)" (page)="listenPageChange($event)"/>    
+                    <app-position-modal/>
                 }
             </div>
-         
         </div>
 </div>

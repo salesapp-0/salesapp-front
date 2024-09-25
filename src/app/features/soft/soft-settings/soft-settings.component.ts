@@ -18,6 +18,7 @@ import { IPosition } from '../../../core/interfaces/positions.interface';
 import { TabType } from '../../../core/enums/tab-type.enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguegeServices } from '../../../shared/services/translate.service';
+import { PositionModalComponent } from './position-modal/position-modal.component';
 
 @Component({
   selector: 'app-soft-settings',
@@ -31,6 +32,7 @@ import { LanguegeServices } from '../../../shared/services/translate.service';
     CommonModule,
     ActionModalComponent,
     TranslateModule,
+    PositionModalComponent,
   ],
   templateUrl: './soft-settings.component.html',
   styleUrl: './soft-settings.component.scss',
@@ -114,8 +116,11 @@ export class SoftSettingsComponent {
   }
 
   handleEmitType(type: { type: string; actionId: string; tabType: string }) {
-    if (type.tabType === this.tabType.ACTIONS) {
-      if (type.type !== this.crudEnum.DELETE) this.$openActioPopup$.set(true);
+    if (
+      type.tabType === this.tabType.ACTIONS ||
+      type.type !== this.crudEnum.DELETE
+    ) {
+      this.$openActioPopup$.set(true);
       this.$actionType$.set(type);
     } else if (type.actionId === this.tabType.POSITIONS) {
     }
