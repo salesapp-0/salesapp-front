@@ -24,11 +24,13 @@
             <div class="flex justify-evenly">
                 <i *ngIf="col.icons?.edit" (click)="actionType.emit({
                     type:crudEnum.UPDATE,
-                    actionId:item.id
+                    actionId:item.id,
+                    tabType:tabType
                 })" class="pi pi-pencil cursor-pointer text-accent"  ></i>
                 <i *ngIf="col.icons?.delete" (click)="actionType.emit({
                     type:crudEnum.DELETE,
-                    actionId:item.id
+                    actionId:item.id,
+                    tabType:tabType
                 })"  class="pi pi-trash cursor-pointer text-accent" ></i>
             </div>
         } @else {

@@ -1,5 +1,8 @@
-:ng-deep {
+::ng-deep {
     p-multiselect {
         width: 100% !important;
+      }
+      .p-multiselect {
+        width: 100%!important;
       }
 }

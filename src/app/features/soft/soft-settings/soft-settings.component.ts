@@ -103,7 +103,7 @@ export class SoftSettingsComponent {
   });
   $buyerOrganziaitonId$ = signal('');
   $openActioPopup$ = signal(false);
-
+  $openPositionModal$ = signal(false);
   ngOnInit() {
     this.items = [
       { label: 'actions' },
@@ -116,13 +116,18 @@ export class SoftSettingsComponent {
   }
 
   handleEmitType(type: { type: string; actionId: string; tabType: string }) {
+    console.log(type);
+
+    this.$actionType$.set(type);
     if (
-      type.tabType === this.tabType.ACTIONS ||
-      type.type !== this.crudEnum.DELETE
+      (type.tabType === this.tabType.ACTIONS ||
+        type.type !== this.crudEnum.DELETE) &&
+      type.tabType !== TabType.POSITIONS
     ) {
       this.$openActioPopup$.set(true);
-      this.$actionType$.set(type);
-    } else if (type.actionId === this.tabType.POSITIONS) {
+    }
+    if (type.tabType === TabType.POSITIONS) {
+      this.$openPositionModal$.set(true);
     }
   }
   listenPageChange(page: { page: number; limit: number }) {

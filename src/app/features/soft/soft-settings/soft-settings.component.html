@@ -11,13 +11,15 @@
             </div>
             <div class="mt-[36px] relative">
                 @if(activeItem.defName === tabType.ACTIONS) {
-                    <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumns" [data]="(actions$ | async)" (page)="listenPageChange($event)"/>
+                    <app-universal-table (actionType)="handleEmitType($event)" [tabType]="activeItem.defName"  [columns]="tableColumns" [data]="(actions$ | async)" (page)="listenPageChange($event)"/>
                     @if($openActioPopup$()) {
                         <app-action-modal [requestType]="$actionType$()" (close)="$openActioPopup$.set(false)" [buyerOrgId]="$buyerOrganziaitonId$()" />
                     }
                 } @else if (activeItem.defName === tabType.POSITIONS) {
-                    <app-universal-table (actionType)="handleEmitType($event)"  [columns]="tableColumnsPosition" [data]="(positions$ | async)" (page)="listenPageChange($event)"/>    
-                    <app-position-modal/>
+                    <app-universal-table (actionType)="handleEmitType($event)" [tabType]="activeItem.defName"  [columns]="tableColumnsPosition" [data]="(positions$ | async)" (page)="listenPageChange($event)"/>    
+                        @if($openPositionModal$()) {
+                            <app-position-modal [actionType]="$actionType$()" (close)="$openPositionModal$.set(false)"/>
+                        }
                 }
             </div>
         </div>

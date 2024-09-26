@@ -4,13 +4,13 @@
         <h3>პოზიციის დამატება</h3>
         <img class="cursor-pointer" (click)="close.emit()" src="./assets/images/organizations/close.png"alt="">
     </div>
-    <form  class="flex flex-col">
-        <input formControlName="action" class="mt-3 px-2.5 py-1.5 max-w-[446px] h-[36px] rounded-md w-full"  type="text" placeholder="@gmail.com">
-        <div class="w-full">
+    <form [formGroup]="positionForm"  class="flex flex-col">
+        <input formControlName="name" class="mt-3 px-2.5 py-1.5 max-w-[446px] h-[36px] rounded-md w-full"  type="text" placeholder="@gmail.com">
+        <div class="w-full mt-5">
             <p-multiSelect 
             [options]="positionSelect" 
             optionLabel="name" 
-            formControlName="positionSelect"
+            formControlName="saleGroup"
             /> 
         </div>
         <button class="outline-none border-none rounded-[8px]  text-white bg-accent
@@ -20,6 +20,8 @@
         mt-10
         cursor-pointer 
         "
+        [disabled]="positionForm.invalid"
+        (click)="onSubmit()"
         >დამატება</button>
     </form>
 </div>

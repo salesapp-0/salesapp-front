@@ -55,4 +55,22 @@ export class SoftParameterService {
       })
     );
   }
+
+  public getPositionDescription$(organizationId: string) {
+    const path = `/positions/description/?organizationId=${organizationId}`;
+    return this.http.get(path);
+  }
+
+  public addPosition$(positionData: any) {
+    const path = `/positions`;
+    return this.http.post(path, positionData);
+  }
+  public getSpecificPositionOption$(id: string): Observable<Action> {
+    const path = `/positions/${id}`;
+    return this.http.get(path);
+  }
+  public updatePosition$(positionData: any, id: string) {
+    const path = `/positions/${id}`;
+    return this.http.patch(path, positionData);
+  }
 }
