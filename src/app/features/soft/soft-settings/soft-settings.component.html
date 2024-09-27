@@ -20,6 +20,8 @@
                         @if($openPositionModal$()) {
                             <app-position-modal [actionType]="$actionType$()" (close)="$openPositionModal$.set(false)"/>
                         }
+                }@else if (activeItem.defName === tabType.PRODUCTS) {
+                    <app-universal-table (actionType)="handleEmitType($event)" [tabType]="activeItem.defName"  [columns]="tableColumnsProducts" [data]="(products$ | async)" (page)="listenPageChange($event)"/>    
                 }
             </div>
         </div>

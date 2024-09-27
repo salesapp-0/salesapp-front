@@ -85,8 +85,6 @@ export class PositionModalComponent extends unsub implements OnInit {
     console.log(this.positionForm.valid);
 
     if (this.positionForm.valid) {
-      console.log('c');
-
       if (this.$actionTypeStr$().type === CrudEnum.ADD) {
         const position = {
           ...this.positionForm.value,

@@ -11,7 +11,7 @@ export class SoftParameterService {
   private refetchAction$ = new BehaviorSubject(true);
 
   public getActions$(organizationId: string, page: number) {
-    const path = `/action-options?organizationId=${organizationId}&page=${page}&limit=10`;
+    const path = `/action-options?organizationId=${organizationId}&page=${page}&limit=8`;
     return this.refetchAction$.pipe(
       switchMap((res) => {
         return this.http.get(path);
@@ -48,7 +48,7 @@ export class SoftParameterService {
   //
 
   public getPositions$(organizationId: string, page: number) {
-    const path = `/positions/filter??organizationId=${organizationId}&page=${page}&limit=10`;
+    const path = `/positions/filter??organizationId=${organizationId}&page=${page}&limit=8`;
     return this.refetchAction$.pipe(
       switchMap((res) => {
         return this.http.get(path);
@@ -72,5 +72,10 @@ export class SoftParameterService {
   public updatePosition$(positionData: any, id: string) {
     const path = `/positions/${id}`;
     return this.http.patch(path, positionData);
+  }
+  //
+  public getProducts$(organizationId: string, page: number) {
+    const path = `/products/filter??organizationId=${organizationId}&page=${page}&limit=8`;
+    return this.http.get(path);
   }
 }

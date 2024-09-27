@@ -19,6 +19,7 @@ import { TabType } from '../../../core/enums/tab-type.enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguegeServices } from '../../../shared/services/translate.service';
 import { PositionModalComponent } from './position-modal/position-modal.component';
+import { productsColumnsPosition } from './entity/products.entity';
 
 @Component({
   selector: 'app-soft-settings',
@@ -46,6 +47,7 @@ export class SoftSettingsComponent {
   activeItem!: any;
   tableColumns = tableColumns;
   tableColumnsPosition = tableColumnsPosition;
+  tableColumnsProducts = productsColumnsPosition;
   crudEnum = CrudEnum;
   tabType = TabType;
   public page$ = new BehaviorSubject(1);
@@ -96,6 +98,29 @@ export class SoftSettingsComponent {
         );
       })
     );
+
+  products$: Observable<IActions<IPosition>> = this.authService.getUser$().pipe(
+    switchMap((user) => {
+      return this.page$.pipe(
+        switchMap((page) => {
+          return this.softParameterService
+            .getProducts$(user.buyerOrganziaitonId, page)
+            .pipe(
+              map((res) => {
+                return {
+                  ...res,
+                  data: res.data.map((res: Action) => {
+                    res.createdAt = res.createdAt.split('T')[0];
+                    res.updatedAt = res.updatedAt.split('T')[0];
+                    return res;
+                  }),
+                };
+              })
+            );
+        })
+      );
+    })
+  );
   tabOptions$!: Observable<any>;
   $actionType$ = signal<{ type: string; actionId: string }>({
     type: '',
@@ -116,8 +141,6 @@ export class SoftSettingsComponent {
   }
 
   handleEmitType(type: { type: string; actionId: string; tabType: string }) {
-    console.log(type);
-
     this.$actionType$.set(type);
     if (
       (type.tabType === this.tabType.ACTIONS ||

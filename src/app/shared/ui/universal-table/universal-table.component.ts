@@ -16,6 +16,7 @@ export class UniversalTableComponent {
     field: string;
     title: string;
     width?: string;
+    hasDescription?: boolean;
     icons?: { edit: boolean; delete: boolean };
   }[];
 
@@ -30,11 +31,20 @@ export class UniversalTableComponent {
   @Output() page = new EventEmitter();
   crudEnum = CrudEnum;
   $page$ = signal(1);
-  $limit$ = signal(10);
-
+  $limit$ = signal(8);
+  $description$ = signal('');
+  $selectedIndex$ = signal<null | number>(null);
   onPageChange(event: any): void {
     this.$page$.set(event.page + 1);
     this.$limit$.set(event.rows);
     this.page.emit({ page: event.page + 1, limit: event.rows });
+  }
+  handleShowDescription(index: number) {
+    this.$description$.set(this.data.data[index].description);
+    this.$selectedIndex$.set(index);
+  }
+  handleCloseDescription() {
+    this.$description$.set('');
+    this.$selectedIndex$.set(null);
   }
 }

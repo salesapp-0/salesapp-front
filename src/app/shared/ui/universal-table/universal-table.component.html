@@ -17,7 +17,7 @@
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-item>
+  <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
       <td *ngFor="let col of columns">
         @if (col.field === 'icons') {
@@ -33,9 +33,18 @@
                     tabType:tabType
                 })"  class="pi pi-trash cursor-pointer text-accent" ></i>
             </div>
+        } @else if(col.hasDescription) {
+          <div class="relative">
+            <p class="flex items-center gap-[6px]" (mouseover)="handleShowDescription(i)" (mouseleave)="handleCloseDescription()">სრულად ნახვა <img src="./assets/images/table/info-circle.png" alt=""></p>
+            <!-- tool box -->
+              <div class="absolute" *ngIf="$description$() && i === $selectedIndex$()">
+                {{$description$()}}
+              </div>
+          </div>
         } @else {
-            {{ item[col.field] }}
+          {{ item[col.field] }}
         }
+
       </td>
     
     </tr>
