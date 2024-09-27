@@ -111,11 +111,9 @@ export class SidebarComponent extends unsub implements OnInit {
       .subscribe();
   }
   toggleSidebar() {
-    this.$isSIdeBarOpen$.set(!this.$isSIdeBarOpen$());
-    localStorage.setItem(
-      'isSidebarOpen',
-      JSON.stringify(this.$isSIdeBarOpen$())
-    );
+    const newState = !this.$isSIdeBarOpen$();
+    this.$isSIdeBarOpen$.set(newState);
+    localStorage.setItem('isSidebarOpen', JSON.stringify(newState));
   }
   hasPermissionUser(premission: string) {
     return this.authService.hasPermission(premission);

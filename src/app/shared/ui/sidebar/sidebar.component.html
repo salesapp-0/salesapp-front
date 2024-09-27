@@ -1,7 +1,13 @@
-<div class="sidebar relative">
+<div class="sidebar relative"
+[ngClass]="{
+    'sidebar--closed': !this.$isSIdeBarOpen$()
+}"
+>
   <img (click)="toggleSidebar()" 
   [ngClass]="{'right-[-36px]': !this.$isSIdeBarOpen$(),
-        'right-[9px]':this.$isSIdeBarOpen$()}"
+        'right-[9px]':this.$isSIdeBarOpen$(),
+      
+        }"
   class="w-[18px] absolute  cursor-pointer z-10" src="./assets/images/side-bar/close-icon.svg" alt="">
 
   <div class="relative top-[1px]">
