@@ -26,6 +26,7 @@ module.exports = {
         grayLight: '#F7F7F7',
         grayMedium: '#FBFBFB',
         white: '#FFFFFF',
+        grayToolTip:'#4F6A74'
       },
     },
   },

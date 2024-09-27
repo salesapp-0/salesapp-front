@@ -35,9 +35,9 @@
             </div>
         } @else if(col.hasDescription) {
           <div class="relative">
-            <p class="flex items-center gap-[6px]" (mouseover)="handleShowDescription(i)" (mouseleave)="handleCloseDescription()">სრულად ნახვა <img src="./assets/images/table/info-circle.png" alt=""></p>
+            <p class="flex items-center gap-[6px]" (mouseover)="handleShowDescription(i)" >სრულად ნახვა <img src="./assets/images/table/info-circle.png" alt=""></p>
             <!-- tool box -->
-              <div class="absolute" *ngIf="$description$() && i === $selectedIndex$()">
+              <div class="absolute bg-grayToolTip rounded-[5px] text-white flex items-center justify-center px-[6px] py-[8px] bottom-6 right-[0px]" *ngIf="$description$() && i === $selectedIndex$()">
                 {{$description$()}}
               </div>
           </div>
