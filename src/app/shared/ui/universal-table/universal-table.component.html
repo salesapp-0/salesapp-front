@@ -35,11 +35,12 @@
             </div>
         } @else if(col.hasDescription) {
           <div class="relative">
-            <p class="flex items-center gap-[6px]" >სრულად ნახვა <img class="cursor-pointer" (mouseover)="handleShowDescription(i)" (mouseleave)="handleCloseDescription()" src="./assets/images/table/info-circle.png" alt=""></p>
-            <!-- tool box -->
-              <div class="absolute  bg-grayToolTip rounded-[5px] text-white flex items-center justify-center px-[6px] py-[8px] bottom-6 right-[0px]" *ngIf="$description$() && i === $selectedIndex$()">
-                {{$description$()}}
-              </div>
+            <p class="flex items-center gap-[6px]" >სრულად ნახვა <img class="cursor-pointer" (mouseover)="handleShowDescription(i)" (mouseleave)="handleCloseDescription()" src="./assets/images/table/info-circle.png" alt="">
+            </p>
+             <!-- tool box -->
+            <div class="absolute  bg-grayToolTip rounded-[5px] max-w[100px] text-white flex items-center justify-center px-[6px] py-[8px] bottom-6 left-[80px]" *ngIf="$description$() && i === $selectedIndex$()">
+              {{$description$()}}
+            </div>
           </div>
         } @else {
           {{ item[col.field] }}
