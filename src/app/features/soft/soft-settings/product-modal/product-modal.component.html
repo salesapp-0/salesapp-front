@@ -1,1 +1,57 @@
-<p>product-modal works!</p>
+<div class="overlay z-30"></div>
+<div class="max-w-[460px] bg-white  w-full h-[512px] py-[24px] px-[40px] rounded-[8px] absolute z-40 m-auto left-0 right-0 top-0 bottom-0 ">
+    <div class="flex justify-between items-center">
+        <h3>პროდუქტის დამატება</h3>
+        <img class="cursor-pointer" (click)="close.emit()"  src="./assets/images/organizations/close.png"alt="">
+    </div>
+    <form [formGroup]="productForm" class="flex flex-col">
+        <input type="text" class="mt-[16px]" pInputText formControlName="name"
+        placeholder="დასახელება"
+        />
+        <p-inputNumber 
+        class="w-full"
+        formControlName="cost"
+         inputId="withoutgrouping" 
+        [useGrouping]="false" 
+        class="mt-[16px]"
+        variant="filled"
+        placeholder="ღირებულება"
+        /> 
+    <p-inputNumber 
+    class="w-full"
+    formControlName="sellingPrice"
+    variant="filled"
+    inputId="withoutgrouping" 
+    [useGrouping]="false" 
+    class="mt-[16px]"
+    placeholder="გასაყიდი ფასი"
+    /> 
+    <p-dropdown 
+    [options]="group" 
+    formControlName="sellingGroup"
+    optionLabel="name" 
+    class="mt-[16px]"
+    placeholder="გაყიდვების ჯგუფი"
+    />
+    <textarea 
+    rows="5"
+    cols="30"
+    pInputTextarea 
+    formControlName="description"
+    class="mt-[16px]"
+    draggable="false"
+    placeholder="აღწერა"
+    >
+</textarea>
+        <button class="outline-none border-none rounded-[8px]  text-white bg-accent
+        py-[8px]
+        w-[140px]
+        m-auto
+        mt-2
+        cursor-pointer 
+        "
+        [disabled]="productForm.invalid"
+        (click)="onSubmit()"
+        >დამატება</button>
+    </form>
+</div>

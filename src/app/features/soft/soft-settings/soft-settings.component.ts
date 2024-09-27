@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguegeServices } from '../../../shared/services/translate.service';
 import { PositionModalComponent } from './position-modal/position-modal.component';
 import { productsColumnsPosition } from './entity/products.entity';
+import { ProductModalComponent } from './product-modal/product-modal.component';
 
 @Component({
   selector: 'app-soft-settings',
@@ -34,6 +35,7 @@ import { productsColumnsPosition } from './entity/products.entity';
     ActionModalComponent,
     TranslateModule,
     PositionModalComponent,
+    ProductModalComponent,
   ],
   templateUrl: './soft-settings.component.html',
   styleUrl: './soft-settings.component.scss',
@@ -129,6 +131,7 @@ export class SoftSettingsComponent {
   $buyerOrganziaitonId$ = signal('');
   $openActioPopup$ = signal(false);
   $openPositionModal$ = signal(false);
+  $openProductsModal$ = signal(false);
   ngOnInit() {
     this.items = [
       { label: 'actions' },
@@ -145,12 +148,16 @@ export class SoftSettingsComponent {
     if (
       (type.tabType === this.tabType.ACTIONS ||
         type.type !== this.crudEnum.DELETE) &&
-      type.tabType !== TabType.POSITIONS
+      type.tabType !== TabType.POSITIONS &&
+      type.tabType !== TabType.PRODUCTS
     ) {
       this.$openActioPopup$.set(true);
     }
     if (type.tabType === TabType.POSITIONS) {
       this.$openPositionModal$.set(true);
+    }
+    if (type.tabType === TabType.PRODUCTS) {
+      this.$openProductsModal$.set(true);
     }
   }
   listenPageChange(page: { page: number; limit: number }) {
@@ -169,5 +176,8 @@ export class SoftSettingsComponent {
           return res;
         })
       );
+  }
+  onTabChange(event: any) {
+    this.page$.next(1);
   }
 }

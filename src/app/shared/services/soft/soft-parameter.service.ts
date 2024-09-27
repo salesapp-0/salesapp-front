@@ -78,4 +78,22 @@ export class SoftParameterService {
     const path = `/products/filter??organizationId=${organizationId}&page=${page}&limit=8`;
     return this.http.get(path);
   }
+
+  public updateProduct$(positionData: any, id: string) {
+    const path = `/products/${id}`;
+    return this.http.patch(path, positionData);
+  }
+
+  public addProduct$(positionData: any) {
+    const path = `/products`;
+    return this.http.post(path, positionData);
+  }
+  public getSellingGroupDescription$(organizationId: string) {
+    const path = `/products/description/?organizationId=${organizationId}`;
+    return this.http.get(path);
+  }
+  public getSpecificProductOption$(id: string): Observable<any> {
+    const path = `/products/${id}`;
+    return this.http.get(path);
+  }
 }

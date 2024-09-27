@@ -77,9 +77,6 @@ export class PositionModalComponent extends unsub implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
-    this.positionForm.valueChanges.subscribe((data) => {
-      console.log(data);
-    });
   }
   onSubmit() {
     console.log(this.positionForm.valid);
