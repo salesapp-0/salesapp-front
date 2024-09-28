@@ -24,6 +24,7 @@ import { productsColumnsPosition } from './entity/products.entity';
 import { ProductModalComponent } from './product-modal/product-modal.component';
 import { roleColumnsPosition } from './entity/role-premissions.entity';
 import { RolePermissions } from '../../../core/interfaces/roles.interfcae';
+import { RolePremissionModalComponent } from './role-premission-modal/role-premission-modal.component';
 
 @Component({
   selector: 'app-soft-settings',
@@ -39,6 +40,7 @@ import { RolePermissions } from '../../../core/interfaces/roles.interfcae';
     TranslateModule,
     PositionModalComponent,
     ProductModalComponent,
+    RolePremissionModalComponent,
   ],
   templateUrl: './soft-settings.component.html',
   styleUrl: './soft-settings.component.scss',
@@ -168,6 +170,7 @@ export class SoftSettingsComponent {
   $openActioPopup$ = signal(false);
   $openPositionModal$ = signal(false);
   $openProductsModal$ = signal(false);
+  $openRolePremissionsModal$ = signal(false);
   ngOnInit() {
     this.items = [
       { label: 'actions' },
@@ -185,7 +188,8 @@ export class SoftSettingsComponent {
       (type.tabType === this.tabType.ACTIONS ||
         type.type !== this.crudEnum.DELETE) &&
       type.tabType !== TabType.POSITIONS &&
-      type.tabType !== TabType.PRODUCTS
+      type.tabType !== TabType.PRODUCTS &&
+      type.tabType !== TabType.ROLE_PREMISSIONS
     ) {
       this.$openActioPopup$.set(true);
     }
@@ -194,6 +198,9 @@ export class SoftSettingsComponent {
     }
     if (type.tabType === TabType.PRODUCTS) {
       this.$openProductsModal$.set(true);
+    }
+    if (type.tabType === TabType.ROLE_PREMISSIONS) {
+      this.$openRolePremissionsModal$.set(true);
     }
   }
   listenPageChange(page: { page: number; limit: number }) {

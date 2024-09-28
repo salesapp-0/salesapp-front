@@ -20,7 +20,6 @@ import { SoftParameterService } from '../../../../shared/services/soft/soft-para
 import { AuthService } from '../../../../shared/services/auth.service';
 import { map, switchMap, takeUntil } from 'rxjs';
 import { unsub } from '../../../../shared/classes/unsub.class';
-import { log } from 'console';
 @Component({
   selector: 'app-position-modal',
   standalone: true,

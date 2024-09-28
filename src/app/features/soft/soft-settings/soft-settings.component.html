@@ -32,7 +32,10 @@
                     [columns]="tableColumnsRoles" 
                     [data]="(role$ | async)" 
                     (page)="listenPageChange($event)"
-                    />    
+                    />  
+                    @if($openRolePremissionsModal$()) {
+                        <app-role-premission-modal (close)="$openRolePremissionsModal$.set(false)"/> 
+                    } 
                 }
             </div>
         </div>

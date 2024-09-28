@@ -1,0 +1,20 @@
+::ng-deep {
+    p-inputNumber{
+        span {
+            width: 100%;
+        }
+    }
+    .p-dropdown {
+        width: 100%;
+    }
+
+    p-multiselect {
+        width: 100% !important;
+      }
+      .p-multiselect {
+        width: 100%!important;
+      }
+}
+textarea {
+    resize: none;
+}

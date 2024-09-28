@@ -96,4 +96,10 @@ export class SoftParameterService {
     const path = `/products/${id}`;
     return this.http.get(path);
   }
+
+  //
+  public getPermissions$(): Observable<any> {
+    const path = `/permissions`;
+    return this.http.get(path);
+  }
 }
