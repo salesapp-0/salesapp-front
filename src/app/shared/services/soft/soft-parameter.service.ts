@@ -74,8 +74,8 @@ export class SoftParameterService {
     return this.http.patch(path, positionData);
   }
   //
-  public getProducts$(organizationId: string, page: number) {
-    const path = `/products/filter??organizationId=${organizationId}&page=${page}&limit=8`;
+  public getProducts$(organizationId: string, page: number, type: string) {
+    const path = `/${type}/filter?organizationId=${organizationId}&page=${page}&limit=8`;
     return this.http.get(path);
   }
 

@@ -21,33 +21,54 @@
     <tr>
       <td *ngFor="let col of columns">
         @if (col.field === 'icons') {
-            <div class="flex justify-evenly">
-                <i *ngIf="col.icons?.edit" (click)="actionType.emit({
-                    type:crudEnum.UPDATE,
-                    actionId:item.id,
-                    tabType:tabType
-                })" class="pi pi-pencil cursor-pointer text-accent"  ></i>
-                <i *ngIf="col.icons?.delete" (click)="actionType.emit({
-                    type:crudEnum.DELETE,
-                    actionId:item.id,
-                    tabType:tabType
-                })"  class="pi pi-trash cursor-pointer text-accent" ></i>
-            </div>
+        <div class="flex justify-evenly">
+          <i
+            *ngIf="col.icons?.edit"
+            (click)="
+              actionType.emit({
+                type: crudEnum.UPDATE,
+                actionId: item.id,
+                tabType: tabType
+              })
+            "
+            class="pi pi-pencil cursor-pointer text-accent"
+          ></i>
+          <i
+            *ngIf="col.icons?.delete"
+            (click)="
+              actionType.emit({
+                type: crudEnum.DELETE,
+                actionId: item.id,
+                tabType: tabType
+              })
+            "
+            class="pi pi-trash cursor-pointer text-accent"
+          ></i>
+        </div>
         } @else if(col.hasDescription) {
-          <div class="relative">
-            <p class="flex items-center gap-[6px]" >სრულად ნახვა <img class="cursor-pointer" (mouseover)="handleShowDescription(i)" (mouseleave)="handleCloseDescription()" src="./assets/images/table/info-circle.png" alt="">
-            </p>
-             <!-- tool box -->
-            <div class="absolute  bg-grayToolTip rounded-[5px] max-w[100px] text-white flex items-center justify-center px-[6px] py-[8px] bottom-6 left-[80px]" *ngIf="$description$() && i === $selectedIndex$()">
-              {{$description$()}}
-            </div>
+        <div class="relative">
+          <p class="flex items-center gap-[6px]">
+            სრულად ნახვა
+            <img
+              class="cursor-pointer"
+              (mouseover)="handleShowProperty(i, col.property)"
+              (mouseleave)="handleCloseProperty(i, col.property)"
+              src="./assets/images/table/info-circle.png"
+              alt=""
+            />
+          </p>
+          <!-- tool box -->
+          <div
+            class="absolute bg-grayToolTip rounded-[5px] max-w[100px] text-white flex items-center justify-center px-[6px] py-[8px] bottom-6 left-[80px]"
+            *ngIf="$description$() && isTooltipVisible(i, col.property)"
+          >
+            {{ $description$() }}
           </div>
+        </div>
         } @else {
-          {{ item[col.field] }}
+        {{ item[col.field] }}
         }
-
       </td>
-    
     </tr>
   </ng-template>
 </p-table>

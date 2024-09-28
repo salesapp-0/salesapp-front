@@ -24,6 +24,7 @@ export const productsColumnsPosition = [
     title: 'აღწერა',
     width: '16.6%',
     hasDescription: true,
+    property: 'description',
   },
   {
     field: 'icons',

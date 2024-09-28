@@ -21,10 +21,18 @@
                             <app-position-modal [actionType]="$actionType$()" (close)="$openPositionModal$.set(false)"/>
                         }
                 }@else if (activeItem.defName === tabType.PRODUCTS) {
-                    <app-universal-table (actionType)="handleEmitType($event)" [tabType]="activeItem.defName"  [columns]="tableColumnsProducts" [data]="(products$ | async)" (page)="listenPageChange($event)"/>    
+                    <app-universal-table  (actionType)="handleEmitType($event)" [tabType]="activeItem.defName"  [columns]="tableColumnsProducts" [data]="(products$ | async)" (page)="listenPageChange($event)"/>    
                     @if($openProductsModal$()) {
                         <app-product-modal [actionType]="$actionType$()" (close)="$openProductsModal$.set(false)"/>
                     }
+                } @else {
+                    <app-universal-table 
+                    (actionType)="handleEmitType($event)" 
+                    [tabType]="activeItem.defName"  
+                    [columns]="tableColumnsRoles" 
+                    [data]="(role$ | async)" 
+                    (page)="listenPageChange($event)"
+                    />    
                 }
             </div>
         </div>

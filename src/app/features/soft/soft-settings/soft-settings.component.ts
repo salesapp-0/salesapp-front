@@ -1,3 +1,4 @@
+import { join } from 'node:path';
 import { tableColumnsPosition } from './entity/positions.entity';
 import { Component, inject, signal } from '@angular/core';
 import { HeaderComponent } from '../../../shared/ui/header/header.component';
@@ -21,6 +22,8 @@ import { LanguegeServices } from '../../../shared/services/translate.service';
 import { PositionModalComponent } from './position-modal/position-modal.component';
 import { productsColumnsPosition } from './entity/products.entity';
 import { ProductModalComponent } from './product-modal/product-modal.component';
+import { roleColumnsPosition } from './entity/role-premissions.entity';
+import { RolePermissions } from '../../../core/interfaces/roles.interfcae';
 
 @Component({
   selector: 'app-soft-settings',
@@ -50,6 +53,7 @@ export class SoftSettingsComponent {
   tableColumns = tableColumns;
   tableColumnsPosition = tableColumnsPosition;
   tableColumnsProducts = productsColumnsPosition;
+  tableColumnsRoles = roleColumnsPosition;
   crudEnum = CrudEnum;
   tabType = TabType;
   public page$ = new BehaviorSubject(1);
@@ -106,7 +110,7 @@ export class SoftSettingsComponent {
       return this.page$.pipe(
         switchMap((page) => {
           return this.softParameterService
-            .getProducts$(user.buyerOrganziaitonId, page)
+            .getProducts$(user.buyerOrganziaitonId, page, 'products')
             .pipe(
               map((res) => {
                 return {
@@ -123,6 +127,38 @@ export class SoftSettingsComponent {
       );
     })
   );
+
+  role$: Observable<IActions<RolePermissions[]>> = this.authService
+    .getUser$()
+    .pipe(
+      switchMap((user) => {
+        return this.page$.pipe(
+          switchMap((page) => {
+            return this.softParameterService
+              .getProducts$(user.buyerOrganziaitonId, page, 'roles')
+              .pipe(
+                map((res) => {
+                  const permissions = res.data.map((res: RolePermissions) => {
+                    return res.rolePermissions.map((permission) => {
+                      return permission.permission.value;
+                    });
+                  });
+                  return {
+                    ...res,
+                    data: res.data.map((res: RolePermissions) => {
+                      res.createdAt = res.createdAt.split('T')[0];
+                      res.updatedAt = res.updatedAt.split('T')[0];
+                      res.rolePermissions = permissions[0];
+                      return res;
+                    }),
+                  };
+                })
+              );
+          })
+        );
+      })
+    );
+
   tabOptions$!: Observable<any>;
   $actionType$ = signal<{ type: string; actionId: string }>({
     type: '',
