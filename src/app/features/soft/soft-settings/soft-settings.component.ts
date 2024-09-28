@@ -213,7 +213,4 @@ export class SoftSettingsComponent {
         })
       );
   }
-  onTabChange(event: any) {
-    this.page$.next(1);
-  }
 }

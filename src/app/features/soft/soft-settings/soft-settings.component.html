@@ -7,7 +7,7 @@
                 <app-add-button (click)="handleEmitType({type:crudEnum.ADD,actionId:$buyerOrganziaitonId$(),tabType:activeItem.defName})"/>
             </div>
             <div class="card">
-                <p-tabMenu [model]="tabOptions$ | async" [(activeItem)]="activeItem" (activeItemChange)="onTabChange($event)" />
+                <p-tabMenu [model]="tabOptions$ | async" [(activeItem)]="activeItem"  />
             </div>
             <div class="mt-[36px] relative">
                 @if(activeItem.defName === tabType.ACTIONS) {
