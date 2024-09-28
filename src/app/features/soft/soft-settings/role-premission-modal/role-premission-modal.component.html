@@ -11,7 +11,7 @@
       alt=""
     />
   </div>
-  <form [formGroup]="productForm" class="flex flex-col">
+  <form [formGroup]="roleForm" class="flex flex-col">
     <input
       type="text"
       class="mt-[16px]"
@@ -30,14 +30,14 @@
     >
     </textarea>
     <p-multiSelect
-      [options]="group"
+      [options]="[{name:'gela'}]"
       optionLabel="name"
       formControlName="premissions"
     />
 
     <button
       class="outline-none border-none rounded-[8px] text-white bg-accent py-[8px] w-[140px] m-auto mt-2 cursor-pointer"
-      [disabled]="productForm.invalid"
+      [disabled]="roleForm.invalid"
       (click)="onSubmit()"
     >
       დამატება
