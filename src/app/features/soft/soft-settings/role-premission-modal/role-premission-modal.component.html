@@ -1,39 +1,46 @@
 <div class="overlay z-30"></div>
-<div class="max-w-[460px] bg-white  w-full h-[408px] py-[24px] px-[40px] rounded-[8px] absolute z-40 m-auto left-0 right-0 top-0 bottom-0 ">
-    <div class="flex justify-between items-center">
-        <h3 class="text-[14px]">როლის და წვდომების დამატება</h3>
-        <img class="cursor-pointer" (click)="close.emit()"  src="./assets/images/organizations/close.png"alt="">
-    </div>
-    <form [formGroup]="productForm" class="flex flex-col">
-        <input type="text" class="mt-[16px]" pInputText formControlName="name"
-        placeholder="როლის დასახელება"
-        />
-        <textarea 
-        rows="5"
-        cols="30"
-        pInputTextarea 
-        formControlName="description"
-        class="mt-[16px] mb-[16px]"
-        draggable="false"
-        placeholder="აღწერა"
-        >
+<div
+  class="max-w-[460px] bg-white w-full h-[408px] py-[24px] px-[40px] rounded-[8px] absolute z-40 m-auto left-0 right-0 top-0 bottom-0"
+>
+  <div class="flex justify-between items-center">
+    <h3 class="text-[14px]">როლის და წვდომების დამატება</h3>
+    <img
+      class="cursor-pointer"
+      (click)="close.emit()"
+      src="./assets/images/organizations/close.png"
+      alt=""
+    />
+  </div>
+  <form [formGroup]="productForm" class="flex flex-col">
+    <input
+      type="text"
+      class="mt-[16px]"
+      pInputText
+      formControlName="name"
+      placeholder="როლის დასახელება"
+    />
+    <textarea
+      rows="5"
+      cols="30"
+      pInputTextarea
+      formControlName="description"
+      class="mt-[16px] mb-[16px]"
+      draggable="false"
+      placeholder="აღწერა"
+    >
     </textarea>
-    <p-multiSelect 
-    [options]="group" 
-    optionLabel="name" 
-    formControlName="premissions"
-    /> 
-     
+    <p-multiSelect
+      [options]="group"
+      optionLabel="name"
+      formControlName="premissions"
+    />
 
-        <button class="outline-none border-none rounded-[8px]  text-white bg-accent
-        py-[8px]
-        w-[140px]
-        m-auto
-        mt-2
-        cursor-pointer 
-        "
-        [disabled]="productForm.invalid"
-        (click)="onSubmit()"
-        >დამატება</button>
-    </form>
+    <button
+      class="outline-none border-none rounded-[8px] text-white bg-accent py-[8px] w-[140px] m-auto mt-2 cursor-pointer"
+      [disabled]="productForm.invalid"
+      (click)="onSubmit()"
+    >
+      დამატება
+    </button>
+  </form>
 </div>
