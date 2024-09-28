@@ -1,5 +1,3 @@
-import { PropertyRead } from '@angular/compiler';
-
 export const roleColumnsPosition = [
   {
     field: 'name',
