@@ -34,7 +34,7 @@
                     (page)="listenPageChange($event)"
                     />  
                     @if($openRolePremissionsModal$()) {
-                        <app-role-premission-modal (close)="$openRolePremissionsModal$.set(false)"/> 
+                        <app-role-premission-modal [buyerOrgid]="$buyerOrganziaitonId$()" [actionType]="$actionType$()" (close)="$openRolePremissionsModal$.set(false)"/> 
                     } 
                 }
             </div>

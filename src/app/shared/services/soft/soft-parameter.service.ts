@@ -102,4 +102,19 @@ export class SoftParameterService {
     const path = `/permissions`;
     return this.http.get(path);
   }
+  //
+  public addRoles$(createRole: any): Observable<any> {
+    const path = `/roles`;
+    return this.http.post(path, createRole);
+  }
+
+  public findSpecificRole$(id: string): Observable<any> {
+    const path = `/roles/${id}`;
+    return this.http.get(path);
+  }
+
+  public updateRole$(positionData: any, id: string) {
+    const path = `/roles/${id}`;
+    return this.http.patch(path, positionData);
+  }
 }
