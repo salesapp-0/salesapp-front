@@ -30,11 +30,10 @@
     >
     </textarea>
     <p-multiSelect
-      [options]="[{name:'gela'}]"
+      [options]="group"
       optionLabel="name"
       formControlName="premissions"
     />
-
     <button
       class="outline-none border-none rounded-[8px] text-white bg-accent py-[8px] w-[140px] m-auto mt-2 cursor-pointer"
       [disabled]="roleForm.invalid"

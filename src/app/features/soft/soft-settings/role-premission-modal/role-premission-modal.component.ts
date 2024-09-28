@@ -58,6 +58,8 @@ export class RolePremissionModalComponent extends unsub implements OnInit {
             const permissionValues = res[0].rolePermissions.map((item: any) => {
               return { name: item.permission.nameKa };
             });
+            console.log(permissionValues);
+
             this.roleForm.get('premissions')?.patchValue(permissionValues);
             this.roleForm.get('description')?.patchValue(res[0].description);
           }),
@@ -76,7 +78,7 @@ export class RolePremissionModalComponent extends unsub implements OnInit {
   ngOnInit(): void {
     this.roleForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(200)]],
-      premissions: [this.fb.array([]), [Validators.required]],
+      premissions: [[], [Validators.required]],
       description: ['', [Validators.required]],
     });
 
@@ -87,6 +89,7 @@ export class RolePremissionModalComponent extends unsub implements OnInit {
           this.group = res.map((permissions: any) => {
             return { name: permissions.nameKa };
           });
+          console.log(this.group);
         }),
         takeUntil(this.unsubscribe$)
       )
