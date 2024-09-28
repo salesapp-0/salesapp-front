@@ -107,9 +107,11 @@ export class ProductModalComponent extends unsub implements OnInit {
           sellingPrice: this.productForm.get('sellingPrice')?.value,
           sellingGroup: this.productForm.get('sellingGroup')?.value?.name || '',
           description: this.productForm.get('description')?.value,
-          buyerOrganization: this.$buyerOrgData$(),
+          BuyerOrganization: this.$actionTypeStr$().actionId,
           quantity: 1,
         };
+        console.log(this.$actionTypeStr$().actionId);
+
         this.softParameterService
           .addProduct$(updatedData)
           .pipe(

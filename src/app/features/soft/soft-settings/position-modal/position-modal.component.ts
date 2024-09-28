@@ -58,7 +58,7 @@ export class PositionModalComponent extends unsub implements OnInit {
   ngOnInit(): void {
     this.positionForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(200)]],
-      saleGroup: ['', []],
+      saleGroup: [''],
     });
     this.authService
       .getUser$()
@@ -87,11 +87,12 @@ export class PositionModalComponent extends unsub implements OnInit {
           ...this.positionForm.value,
         };
         const updatedData = {
-          description: position.saleGroup.map((item: any) => ({
-            description: item.name,
-          }))[0].description,
           name: position.name,
-          buyerOrganization: this.$buyerOrgData$(),
+          ...(position?.saleGroup?.length > 0 &&
+            position.saleGroup[0].name && {
+              description: position.saleGroup[0].name,
+            }),
+          BuyerOrganizationId: this.$actionTypeStr$().actionId,
         };
 
         this.softParameterService
@@ -109,10 +110,11 @@ export class PositionModalComponent extends unsub implements OnInit {
           ...this.positionForm.value,
         };
         const updatedData = {
-          description: position.saleGroup.map((item: any) => ({
-            description: item.name,
-          }))[0].description,
           name: position.name,
+          ...(position?.saleGroup?.length > 0 &&
+            position.saleGroup[0].name && {
+              description: position.saleGroup[0].name,
+            }),
         };
 
         this.softParameterService
