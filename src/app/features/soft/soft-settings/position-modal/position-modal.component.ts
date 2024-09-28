@@ -58,7 +58,7 @@ export class PositionModalComponent extends unsub implements OnInit {
   ngOnInit(): void {
     this.positionForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(200)]],
-      saleGroup: ['', [Validators.required]],
+      saleGroup: ['', []],
     });
     this.authService
       .getUser$()

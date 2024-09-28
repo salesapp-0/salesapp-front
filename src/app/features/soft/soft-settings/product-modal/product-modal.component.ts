@@ -77,7 +77,7 @@ export class ProductModalComponent extends unsub implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(200)]],
       cost: [null, [Validators.required]],
       sellingPrice: [null, [Validators.required]],
-      sellingGroup: ['', [Validators.required]],
+      sellingGroup: ['', []],
       description: ['', [Validators.required]],
     });
     this.authService
