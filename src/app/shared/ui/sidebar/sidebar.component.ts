@@ -60,13 +60,13 @@ export class SidebarComponent extends unsub implements OnInit {
       isOpen: false,
       children: [
         {
-          path: 'employee',
+          path: '/employee',
           label: 'თანამშრომლები',
           icon: './assets/images/side-bar/hr-icon.png',
           activeIcon: 'path/to/active-icon.svg',
         },
         {
-          path: 'selling-group',
+          path: '/selling-group',
           label: 'გაყიდვების ჯგუფი',
           icon: 'path/to/icon.svg',
           activeIcon: 'path/to/active-icon.svg',
