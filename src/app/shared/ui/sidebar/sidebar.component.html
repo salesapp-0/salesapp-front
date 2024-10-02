@@ -20,14 +20,37 @@
 
         <div class="flex flex-col justify-between h-[91%] mt-[25px]">
           <ng-container *ngFor="let route of routes">
-            <ng-container *ngIf="hasPermissionUser(route.permission)">
-              <div class="sidebar__tab__route"
-                   (click)="onNavigate(route.path)"
-                   [class.sidebar__tab__route--active]="$currentRoute$() === route.path">
-                <img [src]="$currentRoute$() === route.path ? route.activeIcon : route.icon" alt="">
-                <p *ngIf="$isSIdeBarOpen$()">{{ route.label | translate }}</p>
-              </div>
-            </ng-container>
+            @if(route.type === 'tree-select') {
+              <ng-container *ngIf="hasPermissionUser(route.permission)">
+                <div class="sidebar__tab__route justify-between" (click)="toggleTree(route)" [class.sidebar__tab__route-select--active]="route.isOpen || isActiveRoute(route)">
+                  <div class="flex items-center gap-[5px]">
+                    <img [src]="route.isOpen || isActiveRoute(route) ? route.activeIcon : route.icon" alt="">
+                    <p *ngIf="$isSIdeBarOpen$()" [style.color]="route.isOpen || isActiveRoute(route) ? 'white' : 'black'">{{ route.label | translate }}</p>
+                  </div>
+                  <img *ngIf="$isSIdeBarOpen$()" [src]="route.isOpen || isActiveRoute(route) ? route.arrowWhite : route.arrowBlack" alt="">
+                </div>
+                <ng-container *ngIf="route.isOpen || isActiveRoute(route)"  >
+                  <div class="bg-grayLight pb-[17px]">
+                    <div  *ngFor="let subRoute of route.children" (click)="onNavigate(subRoute.path)"
+                      >
+                    <div class="flex items-center">
+                      <p *ngIf="$isSIdeBarOpen$()" 
+                      class="mt-[19px] mb-0 pl-[17px] text-[14px] cursor-pointer" >{{ subRoute.label | translate }}</p>
+                    </div>
+                  </div>
+                  </div>
+                </ng-container> 
+              </ng-container>
+            } @else {
+              <ng-container *ngIf="hasPermissionUser(route.permission)">
+                <div class="sidebar__tab__route"
+                     (click)="onNavigate(route.path)"
+                     [class.sidebar__tab__route--active]="$currentRoute$() === route.path">
+                  <img [src]="$currentRoute$() === route.path ? route.activeIcon : route.icon" alt="">
+                  <p *ngIf="$isSIdeBarOpen$()">{{ route.label | translate }}</p>
+                </div>
+              </ng-container>
+            }
           </ng-container>
       
     <!-- Logout -->

@@ -75,4 +75,24 @@ export const routes: Routes = [
     providers: [AuthService],
     data: { permissions: [PermissionsEnum.READ_SOFT_SETTINGS] },
   },
+  {
+    path: 'employee',
+    loadComponent: () =>
+      import('./features/soft/hr/employee/employee.component').then(
+        (m) => m.EmployeeComponent
+      ),
+    canActivate: [authGuard, permissionsGuard],
+    providers: [AuthService],
+    data: { permissions: [PermissionsEnum.READ_HR] },
+  },
+  {
+    path: 'selling-group',
+    loadComponent: () =>
+      import('./features/soft/hr/selling-group/selling-group.component').then(
+        (m) => m.SellingGroupComponent
+      ),
+    canActivate: [authGuard, permissionsGuard],
+    providers: [AuthService],
+    data: { permissions: [PermissionsEnum.READ_HR] },
+  },
 ];
