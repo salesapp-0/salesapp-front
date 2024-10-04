@@ -8,7 +8,7 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let col of columns" [style.width]="col.width || 'auto'">
+      <th *ngFor="let col of columns" [style.width]="col.width || 'auto'" style="font-size: 12px;">
         {{ col.title }}
         <ng-container *ngIf="hasIcon">
           <i class="pi pi-sort"></i>

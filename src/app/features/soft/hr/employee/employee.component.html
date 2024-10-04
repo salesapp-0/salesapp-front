@@ -1,3 +1,53 @@
 <app-web-container>
-    <app-web-container-inner [sectionType]="'employee'" />
+  <app-web-container-inner [sectionType]="'employee'">
+    <ng-container header-btn>
+      <div class="flex items-center gap-4">
+        <img
+          class="cursor-pointer"
+          src="./assets/images/employee/add_circle.svg"
+          alt="*"
+        />
+        <!--  -->
+        <img
+          class="cursor-pointer"
+          src="./assets/images/employee/download.svg"
+          alt="*"
+        />
+        <!--  -->
+        <img
+          class="cursor-pointer"
+          src="./assets/images/employee/upload.svg"
+          alt="*"
+        />
+      </div>
+    </ng-container>
+    <!--  -->
+    <ng-container dropdown-selling-group>
+      <div class="w-[100%] max-w-[215px]">
+        <p-dropdown
+          [options]="translationSubscription$ | async"
+          optionLabel="name"
+          placeholder="{{ 'organizaiton-filter.2' | translate }}"
+          [showClear]="$isItemSelected$() ? true : false"
+        />
+      </div>
+    </ng-container>
+    <!--  -->
+    <ng-container dropdown-position>
+      <div class="w-[100%] max-w-[215px]">
+        <p-dropdown
+          [options]="translationSubscription$ | async"
+          optionLabel="name"
+          placeholder="{{ 'organizaiton-filter.2' | translate }}"
+          [showClear]="$isItemSelected$() ? true : false"
+        />
+      </div>
+    </ng-container>
+    <!--  -->
+    <ng-container table>
+      <div class="mt-[44px]">
+        <app-universal-table [columns]="tableColumnsRoles" [data]="[]" />
+      </div>
+    </ng-container>
+  </app-web-container-inner>
 </app-web-container>

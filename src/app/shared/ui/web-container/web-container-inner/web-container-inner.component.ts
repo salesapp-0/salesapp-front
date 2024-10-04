@@ -25,6 +25,4 @@ import { CheckboxModule } from 'primeng/checkbox';
 export class WebContainerInnerComponent {
   @Input() sectionType!: SectionType;
   cConfig = containerConfig;
-  public translationSubscription$!: Observable<any>;
-  $isItemSelected$ = signal(false);
 }
