@@ -46,7 +46,10 @@
     <!--  -->
     <ng-container table>
       <div class="mt-[44px]">
-        <app-universal-table [columns]="tableColumnsRoles" [data]="[]" />
+        <app-universal-table
+          [columns]="tableColumnsRoles"
+          [data]="employeeData$ | async"
+        />
       </div>
     </ng-container>
   </app-web-container-inner>

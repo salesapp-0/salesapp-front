@@ -1,14 +1,16 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { HeaderComponent } from '../../../../shared/ui/header/header.component';
 import { SidebarComponent } from '../../../../shared/ui/sidebar/sidebar.component';
 import { WebContainerComponent } from '../../../../shared/ui/web-container/web-container.component';
 import { WebContainerInnerComponent } from '../../../../shared/ui/web-container/web-container-inner/web-container-inner.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UniversalTableComponent } from '../../../../shared/ui/universal-table/universal-table.component';
 import { employeeColumns } from './entity/employee.entity';
+import { HrService } from '../../../../shared/services/soft/hr.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-employee',
@@ -29,5 +31,21 @@ import { employeeColumns } from './entity/employee.entity';
 export class EmployeeComponent {
   public translationSubscription$!: Observable<any>;
   $isItemSelected$ = signal(false);
+  $page = new BehaviorSubject<number>(1);
   tableColumnsRoles = employeeColumns;
+  private hrService = inject(HrService);
+  private authService = inject(AuthService);
+  employeeData$: Observable<any> = this.authService.getUser$().pipe(
+    switchMap((res) => {
+      return this.$page.pipe(
+        switchMap((page) => {
+          return this.hrService.filterOrg$(
+            'employee',
+            res.buyerOrganziaitonId,
+            page
+          );
+        })
+      );
+    })
+  );
 }
