@@ -4,13 +4,16 @@ import { SidebarComponent } from '../../../../shared/ui/sidebar/sidebar.componen
 import { WebContainerComponent } from '../../../../shared/ui/web-container/web-container.component';
 import { WebContainerInnerComponent } from '../../../../shared/ui/web-container/web-container-inner/web-container-inner.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UniversalTableComponent } from '../../../../shared/ui/universal-table/universal-table.component';
 import { employeeColumns } from './entity/employee.entity';
 import { HrService } from '../../../../shared/services/soft/hr.service';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { User } from '../../../../core/interfaces/user.interface';
+import { IEmployee } from './entity/interfaces/employee.interface';
+import { log } from 'console';
 
 @Component({
   selector: 'app-employee',
@@ -39,11 +42,27 @@ export class EmployeeComponent {
     switchMap((res) => {
       return this.$page.pipe(
         switchMap((page) => {
-          return this.hrService.filterOrg$(
-            'employee',
-            res.buyerOrganziaitonId,
-            page
-          );
+          return this.hrService
+            .filterOrg$('employee', res.buyerOrganziaitonId, page)
+            .pipe(
+              map((res: IEmployee) => {
+                return {
+                  data: res.data.map((res) => {
+                    res.createdAt = res.createdAt.split('T')[0];
+                    res.updatedAt = res.updatedAt.split('T')[0];
+                    return {
+                      ...res,
+                      position: res?.position?.name || '',
+                      role: res?.user?.roles?.map((res) => res?.role?.name),
+                    };
+                  }),
+                  total: res.total,
+                  page: res.page,
+                  limit: res.limit,
+                  totalPages: res.totalPages,
+                };
+              })
+            );
         })
       );
     })
