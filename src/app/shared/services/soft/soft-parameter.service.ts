@@ -47,8 +47,10 @@ export class SoftParameterService {
   }
   //
 
-  public getPositions$(organizationId: string, page: number) {
-    const path = `/positions/filter?organizationId=${organizationId}&page=${page}&limit=8`;
+  public getPositions$(organizationId: string, page: number, limit?: number) {
+    const path = `/positions/filter?organizationId=${organizationId}&page=${page}&limit=${
+      limit || 8
+    }`;
     return this.refetchAction$.pipe(
       switchMap((res) => {
         return this.http.get(path);

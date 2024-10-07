@@ -4,16 +4,16 @@ import { SidebarComponent } from '../../../../shared/ui/sidebar/sidebar.componen
 import { WebContainerComponent } from '../../../../shared/ui/web-container/web-container.component';
 import { WebContainerInnerComponent } from '../../../../shared/ui/web-container/web-container-inner/web-container-inner.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UniversalTableComponent } from '../../../../shared/ui/universal-table/universal-table.component';
 import { employeeColumns } from './entity/employee.entity';
 import { HrService } from '../../../../shared/services/soft/hr.service';
 import { AuthService } from '../../../../shared/services/auth.service';
-import { User } from '../../../../core/interfaces/user.interface';
 import { IEmployee } from './entity/interfaces/employee.interface';
-import { log } from 'console';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { SoftParameterService } from '../../../../shared/services/soft/soft-parameter.service';
 
 @Component({
   selector: 'app-employee',
@@ -27,6 +27,7 @@ import { log } from 'console';
     CommonModule,
     TranslateModule,
     UniversalTableComponent,
+    AddEmployeeComponent,
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
@@ -38,6 +39,7 @@ export class EmployeeComponent {
   tableColumnsRoles = employeeColumns;
   private hrService = inject(HrService);
   private authService = inject(AuthService);
+  private softParameterService = inject(SoftParameterService);
   employeeData$: Observable<any> = this.authService.getUser$().pipe(
     switchMap((res) => {
       return this.$page.pipe(
@@ -67,4 +69,18 @@ export class EmployeeComponent {
       );
     })
   );
+  positions$ = this.authService.getUser$().pipe(
+    switchMap((res) => {
+      return this.softParameterService
+        .getPositions$(res.buyerOrganziaitonId, 1, 100)
+        .pipe(
+          map((res) => {
+            return res.data.map((position: any) => {
+              return { name: position.name, id: position.id };
+            });
+          })
+        );
+    })
+  );
+  $openAddPopup$ = signal(false);
 }

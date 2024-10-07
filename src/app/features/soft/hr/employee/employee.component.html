@@ -1,4 +1,7 @@
-<app-web-container>
+<app-web-container *ngIf="{position:positions$ | async} as params">
+  @if ($openAddPopup$()) {
+    <app-add-employee (close)="$openAddPopup$.set(false)" [position]="params.position"/>
+  }
   <app-web-container-inner [sectionType]="'employee'">
     <ng-container header-btn>
       <div class="flex items-center gap-4">
@@ -6,6 +9,7 @@
           class="cursor-pointer"
           src="./assets/images/employee/add_circle.svg"
           alt="*"
+          (click)="$openAddPopup$.set(true)"
         />
         <!--  -->
         <img
@@ -25,9 +29,9 @@
     <ng-container dropdown-selling-group>
       <div class="w-[100%] max-w-[215px]">
         <p-dropdown
-          [options]="translationSubscription$ | async"
+          [options]="params.position"
           optionLabel="name"
-          placeholder="{{ 'organizaiton-filter.2' | translate }}"
+          placeholder="{{ 'პოზიცია' | translate }}"
           [showClear]="$isItemSelected$() ? true : false"
         />
       </div>
@@ -38,7 +42,7 @@
         <p-dropdown
           [options]="translationSubscription$ | async"
           optionLabel="name"
-          placeholder="{{ 'organizaiton-filter.2' | translate }}"
+          placeholder="{{ 'გაყიდვების ჯგუფი' | translate }}"
           [showClear]="$isItemSelected$() ? true : false"
         />
       </div>

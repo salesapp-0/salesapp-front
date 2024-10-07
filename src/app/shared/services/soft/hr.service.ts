@@ -18,4 +18,12 @@ export class HrService {
       })
     );
   }
+  getRoles$() {
+    const path = `/roles`;
+    return this.http.get(path);
+  }
+  addEmployee$(data: any) {
+    const path = `/employee`;
+    return this.http.post(path, data);
+  }
 }
