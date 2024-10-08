@@ -4,35 +4,9 @@
         <ng-content select="[header-btn]"></ng-content>
     </div>
     <form action="" class="mt-[56px] flex flex-wrap items-center gap-[24px]">
-        @if(cConfig[sectionType].hasSearchInput) {
-            <div class="w-[100%] max-w-[395px] relative">
-            <input
-            type="text"
-            pInputText
-            placeholder="{{cConfig[sectionType].placeHolderKey| translate}}"
-            class="max-w-[390px] w-full h-12 rounded-md text-left pl-8 placeholder:text-xs placeholder:text-card"
-          />
-          <i class="pi pi-search absolute left-3 top-4" style="font-size: 1rem"></i>
-        </div>
-        }
-        @if(cConfig[sectionType].hasFindSellingGroup) {
-            <ng-content select="[dropdown-selling-group]"></ng-content>
-        }
-
-        @if(cConfig[sectionType].hasFindWithPosition) {
-            <ng-content select="[dropdown-position]"></ng-content>
-        }     
-
         
-        @if(cConfig[sectionType].hasDeletedCheckbox) {
-        <div class="flex items-center gap-[10px]">
-            <p-checkbox 
-            formControlName="city" 
-            value="New York" 
-            inputId="ny" />
-            <label for="ny">წაშლილები</label>
-        </div>
-        }
+        <ng-content select="[content]"></ng-content>
+        
     </form>
     <ng-content select="[table]"></ng-content>
 </div>

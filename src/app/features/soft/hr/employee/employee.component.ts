@@ -4,7 +4,14 @@ import { SidebarComponent } from '../../../../shared/ui/sidebar/sidebar.componen
 import { WebContainerComponent } from '../../../../shared/ui/web-container/web-container.component';
 import { WebContainerInnerComponent } from '../../../../shared/ui/web-container/web-container-inner/web-container-inner.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  map,
+  Observable,
+  switchMap,
+  takeUntil,
+} from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UniversalTableComponent } from '../../../../shared/ui/universal-table/universal-table.component';
@@ -15,6 +22,9 @@ import { IEmployee } from './entity/interfaces/employee.interface';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SoftParameterService } from '../../../../shared/services/soft/soft-parameter.service';
 import { CrudEnum } from '../../../../core/enums/crud.enum';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { unsub } from '../../../../shared/classes/unsub.class';
 
 @Component({
   selector: 'app-employee',
@@ -29,11 +39,13 @@ import { CrudEnum } from '../../../../core/enums/crud.enum';
     TranslateModule,
     UniversalTableComponent,
     AddEmployeeComponent,
+    ReactiveFormsModule,
+    CheckboxModule,
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })
-export class EmployeeComponent {
+export class EmployeeComponent extends unsub {
   public translationSubscription$!: Observable<any>;
   $isItemSelected$ = signal(false);
   $page = new BehaviorSubject<number>(1);
@@ -41,12 +53,20 @@ export class EmployeeComponent {
   private hrService = inject(HrService);
   private authService = inject(AuthService);
   private softParameterService = inject(SoftParameterService);
-  employeeData$: Observable<any> = this.authService.getUser$().pipe(
+  employeeData$ = this.authService.getUser$().pipe(
     switchMap((res) => {
       return this.$page.pipe(
+        debounceTime(500),
         switchMap((page) => {
           return this.hrService
-            .filterOrg$('employee', res.buyerOrganziaitonId, page)
+            .filterOrg$(
+              'employee',
+              res.buyerOrganziaitonId,
+              page,
+              this.employeeFilterForm.value.sellingGroupName,
+              this.employeeFilterForm.value.search,
+              this.employeeFilterForm.value.position
+            )
             .pipe(
               map((res: IEmployee) => {
                 return {
@@ -89,6 +109,29 @@ export class EmployeeComponent {
     type: '',
     actionId: '',
   });
+  employeeFilterForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    super();
+    this.employeeFilterForm = this.fb.group({
+      search: [''],
+      position: [null],
+      sellingGroupName: [null],
+    });
+    this.employeeFilterForm.valueChanges.subscribe((res) => {
+      this.$page.next(1);
+    });
+
+    this.employeeFilterForm
+      .get('position')
+      ?.valueChanges.pipe(
+        map((value) => {
+          this.$isItemSelected$.set(value != null);
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
+  }
   handleEmitType(type: { type: string; actionId: string; tabType: string }) {
     this.$actionType$.set(type);
     this.$openAddPopup$.set(true);

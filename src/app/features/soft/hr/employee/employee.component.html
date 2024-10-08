@@ -1,7 +1,8 @@
-<app-web-container *ngIf="{position:positions$ | async} as params">
+<app-web-container *ngIf="{position: positions$ | async} as params">
   @if ($openAddPopup$()) {
     <app-add-employee [actionType]="$actionType$()" (close)="$openAddPopup$.set(false)" [position]="params.position"/>
   }
+  
   <app-web-container-inner [sectionType]="'employee'">
     <ng-container header-btn>
       <div class="flex items-center gap-4">
@@ -9,54 +10,65 @@
           class="cursor-pointer"
           src="./assets/images/employee/add_circle.svg"
           alt="*"
-          (click)="$openAddPopup$.set(true);$actionType$.set({  type: crudEnum.ADD,
-    actionId: '',})"
+          (click)="$openAddPopup$.set(true);$actionType$.set({ type: crudEnum.ADD, actionId: '' })"
         />
-        <!--  -->
-        <img
-          class="cursor-pointer"
-          src="./assets/images/employee/download.svg"
-          alt="*"
-        />
-        <!--  -->
-        <img
-          class="cursor-pointer"
-          src="./assets/images/employee/upload.svg"
-          alt="*"
-        />
+        <img class="cursor-pointer" src="./assets/images/employee/download.svg" alt="*" />
+        <img class="cursor-pointer" src="./assets/images/employee/upload.svg" alt="*" />
       </div>
     </ng-container>
-    <!--  -->
-    <ng-container dropdown-selling-group>
-      <div class="w-[100%] max-w-[215px]">
-        <p-dropdown
-          [options]="params.position"
-          optionLabel="name"
-          placeholder="{{ 'პოზიცია' | translate }}"
-          [showClear]="$isItemSelected$() ? true : false"
-        />
+
+    
+      <ng-container content>
+        <form [formGroup]="employeeFilterForm" class="flex w-full gap-[24px]">  
+        <div class="w-[100%] max-w-[395px] relative">
+          <input
+            type="text"
+            pInputText
+            formControlName="search"  
+            placeholder="სახელი / გვარი / პირადი ნომერი / ტელეფონის ნომერი"
+            class="max-w-[390px] w-full h-12 rounded-md text-left pl-8 placeholder:text-xs placeholder:text-card"
+          />
+          <i class="pi pi-search absolute left-3 top-4" style="font-size: 1rem"></i>
+        </div>
+  
+
+        <div class="w-[100%] max-w-[215px]">
+          <p-dropdown
+            [options]="params.position"
+            optionLabel="name"
+            placeholder="{{ 'პოზიცია' | translate }}"
+            [showClear]="$isItemSelected$() ? true : false"
+            formControlName="position"  
+          />
+        </div>
+
+        <div class="w-[100%] max-w-[215px]">
+          <p-dropdown
+            [options]="translationSubscription$ | async"
+            optionLabel="name"
+            placeholder="{{ 'გაყიდვების ჯგუფი' | translate }}"
+            [showClear]="$isItemSelected$() ? true : false"
+            formControlName="sellingGroupName"  
+          />
+        </div>
+        <div class="flex items-center gap-[10px]">
+          <p-checkbox 
+          formControlName="city" 
+          value="New York" 
+          inputId="ny" />
+          <label for="ny">წაშლილები</label>
       </div>
-    </ng-container>
-    <!--  -->
-    <ng-container dropdown-position>
-      <div class="w-[100%] max-w-[215px]">
-        <p-dropdown
-          [options]="translationSubscription$ | async"
-          optionLabel="name"
-          placeholder="{{ 'გაყიდვების ჯგუფი' | translate }}"
-          [showClear]="$isItemSelected$() ? true : false"
-        />
-      </div>
-    </ng-container>
-    <!--  -->
-    <ng-container table>
-      <div class="mt-[44px]">
-        <app-universal-table
-          [columns]="tableColumnsRoles"
-          [data]="employeeData$ | async"
-          (actionType)="handleEmitType($event)" 
-        />
-      </div>
-    </ng-container>
+      </form>  
+      </ng-container>
+      <ng-container table>
+        <div class="mt-[44px]">
+          <app-universal-table
+            [columns]="tableColumnsRoles"
+            [data]="employeeData$ | async"
+            (actionType)="handleEmitType($event)" 
+          />
+        </div>
+      </ng-container>
+
   </app-web-container-inner>
 </app-web-container>

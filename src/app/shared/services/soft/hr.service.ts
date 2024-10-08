@@ -10,8 +10,24 @@ export class HrService {
   public $refreshEmployee = new BehaviorSubject<boolean>(true);
   constructor() {}
 
-  public filterOrg$(campaignId: string, organizationId: string, page: number) {
-    const path = `/${campaignId}/filter?organizationId=${organizationId}&page=${page}&limit=8`;
+  public filterOrg$(
+    campaignId: string,
+    organizationId: string,
+    page: number,
+    sellingGroupName?: string,
+    search?: string,
+    position?: { name: string }
+  ) {
+    let path = `/${campaignId}/filter?organizationId=${organizationId}&page=${page}&limit=8`;
+    if (sellingGroupName) {
+      path += `&sellingGroupName=${encodeURIComponent(sellingGroupName)}`;
+    }
+    if (search) {
+      path += `&search=${encodeURIComponent(search)}`;
+    }
+    if (position) {
+      path += `&positionName=${encodeURIComponent(position?.name)}`;
+    }
     return this.$refreshEmployee.pipe(
       switchMap((_) => {
         return this.http.get(path);
