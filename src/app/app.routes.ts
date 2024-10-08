@@ -76,7 +76,7 @@ export const routes: Routes = [
     data: { permissions: [PermissionsEnum.READ_SOFT_SETTINGS] },
   },
   {
-    path: 'employee',
+    path: 'employees',
     loadComponent: () =>
       import('./features/soft/hr/employee/employee.component').then(
         (m) => m.EmployeeComponent

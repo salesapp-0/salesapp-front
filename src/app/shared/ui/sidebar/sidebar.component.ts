@@ -8,7 +8,7 @@ import {
 import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, takeUntil, tap } from 'rxjs';
 import { unsub } from '../../classes/unsub.class';
 import { AuthService } from '../../services/auth.service';
@@ -60,7 +60,7 @@ export class SidebarComponent extends unsub implements OnInit {
       isOpen: false,
       children: [
         {
-          path: '/employee',
+          path: '/employees',
           label: 'თანამშრომლები',
           icon: './assets/images/side-bar/hr-icon.png',
           activeIcon: 'path/to/active-icon.svg',
@@ -109,26 +109,35 @@ export class SidebarComponent extends unsub implements OnInit {
       children: [],
     },
   ];
-  constructor() {
+  currentRouteName: string = '';
+  constructor(private activatedRoute: ActivatedRoute) {
     super();
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe((event: any) => {
-        this.$currentRoute$.set(event.url);
-      });
   }
+
   ngOnInit(): void {
     const savedState = localStorage.getItem('isSidebarOpen');
-
+    this.setCurrentRoute();
     if (savedState !== null) {
       this.$isSIdeBarOpen$.set(JSON.parse(savedState));
     }
   }
   handleSelectMode(mode: string) {
     this.$mode$.set(mode);
+  }
+  private setCurrentRoute(): void {
+    const currentRoute = this.activatedRoute.snapshot;
+    const currRoute = this.getFullRouteName(currentRoute);
+    this.$currentRoute$.set('/' + currRoute);
+  }
+  private getFullRouteName(route: any): string {
+    const pathSegments: string[] = [];
+    while (route) {
+      if (route.routeConfig) {
+        pathSegments.push(route.routeConfig.path || '');
+      }
+      route = route.firstChild;
+    }
+    return pathSegments.reverse().join('/');
   }
   onNavigate(url: string) {
     this.navigateService.navigateTo(url);
@@ -160,11 +169,10 @@ export class SidebarComponent extends unsub implements OnInit {
   hasPermissionUser(premission: string) {
     return this.authService.hasPermission(premission);
   }
-
-  isActiveRoute(route: any): boolean {
+  isRouteActive(route: any): boolean {
     return (
       route.isOpen ||
-      this.$currentRoute$() === '/employee' ||
+      this.$currentRoute$() === '/employees' ||
       this.$currentRoute$() === '/selling-group'
     );
   }
