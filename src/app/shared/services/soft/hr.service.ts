@@ -26,4 +26,9 @@ export class HrService {
     const path = `/employee`;
     return this.http.post(path, data);
   }
+
+  updateEmployee$(data: any, id: string) {
+    const path = `/employee/${id}`;
+    return this.http.put(path, data);
+  }
 }

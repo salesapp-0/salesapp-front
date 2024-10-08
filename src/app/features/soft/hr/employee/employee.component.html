@@ -1,6 +1,6 @@
 <app-web-container *ngIf="{position:positions$ | async} as params">
   @if ($openAddPopup$()) {
-    <app-add-employee (close)="$openAddPopup$.set(false)" [position]="params.position"/>
+    <app-add-employee [actionType]="$actionType$()" (close)="$openAddPopup$.set(false)" [position]="params.position"/>
   }
   <app-web-container-inner [sectionType]="'employee'">
     <ng-container header-btn>
@@ -9,7 +9,8 @@
           class="cursor-pointer"
           src="./assets/images/employee/add_circle.svg"
           alt="*"
-          (click)="$openAddPopup$.set(true)"
+          (click)="$openAddPopup$.set(true);$actionType$.set({  type: crudEnum.ADD,
+    actionId: '',})"
         />
         <!--  -->
         <img
@@ -53,6 +54,7 @@
         <app-universal-table
           [columns]="tableColumnsRoles"
           [data]="employeeData$ | async"
+          (actionType)="handleEmitType($event)" 
         />
       </div>
     </ng-container>

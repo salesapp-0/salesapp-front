@@ -14,6 +14,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 import { IEmployee } from './entity/interfaces/employee.interface';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SoftParameterService } from '../../../../shared/services/soft/soft-parameter.service';
+import { CrudEnum } from '../../../../core/enums/crud.enum';
 
 @Component({
   selector: 'app-employee',
@@ -82,5 +83,14 @@ export class EmployeeComponent {
         );
     })
   );
+  crudEnum = CrudEnum;
   $openAddPopup$ = signal(false);
+  $actionType$ = signal<{ type: string; actionId: string }>({
+    type: '',
+    actionId: '',
+  });
+  handleEmitType(type: { type: string; actionId: string; tabType: string }) {
+    this.$actionType$.set(type);
+    this.$openAddPopup$.set(true);
+  }
 }

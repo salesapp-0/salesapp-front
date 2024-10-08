@@ -119,4 +119,8 @@ export class SoftParameterService {
     const path = `/roles/${id}`;
     return this.http.patch(path, positionData);
   }
+  public getSpecificItem$(id: string, campaignId: string): Observable<any> {
+    const path = `/${campaignId}/${id}`;
+    return this.http.get(path);
+  }
 }
