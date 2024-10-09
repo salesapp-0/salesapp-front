@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiService } from '../api-service.service';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -46,5 +46,14 @@ export class HrService {
   updateEmployee$(data: any, id: string) {
     const path = `/employee/${id}`;
     return this.http.put(path, data);
+  }
+  getSpecificEmployee$(id: string) {
+    const path = `/employee/${id}`;
+    return this.http.get(path);
+  }
+  deactivateEmployee$(id: string, isActive: boolean): Observable<any> {
+    return this.http.patch(`/employee/deactivate/${id}`, {
+      isActive,
+    });
   }
 }

@@ -3,7 +3,7 @@
     <app-add-employee [actionType]="$actionType$()" (close)="$openAddPopup$.set(false)" [position]="params.position"/>
   }
   
-  <app-web-container-inner [sectionType]="'employee'">
+  <app-web-container-inner >
     <ng-container header-btn>
       <h3>{{'თანამშრომლების ცხრილი' }}</h3>
       <div class="flex items-center gap-4">
@@ -20,7 +20,7 @@
 
     
       <ng-container content>
-        <form [formGroup]="employeeFilterForm" class="flex w-full gap-[24px]">  
+        <form [formGroup]="employeeFilterForm" class="flex w-full gap-[24px] flex-wrap">  
         <div class="w-[100%] max-w-[395px] relative">
           <input
             type="text"

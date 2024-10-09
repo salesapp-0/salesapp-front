@@ -19,7 +19,7 @@ export interface Data {
   updatedAt: string;
   buyerOrganization?: BuyerOrganization;
   position: Position;
-  user: User;
+  user?: User;
 }
 export interface Position {
   id: string;

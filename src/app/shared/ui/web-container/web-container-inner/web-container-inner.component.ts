@@ -1,10 +1,8 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AddButtonComponent } from '../../add-button/add-button.component';
-import { containerConfig, SectionType } from '../helper/config';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
 
@@ -23,6 +21,5 @@ import { CheckboxModule } from 'primeng/checkbox';
   styleUrl: './web-container-inner.component.scss',
 })
 export class WebContainerInnerComponent {
-  @Input() sectionType!: SectionType;
-  cConfig = containerConfig;
+  @Input() padding = '16px';
 }

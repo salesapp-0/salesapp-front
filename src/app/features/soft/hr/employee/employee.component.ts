@@ -25,6 +25,7 @@ import { CrudEnum } from '../../../../core/enums/crud.enum';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { unsub } from '../../../../shared/classes/unsub.class';
+import { NavigateService } from '../../../../shared/services/navigate.service';
 
 @Component({
   selector: 'app-employee',
@@ -53,6 +54,7 @@ export class EmployeeComponent extends unsub {
   private hrService = inject(HrService);
   private authService = inject(AuthService);
   private softParameterService = inject(SoftParameterService);
+  private navigateService = inject(NavigateService);
   employeeData$ = this.authService.getUser$().pipe(
     switchMap((res) => {
       return this.$page.pipe(
@@ -134,6 +136,14 @@ export class EmployeeComponent extends unsub {
   }
   handleEmitType(type: { type: string; actionId: string; tabType: string }) {
     this.$actionType$.set(type);
-    this.$openAddPopup$.set(true);
+    if (type.type === this.crudEnum.READ) {
+      this.handleSpecificOrganizationClick('view-employee', type.actionId);
+    } else {
+      this.$openAddPopup$.set(true);
+    }
+  }
+
+  handleSpecificOrganizationClick(route: string, employeeId: string) {
+    this.navigateService.navigateTo(`${route}/view`, { employeeId });
   }
 }

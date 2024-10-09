@@ -47,6 +47,7 @@ export const employeeColumns = [
     icons: {
       edit: true,
       delete: true,
+      read: true,
     },
   },
 ];

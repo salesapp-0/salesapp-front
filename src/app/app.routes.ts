@@ -95,4 +95,14 @@ export const routes: Routes = [
     providers: [AuthService],
     data: { permissions: [PermissionsEnum.READ_HR] },
   },
+  {
+    path: 'view-employee/:id',
+    loadComponent: () =>
+      import(
+        './features/soft/hr/employee/view-employee/view-employee.component'
+      ).then((m) => m.ViewEmployeeComponent),
+    canActivate: [authGuard, permissionsGuard],
+    providers: [AuthService],
+    data: { permissions: [PermissionsEnum.READ_HR] },
+  },
 ];

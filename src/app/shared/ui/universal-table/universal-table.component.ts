@@ -17,7 +17,7 @@ export class UniversalTableComponent {
     title: string;
     width?: string;
     hasDescription?: boolean;
-    icons?: { edit: boolean; delete: boolean };
+    icons?: { edit: boolean; delete: boolean; read?: boolean };
     property?: any;
   }[];
   @Input() data!: any;

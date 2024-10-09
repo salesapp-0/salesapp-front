@@ -1,0 +1,60 @@
+<app-web-container>
+        <app-web-container-inner [padding]="'24px'">
+            <!--  -->
+            <ng-container header-btn>
+                <div class="flex items-center">
+                    <img class="cursor-pointer" (click)="navigateBack('employees')" src="./assets/images/employee/arrow-left.svg" alt="*">
+                    <h4>თანამშრომლის დეტალური გვერდი</h4>
+                </div>
+            </ng-container>
+              <!--  -->
+              <ng-container content *ngIf="{employee:employee$ | async } as params">
+                <div class="flex justify-between items-center w-full flex-wrap" >
+                    <div class="flex items-center gap-[24px]">
+                        <img src="./assets/images/employee/default-employee.svg" alt="*">
+                        <div>
+                            <h6 class="mt-0 mb-0">ანა მესხიშვილი</h6>
+                            <div class="flex items-center gap-[3px]">
+                                <img src="./assets/images/employee/lock.svg" alt="">
+                                <p class="text-accent font-medium cursor-pointer">პაროლის აღდგენა</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-[12px]">
+                        <p-inputSwitch [(ngModel)]="checked" (click)="deactivateEmployee()" />
+                        <p class="mt-0 ">აქტივაცია</p>
+                    </div>
+             
+                </div>
+                <div class="mt-[48px] flex justify-between w-full flex-wrap">
+                <!--  -->
+                <div class="flex items-center gap-[24px]">
+                    <div class="flex flex-col gap-[24px]">
+                    <p class="mt-0 mb-0">პირადი ნომერი</p>
+                    <p class="mt-0 mb-0">მეილი</p>
+                    <p class="mt-0 mb-0">როლი</p>
+                    </div>
+                    <div class="flex flex-col gap-[24px]">
+                        <h4 class="mt-0 mb-0">{{params?.employee?.personalNumber}}</h4>
+                        <h4 class="mt-0 mb-0">{{params?.employee?.email}}</h4>
+                        <h4 class="mt-0 mb-0">{{params?.employee?.role}}</h4>
+                    </div>
+                </div>
+                <!--  -->
+                <div class="flex items-center gap-[24px]">
+                    <div class="flex flex-col gap-[24px]">
+                    <p class="mt-0 mb-0">ტელ.ნომერი</p>
+                    <p class="mt-0 mb-0">პოზიცია</p>
+                    <p class="mt-0 mb-0">გაყიდვების ჯგუფი</p>
+                    </div>
+                    <div class="flex flex-col gap-[24px]">
+                        <h4 class="mt-0 mb-0">{{params?.employee?.phoneNumber}}</h4>
+                        <h4 class="mt-0 mb-0">{{params?.employee?.position}}</h4>
+                        <h4 class="mt-0 mb-0">{{params?.employee?.sellingGroup}}</h4>
+                    </div>
+                </div>
+            </div>
+              </ng-container>
+              <!--  -->
+        </app-web-container-inner>
+</app-web-container>

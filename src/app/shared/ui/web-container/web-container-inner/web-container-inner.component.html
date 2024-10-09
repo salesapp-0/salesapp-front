@@ -1,4 +1,6 @@
-<div class="w-[99%] m-[16px]  bg-white p-[16px] rounded-[6px] ">
+<div class="w-[99%] m-[16px]  bg-white rounded-[6px] "
+[ngStyle]="{'padding': padding}"
+>
     <div class="flex justify-between items-center flex-wrap">
         
         <ng-content select="[header-btn]"></ng-content>

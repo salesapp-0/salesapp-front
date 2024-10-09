@@ -1,7 +1,7 @@
-<p-table
+<div class="wrapper">
+  <p-table
   [value]="data?.data"
   [rows]="rows"
-  [tableStyle]="{ 'min-width': '50rem' }"
   [paginator]="false"
   [totalRecords]="totalRecords"
   [rowsPerPageOptions]="rowsPerPageOptions"
@@ -44,6 +44,18 @@
             "
             class="pi pi-trash cursor-pointer text-accent"
           ></i>
+
+          <i
+          *ngIf="col.icons?.read"
+          (click)="
+            actionType.emit({
+              type: crudEnum.READ,
+              actionId: item.id,
+              tabType: tabType
+            })
+          "
+          class="pi pi-eye cursor-pointer text-accent"
+        ></i>
         </div>
         } @else if(col.hasDescription) {
         <div class="relative">
@@ -81,4 +93,6 @@
     [showCurrentPageReport]="true"
     (onPageChange)="onPageChange($event)"
   ></p-paginator>
+</div>
+
 </div>
