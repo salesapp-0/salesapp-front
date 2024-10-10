@@ -8,13 +8,13 @@
       <h3>{{'თანამშრომლების ცხრილი' }}</h3>
       <div class="flex items-center gap-4">
         <img
-          class="cursor-pointer"
+          class="cursor-pointer w-[32px] h-[32px]"
           src="./assets/images/employee/add_circle.svg"
           alt="*"
           (click)="$openAddPopup$.set(true);$actionType$.set({ type: crudEnum.ADD, actionId: '' })"
         />
-        <img class="cursor-pointer" src="./assets/images/employee/download.svg" alt="*" />
-        <img class="cursor-pointer" src="./assets/images/employee/upload.svg" alt="*" />
+        <img class="cursor-pointer w-[32px] h-[32px]" src="./assets/images/employee/download.svg" alt="*" />
+        <img class="cursor-pointer w-[32px] h-[32px]" src="./assets/images/employee/upload.svg" alt="*" />
       </div>
     </ng-container>
 

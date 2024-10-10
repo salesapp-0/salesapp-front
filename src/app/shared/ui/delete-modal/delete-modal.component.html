@@ -1,0 +1,10 @@
+<div class="w-[210px] bg-white h-[54px] py-[6px] pr-[8px] pb-[8px] rounded-[8px] absolute z-40 m-auto left-[-233px] right-0 top-0 bottom-[24px]">
+    <div class="flex items-center justify-end gap-[8px]">
+        <img src="./assets/images/delete/attantion.svg" alt="*">
+        <p class="text-[12px] mt-0 mb-0">ნამდვილად გსურთ წაშლა?</p>
+    </div>
+    <div class="flex items-center gap-[8px] justify-end mt-[8px]">
+        <button (click)="emitActionType.emit('no')" style="border: 2px solid #E2E8F0;" class=" bg-transparent rounded-[8px] outline-none text-grayToolTip cursor-pointer">არა</button>
+        <button (click)="emitActionType.emit('yes')" class="rounded-[8px] bg-accent border-none text-white flex justify-center items-center cursor-pointer">დიახ</button>
+    </div>
+</div>

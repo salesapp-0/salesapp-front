@@ -45,9 +45,9 @@ export const employeeColumns = [
     title: '',
     width: '12.5%',
     icons: {
-      edit: true,
-      delete: true,
-      read: true,
+      edit: { priority: 2, show: true },
+      delete: { priority: 3, show: true },
+      read: { priority: 1, show: true },
     },
   },
 ];

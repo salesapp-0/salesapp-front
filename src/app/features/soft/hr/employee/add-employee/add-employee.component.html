@@ -3,7 +3,7 @@
   class="max-w-[833px] bg-white w-full h-[512px] py-[24px] px-[40px] rounded-[8px] absolute z-40 m-auto left-0 right-0 top-0 bottom-0"
 >
   <div class="flex justify-between items-center">
-    <h3>პროდუქტის დამატება</h3>
+    <h3>თანამშრომლის დამატება</h3>
     <img
       class="cursor-pointer"
       (click)="close.emit()"
@@ -75,7 +75,6 @@
         <p-dropdown
           [options]="position"
           optionLabel="name"
-          placeholder="{{ 'organizaiton-filter.2' | translate }}"
           formControlName="position"
           class="mt-3"
         ></p-dropdown>
@@ -90,7 +89,6 @@
           optionLabel="name"
           formControlName="role"
           class="mt-3"
-          placeholder="{{ 'organizaiton-filter.2' | translate }}"
         ></p-dropdown>
       </div>
       <div class="flex flex-col flex-1 ml-4">
@@ -99,7 +97,6 @@
           [options]="[]"
           optionLabel="name"
           formControlName="salesGroup"
-          placeholder="{{ 'organizaiton-filter.2' | translate }}"
           class="mt-3"
         ></p-dropdown>
       </div>

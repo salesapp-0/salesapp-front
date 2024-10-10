@@ -138,8 +138,17 @@ export class EmployeeComponent extends unsub {
     this.$actionType$.set(type);
     if (type.type === this.crudEnum.READ) {
       this.handleSpecificOrganizationClick('view-employee', type.actionId);
-    } else {
+    } else if (type.type !== this.crudEnum.DELETE) {
       this.$openAddPopup$.set(true);
+    } else if (type.type === this.crudEnum.DELETE) {
+      this.hrService
+        .delete$(type.actionId, 'employee')
+        .pipe(
+          map((res) => {
+            this.$page.next(1);
+          })
+        )
+        .subscribe();
     }
   }
 

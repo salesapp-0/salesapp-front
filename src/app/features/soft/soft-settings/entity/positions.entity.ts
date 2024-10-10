@@ -24,8 +24,8 @@ export const tableColumnsPosition = [
     title: '',
     width: '20%',
     icons: {
-      edit: true,
-      delete: true,
+      edit: { priority: 1, show: true },
+      delete: { priority: 2, show: true },
     },
   },
 ];

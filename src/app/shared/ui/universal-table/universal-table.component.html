@@ -19,11 +19,17 @@
 
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
-      <td *ngFor="let col of columns">
+      <td *ngFor="let col of columns" style="font-size: 12px;">
         @if (col.field === 'icons') {
-        <div class="flex justify-evenly">
+        <div class="flex justify-evenly relative">
+         
+        <app-delete-modal
+        *ngIf="$selectedIndex$() === i"
+        (emitActionType)="emitActionType($event, item)"
+      ></app-delete-modal>
+        <ng-container *ngFor="let iconObj of sortedIcons">
           <i
-            *ngIf="col.icons?.edit"
+            *ngIf="iconObj.type === 'edit' && iconObj.icon.show"
             (click)="
               actionType.emit({
                 type: crudEnum.UPDATE,
@@ -33,33 +39,30 @@
             "
             class="pi pi-pencil cursor-pointer text-accent"
           ></i>
+  
+            <i
+              *ngIf="iconObj.type === 'delete' && iconObj.icon.show"
+              (click)="handleSetSelectedIndex(i)"
+              class="pi pi-trash cursor-pointer text-accent"
+            ></i>
+       
+  
           <i
-            *ngIf="col.icons?.delete"
+            *ngIf="iconObj.type === 'read' && iconObj.icon.show"
             (click)="
               actionType.emit({
-                type: crudEnum.DELETE,
+                type: crudEnum.READ,
                 actionId: item.id,
                 tabType: tabType
               })
             "
-            class="pi pi-trash cursor-pointer text-accent"
+             class="pi pi-eye cursor-pointer text-accent"
           ></i>
-
-          <i
-          *ngIf="col.icons?.read"
-          (click)="
-            actionType.emit({
-              type: crudEnum.READ,
-              actionId: item.id,
-              tabType: tabType
-            })
-          "
-          class="pi pi-eye cursor-pointer text-accent"
-        ></i>
+        </ng-container>
         </div>
         } @else if(col.hasDescription) {
         <div class="relative">
-          <p class="flex items-center gap-[6px]">
+          <p class="flex items-center gap-[6px] " style="font-size: 12px;">
             სრულად ნახვა
             <img
               class="cursor-pointer"

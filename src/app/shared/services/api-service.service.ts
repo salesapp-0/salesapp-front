@@ -42,4 +42,13 @@ export class ApiService {
     };
     return this.http.patch(`${this.baseUrl}${url}`, body, httpOptions);
   }
+
+  delete(url: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      withCredentials: true,
+      observe: 'response' as 'response',
+    };
+    return this.http.delete(`${this.baseUrl}${url}`, httpOptions);
+  }
 }

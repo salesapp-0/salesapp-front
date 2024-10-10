@@ -33,8 +33,8 @@ export const roleColumnsPosition = [
     title: '',
     width: '16.6%',
     icons: {
-      edit: true,
-      delete: true,
+      edit: { priority: 1, show: true },
+      delete: { priority: 2, show: true },
     },
   },
 ];

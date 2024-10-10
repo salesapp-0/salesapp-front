@@ -56,4 +56,9 @@ export class HrService {
       isActive,
     });
   }
+
+  public delete$(id: string, campaignId: string): Observable<any> {
+    const path = `/${campaignId}/${id}`;
+    return this.http.delete(path);
+  }
 }
