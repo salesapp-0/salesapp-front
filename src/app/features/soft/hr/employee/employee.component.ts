@@ -94,7 +94,7 @@ export class EmployeeComponent extends unsub {
       );
     })
   );
-  positions$ = this.authService.getUser$().pipe(
+  positions$:Observable<{name:string,id:string}[] | any> = this.authService.getUser$().pipe(
     switchMap((res) => {
       return this.softParameterService
         .getPositions$(res.buyerOrganziaitonId, 1, 100)

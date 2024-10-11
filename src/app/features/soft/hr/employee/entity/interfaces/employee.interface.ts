@@ -1,3 +1,5 @@
+import {Pagination} from "../../../../../../core/interfaces/pagination.interface";
+
 export interface IEmployee extends  Pagination{
   data: Data[];
 }
