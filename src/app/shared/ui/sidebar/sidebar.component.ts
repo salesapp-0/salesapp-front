@@ -16,6 +16,7 @@ import { NavigateService } from '../../services/navigate.service';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PermissionsEnum } from '../../../core/enums/premissions.enum';
+import {routesConfig} from "./configs/entity";
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -34,85 +35,12 @@ export class SidebarComponent extends unsub implements OnInit {
   private router = inject(Router);
   private authService = inject(AuthService);
   private navigateService = inject(NavigateService);
-  $mode$ = signal('light');
+  private activatedRoute = inject(ActivatedRoute);
+
   $currentRoute$ = signal('');
   $isSIdeBarOpen$ = signal(true);
-  permissionsEnum = PermissionsEnum;
-  routes = [
-    {
-      path: '/main-page',
-      permission: this.permissionsEnum.READ_MAIN_PAGE,
-      icon: './assets/images/side-bar/house-inactive.png',
-      activeIcon: './assets/images/side-bar/home-active.png',
-      label: 'side-bar.1',
-      type: 'normal',
-      children: [],
-    },
-    {
-      path: '',
-      permission: this.permissionsEnum.READ_SOFT_SETTINGS,
-      icon: './assets/images/side-bar/hr-black.png',
-      activeIcon: './assets/images/side-bar/hr-icon.png',
-      arrowBlack: './assets/images/side-bar/arrow-down.png',
-      arrowWhite: './assets/images/side-bar/arrow-up.png',
-      label: 'HR',
-      type: 'tree-select',
-      isOpen: false,
-      children: [
-        {
-          path: '/employees',
-          label: 'თანამშრომლები',
-          icon: './assets/images/side-bar/hr-icon.png',
-          activeIcon: 'path/to/active-icon.svg',
-        },
-        {
-          path: '/selling-group',
-          label: 'გაყიდვების ჯგუფი',
-          icon: 'path/to/icon.svg',
-          activeIcon: 'path/to/active-icon.svg',
-        },
-      ],
-    },
-    {
-      path: '/organizations',
-      permission: this.permissionsEnum.READ_ORGANIZATION,
-      icon: './assets/images/side-bar/house.png',
-      activeIcon: './assets/images/side-bar/house-white.png',
-      label: 'side-bar.2',
-      type: 'normal',
-      children: [],
-    },
-    {
-      path: '/invoices',
-      permission: this.permissionsEnum.READ_INVOICE,
-      icon: './assets/images/side-bar/Vector.png',
-      label: 'side-bar.3',
-      type: 'normal',
-      children: [],
-    },
-    {
-      path: '/admin-settings',
-      permission: this.permissionsEnum.READ_ADMIN_SETTINGS,
-      icon: './assets/images/side-bar/ic24-settings.png',
-      activeIcon: './assets/images/side-bar/setting-icon.png',
-      label: 'side-bar.4',
-      type: 'normal',
-      children: [],
-    },
-    {
-      path: '/soft-settings',
-      permission: this.permissionsEnum.READ_SOFT_SETTINGS,
-      icon: './assets/images/side-bar/ic24-settings.png',
-      activeIcon: './assets/images/side-bar/setting-icon.png',
-      label: 'side-bar.4',
-      type: 'normal',
-      children: [],
-    },
-  ];
-  currentRouteName: string = '';
-  constructor(private activatedRoute: ActivatedRoute) {
-    super();
-  }
+  routes = routesConfig
+
 
   ngOnInit(): void {
     const savedState = localStorage.getItem('isSidebarOpen');
@@ -121,14 +49,13 @@ export class SidebarComponent extends unsub implements OnInit {
       this.$isSIdeBarOpen$.set(JSON.parse(savedState));
     }
   }
-  handleSelectMode(mode: string) {
-    this.$mode$.set(mode);
-  }
+
   private setCurrentRoute(): void {
     const currentRoute = this.activatedRoute.snapshot;
     const currRoute = this.getFullRouteName(currentRoute);
     this.$currentRoute$.set('/' + currRoute);
   }
+
   private getFullRouteName(route: any): string {
     const pathSegments: string[] = [];
     while (route) {
@@ -139,9 +66,11 @@ export class SidebarComponent extends unsub implements OnInit {
     }
     return pathSegments.reverse().join('/');
   }
+
   onNavigate(url: string) {
     this.navigateService.navigateTo(url);
   }
+
   toggleTree(route: any) {
     if (!route.isOpen && !this.$isSIdeBarOpen$()) {
       this.toggleSidebar();
@@ -149,6 +78,7 @@ export class SidebarComponent extends unsub implements OnInit {
     route.isOpen = !route.isOpen;
     this.$currentRoute$.set('');
   }
+
   logout() {
     this.authService
       .logout$()
@@ -161,14 +91,17 @@ export class SidebarComponent extends unsub implements OnInit {
       )
       .subscribe();
   }
+
   toggleSidebar() {
     const newState = !this.$isSIdeBarOpen$();
     this.$isSIdeBarOpen$.set(newState);
     localStorage.setItem('isSidebarOpen', JSON.stringify(newState));
   }
+
   hasPermissionUser(premission: string) {
     return this.authService.hasPermission(premission);
   }
+
   isRouteActive(route: any): boolean {
     return (
       route.isOpen ||
@@ -176,4 +109,5 @@ export class SidebarComponent extends unsub implements OnInit {
       this.$currentRoute$() === '/selling-group'
     );
   }
+
 }

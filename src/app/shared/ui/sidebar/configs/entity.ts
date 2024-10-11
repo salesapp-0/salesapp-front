@@ -1,0 +1,73 @@
+import {PermissionsEnum} from "../../../../core/enums/premissions.enum";
+
+export const routesConfig = [
+  {
+    path: '/main-page',
+    permission: PermissionsEnum.READ_MAIN_PAGE,
+    icon: './assets/images/side-bar/house-inactive.png',
+    activeIcon: './assets/images/side-bar/home-active.png',
+    label: 'side-bar.1',
+    type: 'normal',
+    children: [],
+  },
+  {
+    path: '',
+    permission: PermissionsEnum.READ_SOFT_SETTINGS,
+    icon: './assets/images/side-bar/hr-black.png',
+    activeIcon: './assets/images/side-bar/hr-icon.png',
+    arrowBlack: './assets/images/side-bar/arrow-down.png',
+    arrowWhite: './assets/images/side-bar/arrow-up.png',
+    label: 'HR',
+    type: 'tree-select',
+    isOpen: false,
+    children: [
+      {
+        path: '/employees',
+        label: 'თანამშრომლები',
+        icon: './assets/images/side-bar/hr-icon.png',
+        activeIcon: 'path/to/active-icon.svg',
+      },
+      {
+        path: '/selling-group',
+        label: 'გაყიდვების ჯგუფი',
+        icon: 'path/to/icon.svg',
+        activeIcon: 'path/to/active-icon.svg',
+      },
+    ],
+  },
+  {
+    path: '/organizations',
+    permission: PermissionsEnum.READ_ORGANIZATION,
+    icon: './assets/images/side-bar/house.png',
+    activeIcon: './assets/images/side-bar/house-white.png',
+    label: 'side-bar.2',
+    type: 'normal',
+    children: [],
+  },
+  {
+    path: '/invoices',
+    permission: PermissionsEnum.READ_INVOICE,
+    icon: './assets/images/side-bar/Vector.png',
+    label: 'side-bar.3',
+    type: 'normal',
+    children: [],
+  },
+  {
+    path: '/admin-settings',
+    permission: PermissionsEnum.READ_ADMIN_SETTINGS,
+    icon: './assets/images/side-bar/ic24-settings.png',
+    activeIcon: './assets/images/side-bar/setting-icon.png',
+    label: 'side-bar.4',
+    type: 'normal',
+    children: [],
+  },
+  {
+    path: '/soft-settings',
+    permission: PermissionsEnum.READ_SOFT_SETTINGS,
+    icon: './assets/images/side-bar/ic24-settings.png',
+    activeIcon: './assets/images/side-bar/setting-icon.png',
+    label: 'side-bar.4',
+    type: 'normal',
+    children: [],
+  },
+];
