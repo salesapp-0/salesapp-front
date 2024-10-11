@@ -18,7 +18,7 @@ import { UniversalTableComponent } from '../../../../shared/ui/universal-table/u
 import { employeeColumns } from './entity/employee.entity';
 import { HrService } from '../../../../shared/services/soft/hr.service';
 import { AuthService } from '../../../../shared/services/auth.service';
-import { IEmployee } from './entity/interfaces/employee.interface';
+import {IEmployee, IPosition} from './entity/interfaces/employee.interface';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SoftParameterService } from '../../../../shared/services/soft/soft-parameter.service';
 import { CrudEnum } from '../../../../core/enums/crud.enum';
@@ -51,10 +51,12 @@ export class EmployeeComponent extends unsub {
   $isItemSelected$ = signal(false);
   $page = new BehaviorSubject<number>(1);
   tableColumnsRoles = employeeColumns;
+
   private hrService = inject(HrService);
   private authService = inject(AuthService);
   private softParameterService = inject(SoftParameterService);
   private navigateService = inject(NavigateService);
+
   employeeData$ = this.authService.getUser$().pipe(
     switchMap((res) => {
       return this.$page.pipe(
@@ -97,8 +99,8 @@ export class EmployeeComponent extends unsub {
       return this.softParameterService
         .getPositions$(res.buyerOrganziaitonId, 1, 100)
         .pipe(
-          map((res) => {
-            return res.data.map((position: any) => {
+          map((res:IPosition) => {
+            return res.data.map((position) => {
               return { name: position.name, id: position.id };
             });
           })
@@ -123,33 +125,47 @@ export class EmployeeComponent extends unsub {
     this.employeeFilterForm.valueChanges.subscribe((res) => {
       this.$page.next(1);
     });
+    this.getPositionData()
+  }
+  handleEmitType(type: { type: string; actionId: string; tabType: string }) {
+    const { READ, DELETE } = this.crudEnum;
+    const entity = 'employee';
+    const specificOrganization = 'view-employee'
+    this.$actionType$.set(type);
 
-    this.employeeFilterForm
-      .get('position')
-      ?.valueChanges.pipe(
-        map((value) => {
-          this.$isItemSelected$.set(value != null);
-        }),
-        takeUntil(this.unsubscribe$)
+    switch (type.type) {
+      case READ:
+        this.handleSpecificOrganizationClick(specificOrganization, type.actionId);
+        break;
+
+      case DELETE:
+        this.deleteEmployee(type.actionId, entity);
+        break;
+
+      default:
+        this.$openAddPopup$.set(true);
+    }
+  }
+
+  deleteEmployee(actionId: string, entity: string) {
+    this.hrService
+      .delete$(actionId, entity)
+      .pipe(
+        map(() => this.$page.next(1))
+        ,takeUntil(this.unsubscribe$)
       )
       .subscribe();
   }
-  handleEmitType(type: { type: string; actionId: string; tabType: string }) {
-    this.$actionType$.set(type);
-    if (type.type === this.crudEnum.READ) {
-      this.handleSpecificOrganizationClick('view-employee', type.actionId);
-    } else if (type.type !== this.crudEnum.DELETE) {
-      this.$openAddPopup$.set(true);
-    } else if (type.type === this.crudEnum.DELETE) {
-      this.hrService
-        .delete$(type.actionId, 'employee')
-        .pipe(
-          map((res) => {
-            this.$page.next(1);
-          })
-        )
-        .subscribe();
-    }
+  getPositionData() {
+    this.employeeFilterForm
+      .get('position')
+      ?.valueChanges.pipe(
+      map((value) => {
+        this.$isItemSelected$.set(value != null);
+      }),
+      takeUntil(this.unsubscribe$)
+    )
+      .subscribe();
   }
 
   handleSpecificOrganizationClick(route: string, employeeId: string) {

@@ -3,10 +3,10 @@
     'sidebar--closed': !this.$isSIdeBarOpen$()
 }"
 >
-  <img (click)="toggleSidebar()" 
+  <img (click)="toggleSidebar()"
   [ngClass]="{'right-[-36px]': !this.$isSIdeBarOpen$(),
         'right-[9px]':this.$isSIdeBarOpen$(),
-      
+
         }"
   class="w-[18px] absolute  cursor-pointer z-10" src="./assets/images/side-bar/close-icon.svg" alt="">
 
@@ -17,7 +17,7 @@
         <p class="text-dark font-bold text-[20px]">SalesApp</p>
       }
     </div>
-        <div class="flex flex-col justify-between h-[91%] mt-[25px]">
+        <div class="flex flex-col justify-between h-[91%] mt-[8px]">
           <ng-container *ngFor="let route of routes">
             @if(route.type === 'tree-select') {
               <ng-container *ngIf="hasPermissionUser(route.permission)">
@@ -33,8 +33,8 @@
                     <div  *ngFor="let subRoute of route.children" (click)="onNavigate(subRoute.path)"
                       >
                     <div class="flex items-center">
-                      <p *ngIf="$isSIdeBarOpen$()" 
-                      class="mt-[19px] mb-0 pl-[17px] text-[14px] cursor-pointer" 
+                      <p *ngIf="$isSIdeBarOpen$()"
+                      class="mt-[19px] mb-0 pl-[17px] text-[14px] cursor-pointer"
                       [ngClass]="{
                         'text-accent': $currentRoute$() === subRoute.path,
                       }"
@@ -42,7 +42,7 @@
                     </div>
                   </div>
                   </div>
-                </ng-container> 
+                </ng-container>
               </ng-container>
             } @else {
               <ng-container *ngIf="hasPermissionUser(route.permission)">
@@ -55,7 +55,7 @@
               </ng-container>
             }
           </ng-container>
-      
+
     <!-- Logout -->
     <div class="sidebar__bottom">
       <div class="sidebar__bottom-logout" (click)="logout()">

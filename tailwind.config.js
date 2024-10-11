@@ -27,7 +27,8 @@ module.exports = {
         grayMedium: '#FBFBFB',
         white: '#FFFFFF',
         grayToolTip:'#4F6A74',
-        gray:'#E2E8F0'
+        gray:'#E2E8F0',
+        customBorder:'#ced4da'
       },
     },
   },

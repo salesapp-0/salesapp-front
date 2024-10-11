@@ -1,9 +1,8 @@
-export interface IEmployee {
+export interface IEmployee extends  Pagination{
   data: Data[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
+}
+export interface IPosition extends Pagination {
+  data:Position[]
 }
 
 export interface Data {
