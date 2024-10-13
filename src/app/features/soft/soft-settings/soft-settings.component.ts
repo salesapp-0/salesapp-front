@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { tableColumnsPosition } from './entity/positions.entity';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { HeaderComponent } from '../../../shared/ui/header/header.component';
 import { SidebarComponent } from '../../../shared/ui/sidebar/sidebar.component';
 import { AddButtonComponent } from '../../../shared/ui/add-button/add-button.component';
@@ -182,25 +182,24 @@ export class SoftSettingsComponent {
     this.activeItem = this.items[0];
   }
 
-  handleEmitType(type: { type: string; actionId: string; tabType: string }) {
+  handleEmitType(type: { type: string; actionId: string; tabType: TabType }) {
+    const modalMap: Record<TabType, WritableSignal<boolean>> = {
+      positions: this.$openPositionModal$,
+      products: this.$openProductsModal$,
+      'roles-premisions': this.$openRolePremissionsModal$,
+      actions: this.$openActioPopup$,
+    };
     this.$actionType$.set(type);
+
     if (
-      (type.tabType === this.tabType.ACTIONS ||
-        type.type !== this.crudEnum.DELETE) &&
-      type.tabType !== TabType.POSITIONS &&
-      type.tabType !== TabType.PRODUCTS &&
-      type.tabType !== TabType.ROLE_PREMISSIONS
+      (type.tabType === 'actions' || type.type !== this.crudEnum.DELETE) &&
+      !modalMap[type.tabType]
     ) {
       this.$openActioPopup$.set(true);
     }
-    if (type.tabType === TabType.POSITIONS) {
-      this.$openPositionModal$.set(true);
-    }
-    if (type.tabType === TabType.PRODUCTS) {
-      this.$openProductsModal$.set(true);
-    }
-    if (type.tabType === TabType.ROLE_PREMISSIONS) {
-      this.$openRolePremissionsModal$.set(true);
+
+    if (modalMap[type.tabType]) {
+      modalMap[type.tabType].set(true);
     }
   }
   listenPageChange(page: { page: number; limit: number }) {

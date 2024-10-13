@@ -78,6 +78,10 @@ export class AddOrganizationComponent extends unsub implements OnInit {
   private organizationHelperService = inject(OrganizationHelperService);
   private messageService = inject(MessageService);
   ngOnInit(): void {
+    this.initFormGroup();
+  }
+
+  private initFormGroup(): void {
     this.organizationForm = this.fb.group({
       legalName: ['', [Validators.required, Validators.minLength(4)]],
       tradeName: ['', [Validators.required, Validators.minLength(4)]],
@@ -96,9 +100,6 @@ export class AddOrganizationComponent extends unsub implements OnInit {
       ],
       contactMails: [''],
       file: [null],
-    });
-    this.organizationForm?.valueChanges.subscribe((value) => {
-      console.log(value);
     });
   }
 

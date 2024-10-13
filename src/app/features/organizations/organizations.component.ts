@@ -68,7 +68,7 @@ export class OrganizationsComponent extends unsub implements OnInit {
   organizations$!: Observable<BuyerOrganizations>;
   myForm!: FormGroup;
   $page$ = signal(1);
-  $limit$ = signal(10);
+  $limit$ = signal(8);
   $totalRecords$ = signal(0);
   $isModalOpen$ = signal(false);
   isItemSelected = false;
