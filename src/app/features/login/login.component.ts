@@ -93,7 +93,6 @@ export class LoginComponent extends unsub implements OnInit {
             if (res) {
               if (formValue.rememberMe) {
                 localStorage.setItem('username', formValue.username);
-                // this should be incripted
                 localStorage.setItem('password', formValue.password);
               } else {
                 localStorage.removeItem('username');
