@@ -1,2 +1,39 @@
 <app-web-container>
+<!--  -->
+    <app-web-container-inner>
+        <ng-container header-btn>
+            <h3 class="text-[14px]">{{'გაყიდვების ჯგუფი' }}</h3>
+            <app-add-button/>
+          </ng-container>
+          <!--  -->
+          <ng-container content>
+            <form action="" class="flex items-center flex-wrap gap-[36px] w-full">
+                <div class="w-[215px] relative">
+                    <input
+                      type="text"
+                      pInputText
+                      formControlName="search"
+                      placeholder="დასახელება"
+                      class="max-w-[390px] w-full h-12 rounded-md text-left pl-12 placeholder:text-xs placeholder:text-card "
+                      style="border: 1px solid var(--card);outline: none;"
+                    />
+                    <i class="pi pi-search absolute left-3 top-4 text-card" style="font-size: 1rem"></i>
+                  </div>
+                  <div class="w-[100%] max-w-[215px] tezt-[12px] placeholder:text-xs">
+                    <p-dropdown
+                      [options]="[]"
+                      optionLabel="name"
+                      placeholder="{{ 'ჯგუფის ხელმძღვანელი' }}"
+                      [showClear]="$isItemSelected$()"
+                      formControlName="position"
+                    />
+                  </div>
+            </form>
+
+            <ng-container table>
+                <app-selling-group-employee />
+            </ng-container>
+          </ng-container>
+    </app-web-container-inner>
+<!--  -->
 </app-web-container>
