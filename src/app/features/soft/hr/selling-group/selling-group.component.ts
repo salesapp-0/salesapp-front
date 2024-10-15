@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, Input, OnInit, signal} from '@angular/core';
 import {HeaderComponent} from '../../../../shared/ui/header/header.component';
 import {SidebarComponent} from '../../../../shared/ui/sidebar/sidebar.component';
 import {WebContainerComponent} from '../../../../shared/ui/web-container/web-container.component';
@@ -14,6 +14,7 @@ import {BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map,
 import {CommonModule} from "@angular/common";
 import {ISellingGroup, IWrapperGroup} from "./interfaces/selling-group.interface";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {PaginatorModule} from "primeng/paginator";
 
 @Component({
   selector: 'app-selling-group',
@@ -27,7 +28,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
     DropdownModule,
     SellingGroupEmployeeComponent,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PaginatorModule
   ],
   templateUrl: './selling-group.component.html',
   styleUrl: './selling-group.component.scss',
@@ -38,6 +40,7 @@ export class SellingGroupComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   filterForm!: FormGroup;
+  rows: number = 4;
   $isItemSelected$ = signal(false)
 
   $page = new BehaviorSubject(1)
@@ -55,7 +58,7 @@ export class SellingGroupComponent implements OnInit {
         name,
         headEmployeeName,
       }
-      return this.crudService.filter$('selling-group', auth.buyerOrganziaitonId, page, filters).pipe(map((res: IWrapperGroup) => res.data))
+      return this.crudService.filter$('selling-group', auth.buyerOrganziaitonId, page, filters).pipe(map((res: IWrapperGroup) => res))
     })
   )
 
@@ -78,6 +81,10 @@ export class SellingGroupComponent implements OnInit {
       name: [''],
       headEmployeeName: ['']
     });
+  }
+
+  listenPageChange(page: any) {
+    this.$page.next(page.page);
   }
 
 }

@@ -1,6 +1,13 @@
 :host {
     display: block;
     width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height:590px;
+
+}
+:host::-webkit-scrollbar {
+  display: none;
 }
 ::ng-deep {
     .p-dropdown{

@@ -32,9 +32,17 @@
 
             <ng-container table>
                 <ng-container *ngIf="{sellingGroup: sellingGroup$ | async} as params">
-                  @for (group of params.sellingGroup;track $index) {
+                  @for (group of params.sellingGroup?.data;track $index) {
                     <app-selling-group-employee [sellingGroupData]="group"/>
                   }
+                  <div class="flex justify-center">
+                    <p-paginator
+                      [rows]="rows"
+                      [totalRecords]="params.sellingGroup?.total"
+                      [showCurrentPageReport]="true"
+                      (onPageChange)="listenPageChange($event)"
+                    ></p-paginator>
+                  </div>
                 </ng-container>
             </ng-container>
           </ng-container>
