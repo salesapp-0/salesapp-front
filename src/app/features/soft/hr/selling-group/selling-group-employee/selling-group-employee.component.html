@@ -1,11 +1,11 @@
 <div >
-    <p>გაყიდვების ჯგუფი N1</p>
+    <p>{{sellingGroupData.name}}</p>
     <div class="p-4  rounded-[8px] flex justify-between flex-wrap" style="border:1px solid var(--gray);">
         <!--  -->
             <div class="flex items-center flex-wrap gap-[19px]">
                 <img class="w-[70px]" src="./assets/images/employee/default-employee.svg" alt="*">
                 <div>
-                    <h4 class="mt-0 mb-0 text-[14px]">ანა მაისურაძე</h4>
+                    <h4 class="mt-0 mb-0 text-[14px]">{{sellingGroupData.headEmployee.firstName}}</h4>
                     <p class="mt-[9px] mb-0 text-[14px]">awd</p>
                 </div>
                 <div>
@@ -20,7 +20,7 @@
                     class="pi pi-trash cursor-pointer text-accent "
                   ></i>
                 </div>
-                <p class="mt-[9px] mb-0 text-[14px]">2015-09-13</p>
+                <p class="mt-[9px] mb-0 text-[14px]">{{sellingGroupData.headEmployee.createdAt | date:'yyyy-MM-dd'}}</p>
             </div>
             <!--  -->
     </div>

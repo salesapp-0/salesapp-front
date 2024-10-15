@@ -7,12 +7,12 @@
           </ng-container>
           <!--  -->
           <ng-container content>
-            <form action="" class="flex items-center flex-wrap gap-[36px] w-full">
+            <form [formGroup]="filterForm" class="flex items-center flex-wrap gap-[36px] w-full">
                 <div class="w-[215px] relative">
                     <input
                       type="text"
                       pInputText
-                      formControlName="search"
+                      formControlName="name"
                       placeholder="დასახელება"
                       class="max-w-[390px] w-full h-12 rounded-md text-left pl-12 placeholder:text-xs placeholder:text-card "
                       style="border: 1px solid var(--card);outline: none;"
@@ -25,13 +25,17 @@
                       optionLabel="name"
                       placeholder="{{ 'ჯგუფის ხელმძღვანელი' }}"
                       [showClear]="$isItemSelected$()"
-                      formControlName="position"
+                      formControlName="headEmployeeName"
                     />
                   </div>
             </form>
 
             <ng-container table>
-                <app-selling-group-employee />
+                <ng-container *ngIf="{sellingGroup: sellingGroup$ | async} as params">
+                  @for (group of params.sellingGroup;track $index) {
+                    <app-selling-group-employee [sellingGroupData]="group"/>
+                  }
+                </ng-container>
             </ng-container>
           </ng-container>
     </app-web-container-inner>
