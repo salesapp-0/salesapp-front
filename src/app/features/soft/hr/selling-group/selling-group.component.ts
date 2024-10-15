@@ -15,6 +15,7 @@ import {CommonModule} from "@angular/common";
 import {ISellingGroup, IWrapperGroup} from "./interfaces/selling-group.interface";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {PaginatorModule} from "primeng/paginator";
+import {AddSellingGroupComponent} from "./add-selling-group/add-selling-group.component";
 
 @Component({
   selector: 'app-selling-group',
@@ -29,7 +30,8 @@ import {PaginatorModule} from "primeng/paginator";
     SellingGroupEmployeeComponent,
     CommonModule,
     ReactiveFormsModule,
-    PaginatorModule
+    PaginatorModule,
+    AddSellingGroupComponent
   ],
   templateUrl: './selling-group.component.html',
   styleUrl: './selling-group.component.scss',
@@ -42,7 +44,7 @@ export class SellingGroupComponent implements OnInit {
   filterForm!: FormGroup;
   rows: number = 4;
   $isItemSelected$ = signal(false)
-
+  $isAddModalOpen$ = signal(false)
   $page = new BehaviorSubject(1)
   $nameFilterProperty = new BehaviorSubject(undefined)
   $headEmployeeNameFilterProperty = new BehaviorSubject(undefined)

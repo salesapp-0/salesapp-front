@@ -3,7 +3,7 @@
     <app-web-container-inner>
         <ng-container header-btn>
             <h3 class="text-[14px]">{{'გაყიდვების ჯგუფი' }}</h3>
-            <app-add-button/>
+            <app-add-button (click)="$isAddModalOpen$.set(true)"/>
           </ng-container>
           <!--  -->
           <ng-container content>
@@ -43,6 +43,9 @@
                       (onPageChange)="listenPageChange($event)"
                     ></p-paginator>
                   </div>
+                  @if($isAddModalOpen$()) {
+                    <app-add-selling-group (close)="$isAddModalOpen$.set(false)"/>
+                  }
                 </ng-container>
             </ng-container>
           </ng-container>

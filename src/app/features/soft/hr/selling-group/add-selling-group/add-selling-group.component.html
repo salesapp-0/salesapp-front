@@ -1,0 +1,30 @@
+<div class="overlay z-30" (click)="close.emit()"></div>
+<div class="max-w-[500px] bg-white  w-full h-[338px] py-[24px] px-[40px] rounded-[8px] absolute z-40 m-auto left-0 right-0 top-0 bottom-0 ">
+  <div class="flex justify-between items-center">
+    <h3 class="text-[14px]">ჯგუფის დამატება</h3>
+    <img class="cursor-pointer"  (click)="close.emit()" src="./assets/images/organizations/close.png"alt="">
+  </div>
+  <form class="flex flex-col">
+    <input style="border: 1px solid var(--card);outline: none;" class="mt-3 px-2.5 py-1.5 max-w-[446px] h-[46px] rounded-md w-full"  type="text" placeholder="დასახელება">
+    <p-dropdown
+      [options]="[]"
+      optionLabel="name"
+      class="mt-[16px]"
+      placeholder="გაყიდვების ჯგუფი"
+    />
+    <div class="w-full mt-5">
+      <p-multiSelect
+        [options]="[]"
+        optionLabel="name"
+      />
+    </div>
+    <button class="outline-none border-none rounded-[8px]  text-white bg-accent
+        py-[8px]
+        w-[140px]
+        m-auto
+        mt-10
+        cursor-pointer
+        "
+    >დამატება</button>
+  </form>
+</div>
